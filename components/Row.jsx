@@ -34,7 +34,7 @@ const RowContainer = ({ flag, scrollValue }) => {
 
             >
                 <Card className="max-w-[300px] min-w-[200px]
-         bg-cardOverlay rounded-lg py-2 px-4   backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+         bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
                     <CardMedia
                         component="img"
                         alt="green iguana"

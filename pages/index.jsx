@@ -8,14 +8,14 @@ export default function Home() {
 
   return (
 
-    <div className="main bg-primary w-[100vw]">
+    <div className="main bg-primary w-[100vw] overflow-x-hidden">
       <div className="client  min-h-[80vh] md:px-7 w-[100vw]" >
         <Navbar />
         <Hero />
       </div>
       <div className="w-full">
         <Dishes />
-        {/* <RowContainer /> */}
+        <RowContainer />
       </div>
     </div>
   );
