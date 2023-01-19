@@ -1,6 +1,20 @@
 import "../styles/globals.css";
+import "../styles/client.css";
 import Head from "next/head";
-function MyApp({ Component, pageProps }) {
+import { CacheProvider } from '@emotion/react';
+import createEmotionCache from '../utils/createCache';
+import PropTypes from 'prop-types';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import Sidebar from "../components/Sidebar";
+import { ThemeProvider } from "../utils/themeContext";
+import Navbar from "../components/Navbar";
+
+function MyApp(props) {
+  const clientSideEmotionCache = createEmotionCache();
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
     <>
       <Head>
@@ -10,9 +24,31 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
 
       </Head>
-      <Component {...pageProps} />
+      <CacheProvider value={emotionCache}>
+
+        {/* <div className='app'>
+          <Sidebar />
+          <main className="content" style={{
+            width: "100%",
+          }}> */}
+        {/* <Navbar /> */}
+        <ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
+
+        {/* </main>
+
+
+        </div>; */}
+
+      </CacheProvider>
     </>
   );
 }
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  emotionCache: PropTypes.object,
+  pageProps: PropTypes.object.isRequired,
+};
 
 export default MyApp;

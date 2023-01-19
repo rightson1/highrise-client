@@ -1,0 +1,131 @@
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
+import { useGlobalProvider } from "../utils/themeContext";
+const pages = ['Products', 'Pricing', 'Blog'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+function ResponsiveAppBar() {
+    const { colors } = useGlobalProvider()
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
+    return (
+        <Box
+            sx={{
+                flexGrow: 1,
+                // position: "sticky",
+                width: "100%",
+                top: 0,
+                zIndex: 1000,
+                left: 0,
+                bgcolor: 'transparent !important'
+                // bgcolor: colors.primary[500]
+            }}
+        >
+            <AppBar position="static" sx={{
+                background: 'transparent',
+                boxShadow: 'none',
+            }}>
+                <Container maxWidth="xl">
+                    <Toolbar disableGutters>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            href="/"
+
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'flex', md: 'flex' },
+                                fontFamily: 'Atomic Age',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: colors.grey[100],
+                                textDecoration: 'none',
+                                fontSize: {
+                                    xs: '1.3rem',
+                                    md: '1.5rem'
+                                },
+                                flexGrow: {
+                                    sm: 1,
+                                    xs: 1,
+                                    md: 0
+
+                                }
+                            }}
+                        >
+                            Foodie
+                        </Typography>
+
+
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
+                            {pages.map((page) => (
+                                <Button
+                                    key={page}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ my: 2, color: colors.grey[600], display: 'block' }}
+                                >
+                                    {page}
+                                </Button>
+                            ))}
+                        </Box>
+
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleOpenNavMenu}
+                                    color="inherit"
+                                >
+                                    <MenuIcon sx={{
+                                        color: colors.grey[200],
+                                        fontSize: "1.8rem"
+                                    }} />
+                                </IconButton>
+
+                            </Box>
+                            <Button
+                                sx={{
+                                    display: { xs: 'none', md: 'block' },
+                                    bgcolor: colors.orange[500] + '!important',
+                                    color: colors.grey[200]
+                                }}
+                            >Get Started</Button>
+                        </Box>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+        </Box>
+    );
+}
+export default ResponsiveAppBar;
