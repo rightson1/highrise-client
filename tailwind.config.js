@@ -3,7 +3,6 @@ module.exports = {
     content: ["./pages/**/*.jsx", "./components/*.jsx"],
     theme: {
         extend: {
-            width: {},
             colors: {
                 blue: "rgba(29 161 242)",
             },
