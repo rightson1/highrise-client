@@ -15,7 +15,7 @@ export default function Home() {
       </div>
       <div className="w-full">
         <Dishes />
-        <RowContainer />
+        {/* <RowContainer /> */}
       </div>
     </div>
   );
