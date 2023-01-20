@@ -21,7 +21,7 @@ const RowContainer = ({ flag, scrollValue }) => {
     return <div
         ref={rowContainer}
 
-        className={`w-full flex gap-3  my-12 scroll-smooth   ${flag
+        className={`w-full flex gap-3  my-12 py-2 scroll-smooth row  ${!flag
             ? "overflow-x-scroll scrollbar-none "
             : "overflow-x-hidden flex-wrap justify-center"
             }`}
@@ -33,7 +33,7 @@ const RowContainer = ({ flag, scrollValue }) => {
 
 
             >
-                <Card className="max-w-[300px] min-w-[200px]
+                <Card className="md:max-w-[300px] min-w-[250px] 
          bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
                     <CardMedia
                         component="img"
@@ -95,28 +95,28 @@ const RowContainer = ({ flag, scrollValue }) => {
 
 export const data = [{
     id: 1,
-    name: "Icecream",
+    name: "Mesh Eats",
     decp: "Chocolate & vanilla",
     price: "5.25",
     imageSrc: "/img/i1.png",
 },
 {
     id: 2,
-    name: "Strawberries",
-    decp: "Fresh Strawberries",
+    name: "Rightson Foods",
+    decp: "",
     price: "10.25",
     imageSrc: "/img/f1.png",
 },
 {
     id: 3,
     name: "Chicken Kebab",
-    decp: "Mixed Kebab Plate",
+    decp: "Stop Eats",
     price: "8.25",
     imageSrc: "/img/c3.png",
 },
 {
     id: 4,
-    name: "Fish Kebab",
+    name: "Fish Highrise Eats",
     decp: "Mixed Fish Kebab",
     price: "5.25",
     imageSrc: "/img/fi1.png",

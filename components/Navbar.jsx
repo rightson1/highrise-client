@@ -81,7 +81,7 @@ function ResponsiveAppBar() {
                                 }
                             }}
                         >
-                            Foodie
+                            H-Foods
                         </Typography>
 
 

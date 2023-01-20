@@ -2,6 +2,8 @@ import Hero from "../components/Hero";
 import Dishes from "../components/Dishes"
 import Navbar from "../components/Navbar"
 import RowContainer from "../components/Row";
+import Win from "../components/Win";
+import Categories from "../components/Categories";
 export default function Home() {
 
 
@@ -16,6 +18,8 @@ export default function Home() {
       <div className="w-full">
         <Dishes />
         <RowContainer />
+        <Win />
+        <Categories />
       </div>
     </div>
   );
