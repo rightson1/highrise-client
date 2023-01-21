@@ -142,6 +142,7 @@ export const tokens = (mode) => ({
             },
             find: "#FF6929",
             looking: "#FFE2D8",
+            bg: "rgba(245, 242, 242, .98)"
 
         }),
 });

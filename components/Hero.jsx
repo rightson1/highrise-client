@@ -24,6 +24,7 @@ const Hero = () => {
                 md: 7
             },
             rowGap: 7,
+
         }}
 
     >
@@ -45,7 +46,7 @@ const Hero = () => {
             <Typography
                 variant="h1"
                 noWrap
-                component="a"
+
                 href="/"
 
                 sx={{
@@ -254,8 +255,6 @@ const Hero = () => {
             <Typography
                 variant="h2"
                 noWrap
-                component="a"
-                href="/"
 
                 sx={{
                     position: 'absolute',

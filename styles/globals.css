@@ -5,3 +5,20 @@ body {
     width: 100vw;
     overflow-x: hidden;
 }
+
+.scroll-to-top {
+    width: "15px !important";
+    display: "none !important";
+}
+
+.top {
+    border-radius: 50% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    z-index: 10 !important;
+    position: fixed;
+    bottom: 60px !important;
+    right: 20px !important;
+}

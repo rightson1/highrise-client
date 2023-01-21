@@ -39,25 +39,6 @@ export const ThemeProvider = ({ children }) => {
     const [change, setChange] = useState(false)
 
 
-    useEffect(() => {
-        if (isMobile) {
-            setOpen(false)
-        } else {
-            setOpen(true)
-
-        }
-    }, [isLarge, isMobile])
-    useEffect(() => {
-        if (!isLarge) {
-            setOpen(false)
-            return;
-        } else if (isLarge) {
-            setOpen(true)
-
-        }
-
-    }, [router.pathname])
-
 
 
     return (

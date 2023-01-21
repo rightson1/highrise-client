@@ -13,16 +13,16 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useGlobalProvider } from "../utils/themeContext";
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Home', 'Contact Us', 'Services', 'About Us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
-    const { colors } = useGlobalProvider()
+    const { colors, setOpen } = useGlobalProvider()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
+        setOpen(true)
     };
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
