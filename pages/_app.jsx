@@ -37,7 +37,7 @@ function MyApp(props) {
 
           <AnimatePresence>
             <ThemeProvider>
-              <div className="bg-primary  client">
+              <div className="bg-primary  client w-[100vw] overflow-x-hidden">
                 <Navbar />
                 <Component {...pageProps} />
                 <Footer />
@@ -68,7 +68,7 @@ function MyApp(props) {
 
           <AnimatePresence>
             <ThemeProvider>
-              <div className="bg-primary overflow-x-hidden">
+              <div className="bg-primary  client w-[100vw] overflow-x-hidden">
                 <StoreNav />
                 <Component {...pageProps} />
                 <TemporaryDrawer />
