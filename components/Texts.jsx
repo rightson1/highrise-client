@@ -5,7 +5,7 @@ import { Box, ListItem, Paper, Typography } from "@mui/material";
 const Texts = () => {
     const { colors } = useGlobalProvider()
     return <Box display="flex" flexDirection="column" py={2}
-        sx={{ overflowY: 'auto', height: 'auto', mx: 1 }}
+        sx={{ overflowY: 'auto', height: 'auto' }}
         className="bg-primary"
         component={Paper}
         elevation={10}
@@ -15,7 +15,8 @@ const Texts = () => {
                 <ListItem sx={{
                     alignSelf: "self-start",
                     maxWidth: '80%',
-                }}>
+                }}
+                >
 
                     <Box
                         sx={{

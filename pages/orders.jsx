@@ -15,7 +15,9 @@ import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useRouter } from "next/router";
 const Orders = () => {
+    const router = useRouter()
     function createData(name, calories, fat, carbs, protein) {
         return { name, calories, fat, carbs, protein };
     }
@@ -138,6 +140,7 @@ const Orders = () => {
                                 </TableCell>
                                 <TableCell>
                                     <Chip
+                                        onClick={() => router.push('/order/12344')}
                                         sx={{
                                             px: 1,
                                             backgroundColor: colors.yellow[500],
@@ -154,6 +157,7 @@ const Orders = () => {
                                             px: 1,
                                             backgroundColor: colors.yellow[500],
                                             color: "#fff",
+                                            zIndex: '4',
                                         }}
 
                                     >
