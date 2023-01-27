@@ -61,7 +61,7 @@ const Categories = ({ flag, scrollValue }) => {
 
                     ref={rowContainer}
 
-                    className={`w-full flex gap-3  my-4 py-2 scroll-smooth row  ${!flag
+                    className={`w-full flex gap-3  my-4 py-2 scroll-smooth  ${!flag
                         ? "overflow-x-scroll scrollbar-none "
                         : "overflow-x-hidden flex-wrap justify-center"
                         }`}
@@ -135,7 +135,7 @@ const Categories = ({ flag, scrollValue }) => {
                         </Box>
 
                     ))}
-                </div>;
+                </div>
             </Box>
         })}
     </Box>;

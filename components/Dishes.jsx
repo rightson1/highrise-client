@@ -49,7 +49,7 @@ const Dishes = ({ store, setScroll1, scroll1 }) => {
                     <ArrowRightAltOutlinedIcon className=" text-2xl text-orange-400" />
                 </Box>
             </Box>
-            <motion.div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none"
+            <motion.div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none px-3"
                 layout="position"
                 ref={rowRef}
             >

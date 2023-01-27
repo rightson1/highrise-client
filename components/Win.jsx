@@ -2,7 +2,7 @@ import { Grid, Typography, Box, List, ListItem, Avatar, ListItemIcon } from "@mu
 import React from "react";
 
 const Win = () => {
-    return <Grid container rowGap={5} className="">
+    return <Grid container rowGap={5} className="my-10">
         <Grid xs={12} md={6} item sx={{
             position: "relative",
             width: "100%",
@@ -12,21 +12,24 @@ const Win = () => {
             alignItems: "center"
 
         }}>
-            <Box component="img" src="/hoho.svg" alt="" className="absolute w-[100px] bottom-0 z-[3]"
+            <Box component="img" src="/hoho.svg" alt="" className="absolute w-[100px]  z-[3]"
                 sx={{
                     left: {
-                        md: "4rem", sm: "0", xs: -1
+                        md: "4rem", sm: "0", xs: "-1rem"
                     },
+                    bottom: {
+                        md: 0, sm: -2, xs: "-2rem"
+                    }
                 }}
 
             />
             <Box component="img" src="/tomato.svg" alt="" className="absolute w-[100px]  z-[3]"
                 sx={{
                     right: {
-                        md: "4rem", sm: 1, xs: 1
+                        md: "4rem", sm: 1, xs: "-1rem"
                     },
                     top: {
-                        md: 0, sm: -2, xs: -1
+                        md: 0, sm: -2, xs: "-2rem"
                     }
 
                 }}

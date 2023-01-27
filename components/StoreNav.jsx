@@ -42,15 +42,17 @@ function StoreNav() {
                 top: 0,
                 zIndex: 1000,
                 left: 0,
-                bgcolor: 'transparent !important',
+                // bgcolor: 'transparent !important',
 
             }}
+            className="bg-primary shadow-md"
         >
             <AppBar position="static" sx={{
-                background: 'transparent',
+                background: 'inherit',
                 boxShadow: 'none',
 
-            }}>
+            }} className="shadow-md">
+
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Typography

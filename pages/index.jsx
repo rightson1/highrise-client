@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
 
-    <div className="bg-primary px-5">
+    <div className="bg-primary ">
       <Hero />
       <Dishes />
       <RowContainer />
