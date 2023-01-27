@@ -118,6 +118,17 @@ export const tokens = (mode) => ({
                 800: "#661f00",
                 900: "#330f00"
             },
+            teal: {
+                100: "#cdf4f7",
+                200: "#9ae9ef",
+                300: "#68dfe7",
+                400: "#35d4df",
+                500: "#03c9d7",
+                600: "#02a1ac",
+                700: "#027981",
+                800: "#015056",
+                900: "#01282b"
+            },
             orange: {
                 100: "#ffece4",
                 200: "#ffd9c9",
@@ -139,6 +150,28 @@ export const tokens = (mode) => ({
                 700: "#a3a3a3",
                 800: "#c2c2c2",
                 900: "#e0e0e0",
+            },
+            orange: {
+                100: "#feebe5",
+                200: "#fdd7cc",
+                300: "#fdc3b2",
+                400: "#fcaf99",
+                500: "#fb9b7f",
+                600: "#c97c66",
+                700: "#975d4c",
+                800: "#643e33",
+                900: "#321f19"
+            },
+            yellow: {
+                100: "#fff4cf",
+                200: "#ffe99f",
+                300: "#fedf6f",
+                400: "#fed43f",
+                500: "#fec90f",
+                600: "#cba10c",
+                700: "#987909",
+                800: "#665006",
+                900: "#332803"
             },
             find: "#FF6929",
             lightRed: "#FFD4A2",
@@ -217,7 +250,7 @@ export const themeSettings = (mode) => {
                 fontSize: 16,
             },
             h6: {
-                fontFamily: ["Roboto", "sans-serif"].join(","),
+                fontFamily: ["Atomic Age", "sans-serif"].join(","),
                 fontSize: 14,
             },
         },
