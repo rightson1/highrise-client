@@ -45,7 +45,7 @@ function StoreNav() {
                 // bgcolor: 'transparent !important',
 
             }}
-            className="bg-primary shadow-md"
+            className="bg-primary "
         >
             <AppBar position="static" sx={{
                 background: 'inherit',
@@ -55,10 +55,10 @@ function StoreNav() {
 
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Typography
-                            variant="h6"
+                        <Box
+                            component="button"
                             noWrap
-
+                            onClick={() => router.push('/')}
 
                             sx={{
                                 mr: 2,
@@ -68,6 +68,7 @@ function StoreNav() {
                                 letterSpacing: '.3rem',
                                 color: colors.grey[100],
                                 textDecoration: 'none',
+                                px: '0px !important',
                                 fontSize: {
                                     xs: '1.3rem',
                                     md: '1.5rem'
@@ -81,7 +82,7 @@ function StoreNav() {
                             }}
                         >
                             H-Foods
-                        </Typography>
+                        </Box>
 
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>

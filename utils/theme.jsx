@@ -141,6 +141,7 @@ export const tokens = (mode) => ({
                 900: "#e0e0e0",
             },
             find: "#FF6929",
+            lightRed: "#FFD4A2",
             looking: "#FFE2D8",
             bg: "rgba(245, 242, 242, .98)"
 

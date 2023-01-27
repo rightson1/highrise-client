@@ -13,10 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useGlobalProvider } from "../utils/themeContext";
+import { useRouter } from 'next/router'
 const pages = ['Home', 'Contact Us', 'About Us', 'Register Business'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+    const router = useRouter()
     const { colors, setOpen } = useGlobalProvider()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -56,12 +58,11 @@ function ResponsiveAppBar() {
             }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Typography
+                        <Box
                             variant="h6"
                             noWrap
-                            component="a"
-                            href="/"
-
+                            component="button"
+                            onClick={() => { router.push('/') }}
                             sx={{
                                 mr: 2,
                                 display: { xs: 'flex', md: 'flex' },
@@ -83,7 +84,7 @@ function ResponsiveAppBar() {
                             }}
                         >
                             H-Foods
-                        </Typography>
+                        </Box>
 
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>

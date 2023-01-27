@@ -117,7 +117,7 @@ const RowContainer = ({ flag }) => {
                                 color: `${colors.grey[100]} !important`
                             }}>ksh {1000}</Button>
                             <Button size="small"
-                                onClick={() => router.push('/store')}
+                                onClick={() => router.push('/stores/12233')}
                                 sx={{
                                     color: `${colors.grey[100]} !important`,
                                     backgroundColor: `${colors.red[100]} !important`,

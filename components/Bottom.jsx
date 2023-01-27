@@ -37,16 +37,15 @@ export default function StoreBottom() {
                         color: colors.find + " !important",
                     }
                 }}
-                className="bottom"
+                className=""
                 value={value}
                 onChange={(event, newValue) => {
                     setValue(newValue);
                 }}
             >
-                <BottomNavigationAction onClick={() => router.push(`/store`)} label="Home" icon={<HomeOutlinedIcon />} />
-                <BottomNavigationAction onClick={() => router.push(`/store/chat`)} label="Stores" icon={<StorefrontOutlinedIcon />} />
-                <BottomNavigationAction label="Search" onClick={() => router.push(`/store/search`)} icon={<SearchOutlinedIcon />} />
-                <BottomNavigationAction label="Orders" onClick={() => router.push(`/store/orders`)} icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
+                <BottomNavigationAction onClick={() => router.push(`/`)} label="Home" icon={<HomeOutlinedIcon />} />
+                <BottomNavigationAction onClick={() => router.push(`/search`)} label="Stores" icon={<StorefrontOutlinedIcon />} />
+                <BottomNavigationAction label="Orders" onClick={() => router.push(`/orders`)} icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
 
             </BottomNavigation>
         </Paper>)
