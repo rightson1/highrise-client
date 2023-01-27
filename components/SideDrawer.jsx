@@ -30,12 +30,12 @@ export default function TemporaryDrawer() {
                 width: 250,
                 bgcolor: colors.bg + ' !important',
                 height: '100%',
-                py: 5,
+                py: 4,
             }}
             role="presentation"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
-            className="row"
+            className="row bg-primary"
         >
             <Typography
                 variant="h6"
@@ -79,7 +79,7 @@ export default function TemporaryDrawer() {
                             return (
                                 <ListItem key={index} sx={{
                                     color: colors.find,
-                                    mt: 2
+                                    mt: 1
 
                                 }} >
                                     <ListItemText primary={item.name} sx={{

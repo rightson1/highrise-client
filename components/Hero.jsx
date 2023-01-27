@@ -70,7 +70,7 @@ const Hero = () => {
                     }
                 }}
             >
-                Buon
+                Foods
             </Typography>
             <Typography fontWeight="bold" sx={{
                 fontFamily: 'Nunito',
@@ -249,7 +249,7 @@ const Hero = () => {
 
                 }}
             >
-                Buon
+                Foods
             </Typography>
 
             <Typography
@@ -283,7 +283,7 @@ const Hero = () => {
 
                 }}
             >
-                appetito
+                highrise
             </Typography>
         </Box>
     </Box>;

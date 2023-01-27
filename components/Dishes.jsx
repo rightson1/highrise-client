@@ -1,16 +1,58 @@
 import React from "react";
+import Box from "@mui/material/Box";
 import FastfoodIcon from '@mui/icons-material/Fastfood';
-import { useEffect, useState } from "react";
-const Dishes = () => {
+import { motion } from "framer-motion";
+import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
+import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
+import { useEffect, useState, useRef } from "react";
+import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
+const Dishes = ({ store, setScroll1, scroll1 }) => {
+    const [scrollValue, setScrollValue] = React.useState(5)
     const [filter, setFilter] = useState("chicken");
+    const rowRef = useRef();
 
-    return <section className="w-full my-6 mx-[20px]" id="menu">
+    useEffect(() => {
+        rowRef.current.scrollLeft += scrollValue;
+    }, [scrollValue])
+
+    return <section className="w-full mt-6 " id="menu">
         <div className="w-full flex flex-col items-center justify-center">
-            <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto">
-                Our  Categories
-            </p>
+            <Box className="w-full justify-between items-center flex ">
+                <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto">
+                    Our  Categories
+                </p>
+                <div className="hidden md:flex items-center gap-3">
 
-            <div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none">
+                    <motion.div
+                        onClick={() => setScrollValue(-200)}
+
+                        whileTap={{
+                            scale: 0.75
+                        }}
+
+
+                        className="w-8 h-8 rounded-lg bg-orange-300 hover:bg-orange-500 cursor-pointer duration-100 transition-all shadow-lg ease-in-out items-center justify-center flex  ">
+                        <ChevronLeftOutlinedIcon className="text-lg text-white " />
+                    </motion.div>
+                    <motion.div
+                        onClick={() => setScrollValue(200)}
+                        whileTap={{
+
+                            scale: 0.75
+                        }} className="w-8 h-8 rounded-lg bg-orange-300 hover:bg-orange-500 cursor-pointer duration-100 transition-all shadow-lg ease-in-out items-center justify-center flex  ">
+                        <ChevronRightOutlinedIcon className="text-lg text-white " />
+
+                    </motion.div>
+
+                </div>
+                <Box className="items-center flex md:hidden  italic text-[10px]">
+                    <ArrowRightAltOutlinedIcon className=" text-2xl text-orange-400" />
+                </Box>
+            </Box>
+            <motion.div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none"
+                layout="position"
+                ref={rowRef}
+            >
                 {categories &&
                     categories.map((category) => (
                         <div
@@ -43,7 +85,7 @@ const Dishes = () => {
                             </p>
                         </div>
                     ))}
-            </div>
+            </motion.div>
         </div>
     </section>
 }

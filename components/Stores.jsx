@@ -5,12 +5,11 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import { useRouter } from "next/router";
 import { useGlobalProvider } from "../utils/themeContext";
-const Categories = ({ flag, scrollValue }) => {
+const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
-    const router = useRouter()
+    const [scrollValue, setScrollValue] = useState(0);
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]);
@@ -31,7 +30,7 @@ const Categories = ({ flag, scrollValue }) => {
                 fontFamily: "Roboto",
                 fontWeight: 500,
                 fontSize: "1.5rem",
-            }}  >Categories</Typography>
+            }}  >Stores</Typography>
 
         </ListItem>
         {carts.map((cart, index) => {
@@ -121,14 +120,11 @@ const Categories = ({ flag, scrollValue }) => {
                                     <Button size="small" sx={{
                                         color: `${colors.grey[100]} !important`
                                     }}>ksh {1000}</Button>
-                                    <Button size="small"
-                                        onClick={() => router.push(`/stores/${item.name}`)}
-                                        sx={{
-                                            color: `${colors.grey[100]} !important`,
-                                            backgroundColor: `${colors.red[100]} !important`,
-                                            border: `2px solid ${colors.red[400]} !important`,
-
-                                        }}>Order Now!!</Button>
+                                    <Button size="small" sx={{
+                                        color: `${colors.grey[100]} !important`,
+                                        backgroundColor: `${colors.red[100]} !important`,
+                                        border: `2px solid ${colors.red[400]} !important`,
+                                    }}>View Store</Button>
                                 </CardActions>
                             </Card>
 
@@ -141,36 +137,22 @@ const Categories = ({ flag, scrollValue }) => {
     </Box>;
 };
 const carts = [
-    {
-        id: 1,
-        name: "Nearest Store",
 
-    },
     {
-        id: 2,
-        name: "On Discount",
+        id: 3,
+        name: "Mesh Eats",
 
     },
     {
         id: 3,
-        name: "Top Rated",
+        name: "Rightson Stops",
 
     },
-    // {
-    //     id: 3,
-    //     name: "Mesh Eats",
+    {
+        id: 3,
+        name: "Fish Jamo",
 
-    // },
-    // {
-    //     id: 3,
-    //     name: "Rightson Stops",
-
-    // },
-    // {
-    //     id: 3,
-    //     name: "Fish Jamo",
-
-    // },
+    },
 ]
 const data = [
     {
@@ -203,4 +185,4 @@ const data = [
     },
 ];
 
-export default Categories;
+export default Stores;

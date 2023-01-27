@@ -9,17 +9,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { useGlobalProvider } from "../utils/themeContext";
-const pages = ['Home', 'Contact Us', 'About Us', 'Register Business'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-function ResponsiveAppBar() {
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+; import { useGlobalProvider } from "../utils/themeContext";
+import { Badge } from '@mui/material';
+import { useRouter } from 'next/router'
+function StoreNav() {
     const { colors, setOpen } = useGlobalProvider()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const router = useRouter()
 
     const handleOpenNavMenu = (event) => {
         setOpen(true)
@@ -28,9 +26,7 @@ function ResponsiveAppBar() {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -38,6 +34,7 @@ function ResponsiveAppBar() {
 
     return (
         <Box
+
             sx={{
                 flexGrow: 1,
                 // position: "sticky",
@@ -45,22 +42,21 @@ function ResponsiveAppBar() {
                 top: 0,
                 zIndex: 1000,
                 left: 0,
+                bgcolor: 'transparent !important',
 
-                // bgcolor: colors.primary[500]
             }}
-            className="bg-primary"
         >
             <AppBar position="static" sx={{
-                background: 'inherit',
+                background: 'transparent',
                 boxShadow: 'none',
+
             }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Typography
                             variant="h6"
                             noWrap
-                            component="a"
-                            href="/"
+
 
                             sx={{
                                 mr: 2,
@@ -87,13 +83,13 @@ function ResponsiveAppBar() {
 
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
-                            {pages.map((page) => (
+                            {navItems.map((page) => (
                                 <Button
                                     key={page}
-                                    onClick={handleCloseNavMenu}
+                                    onclick={() => router.push(`/store/${page.link}`)}
                                     sx={{ my: 2, color: colors.grey[600], display: 'block' }}
                                 >
-                                    {page}
+                                    {page.name}
                                 </Button>
                             ))}
                         </Box>
@@ -118,10 +114,15 @@ function ResponsiveAppBar() {
                             <Button
                                 sx={{
                                     display: { xs: 'none', md: 'block' },
-                                    bgcolor: colors.orange[500] + '!important',
                                     color: colors.grey[200]
                                 }}
-                            >Get Started</Button>
+                            >
+                                <Badge
+                                    badgeContent={4} color="primary">
+                                    <ShoppingCartOutlinedIcon />
+                                </Badge>
+
+                            </Button>
                         </Box>
                     </Toolbar>
                 </Container>
@@ -129,4 +130,20 @@ function ResponsiveAppBar() {
         </Box>
     );
 }
-export default ResponsiveAppBar;
+
+const navItems = [
+    {
+        name: "Home",
+        link: "/"
+
+    },
+    {
+        name: "Search",
+        link: "/search"
+    },
+    {
+        name: "Live Chat",
+        link: "/chat"
+    }
+]
+export default StoreNav;

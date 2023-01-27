@@ -4,18 +4,17 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
 import { useMediaQuery } from "@mui/material";
 import { useGlobalProvider } from '../utils/themeContext';
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import { Badge } from '@mui/material';
 import { ReceiptLongOutlined } from '@mui/icons-material';
 import { useRouter } from 'next/router'
 export default function StoreBottom() {
     const { colors } = useGlobalProvider()
-    const isMobileSmall = useMediaQuery("(max-width: 600px)")
+    const isMobileSmall = useMediaQuery("(max-width: 900px)")
     const [value, setValue] = React.useState('recents');
     const router = useRouter();
-
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -37,16 +36,16 @@ export default function StoreBottom() {
                         color: colors.find + " !important",
                     }
                 }}
-                className="bottom"
+                className="bg-primary"
                 value={value}
                 onChange={(event, newValue) => {
                     setValue(newValue);
                 }}
             >
                 <BottomNavigationAction onClick={() => router.push(`/store`)} label="Home" icon={<HomeOutlinedIcon />} />
-                <BottomNavigationAction onClick={() => router.push(`/store/chat`)} label="Stores" icon={<StorefrontOutlinedIcon />} />
-                <BottomNavigationAction label="Search" onClick={() => router.push(`/store/search`)} icon={<SearchOutlinedIcon />} />
-                <BottomNavigationAction label="Orders" onClick={() => router.push(`/store/orders`)} icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
+                <BottomNavigationAction onClick={() => router.push(`/store/chat`)} label="Live Chat" icon={<ChatBubbleOutlineOutlinedIcon />} />
+                <BottomNavigationAction onClick={() => router.push(`/store/carts`)} label="Cart" icon={<Badge badgeContent={4} color="warning"><ShoppingCartOutlinedIcon /></Badge>} />
+                <BottomNavigationAction onClick={() => router.push(`/store/orders`)} label="Orders" icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
 
             </BottomNavigation>
         </Paper>)
