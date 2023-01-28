@@ -87,17 +87,17 @@ const Category = () => {
                                     images.map((item, index) => {
                                         return (<Box key={index}>
                                             <ListItem className="flex  justify-between">
-                                                <Fab onClick={() => setOpen(open === index ? null : index)} size="small" color="primary" aria-label="add" sx={{ background: colors.red[300] + '!important' }}>
+                                                <Fab className="z-[3]" onClick={() => setOpen(open === index ? null : index)} size="small" color="primary" aria-label="add" sx={{ background: colors.red[300] + '!important' }}>
                                                     <KeyboardArrowLeft className="-rotate-[90deg]" />
                                                 </Fab>
-                                                <Fab size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
+                                                <Fab className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
                                                     1   <ClearOutlinedIcon className="text-[12px]" />
                                                 </Fab>
                                                 <Typography className="font-bold" fontFamily="Atomic Age">Chicken Wings</Typography>
-                                                <Fab size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
+                                                <Fab className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
                                                     <RemoveOutlinedIcon className="text-[12px]" />
                                                 </Fab>
-                                                <Fab size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
+                                                <Fab className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
                                                     <AddOutlinedIcon className="text-[12px]" />
                                                 </Fab>
                                                 <Typography className="font-bold" fontFamily="Atomic Age">KSH. 300</Typography>

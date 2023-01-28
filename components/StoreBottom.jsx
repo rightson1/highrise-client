@@ -45,7 +45,7 @@ export default function StoreBottom() {
                 <BottomNavigationAction onClick={() => router.push(`/stores/1223`)} label="Home" icon={<HomeOutlinedIcon />} />
                 <BottomNavigationAction onClick={() => router.push(`/stores/1222/chat`)} label="Live Chat" icon={<ChatBubbleOutlineOutlinedIcon />} />
                 <BottomNavigationAction onClick={() => router.push(`/stores/1223/carts`)} label="Cart" icon={<Badge badgeContent={4} color="warning"><ShoppingCartOutlinedIcon /></Badge>} />
-                <BottomNavigationAction onClick={() => router.push(`/stores/2232/1orders`)} label="Orders" icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
+                <BottomNavigationAction onClick={() => router.push(`/stores/2232/orders`)} label="Orders" icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
 
             </BottomNavigation>
         </Paper>)
