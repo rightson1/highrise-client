@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Search from "@mui/icons-material/Search";
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { InputBase } from "@mui/material";
+import Title from "../components/Title";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
@@ -18,6 +19,7 @@ const Stores = ({ flag }) => {
     // }, [scrollValue]);
 
     return <div className="bg-primary">
+        <Title title="Stores" subtitle="Search For  Stores" />
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
             <Box className="flex justify-center align-center gap-5" sx={{ alignItems: 'center' }}>
                 <Avatar src="/plate.png" />

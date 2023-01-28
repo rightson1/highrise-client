@@ -42,7 +42,7 @@ function ResponsiveAppBar() {
         <Box
             sx={{
                 flexGrow: 1,
-                // position: "sticky",
+                position: "fixed",
                 width: "100%",
                 top: 0,
                 zIndex: 1000,
@@ -50,7 +50,7 @@ function ResponsiveAppBar() {
 
                 // bgcolor: colors.primary[500]
             }}
-            className="bg-primary"
+            className="bg-primary "
         >
             <AppBar position="static" sx={{
                 background: 'inherit',

@@ -39,11 +39,13 @@ function MyApp(props) {
             <ThemeProvider>
               <div className="bg-primary  client w-[100vw] overflow-x-hidden">
                 <Navbar />
-                <Component {...pageProps} />
-                <Footer />
-                <LabelBottomNavigation />
-                <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" />
-                <TemporaryDrawer />
+                <div className="pt-[80px] bg-primary">
+                  <Component {...pageProps} />
+                  <Footer />
+                  <LabelBottomNavigation />
+                  <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" />
+                  <TemporaryDrawer />
+                </div>
               </div>
             </ThemeProvider>
           </AnimatePresence>
@@ -70,11 +72,13 @@ function MyApp(props) {
             <ThemeProvider>
               <div className="bg-primary  client w-[100vw] overflow-x-hidden">
                 <StoreNav />
-                <Component {...pageProps} />
-                <TemporaryDrawer />
-                <StoreBottom />
-                <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" />
-                <Footer />
+                <div className="pt-[0px] bg-primary">
+                  <Component {...pageProps} />
+                  <TemporaryDrawer />
+                  <StoreBottom />
+                  <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" />
+                  <Footer />
+                </div>
               </div>
             </ThemeProvider>
           </AnimatePresence>

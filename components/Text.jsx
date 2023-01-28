@@ -106,6 +106,6 @@ const Text = () => {
 
         </Box>
     </Box>
-};
+}
 
 export default Text;

@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 ; import { useGlobalProvider } from "../utils/themeContext";
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Badge } from '@mui/material';
 import { useRouter } from 'next/router'
 function StoreNav() {
@@ -37,7 +38,7 @@ function StoreNav() {
 
             sx={{
                 flexGrow: 1,
-                // position: "sticky",
+                position: "fixed",
                 width: "100%",
                 top: 0,
                 zIndex: 1000,
@@ -45,13 +46,13 @@ function StoreNav() {
                 // bgcolor: 'transparent !important',
 
             }}
-            className="bg-primary "
+            className="bg-primary"
         >
             <AppBar position="static" sx={{
                 background: 'inherit',
-                boxShadow: 'none',
 
-            }} className="shadow-md">
+
+            }} className="shadow-md mb-[2px]">
 
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
@@ -59,7 +60,7 @@ function StoreNav() {
                             component="button"
                             noWrap
                             onClick={() => router.push('/')}
-
+                            className="flex items-center gap-2"
                             sx={{
                                 mr: 2,
                                 display: { xs: 'flex', md: 'flex' },
@@ -69,10 +70,7 @@ function StoreNav() {
                                 color: colors.grey[100],
                                 textDecoration: 'none',
                                 px: '0px !important',
-                                fontSize: {
-                                    xs: '1.3rem',
-                                    md: '1.5rem'
-                                },
+
                                 flexGrow: {
                                     sm: 1,
                                     xs: 1,
@@ -81,7 +79,10 @@ function StoreNav() {
                                 }
                             }}
                         >
-                            H-Foods
+                            <KeyboardBackspaceIcon sx={{
+                                color: colors.grey[200],
+                                fontSize: "1.8rem"
+                            }} />H-Foods
                         </Box>
 
 

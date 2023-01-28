@@ -7,13 +7,14 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { useRouter } from "next/router";
 import { useGlobalProvider } from "../utils/themeContext";
-const Categories = ({ flag, scrollValue }) => {
+const Categories = ({ flag, scrollValue, categories }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
     const router = useRouter()
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]);
+    const mapping = () => categories ? categories : carts
 
     return <Box className="row py-12">
         <ListItem sx={{
@@ -34,7 +35,7 @@ const Categories = ({ flag, scrollValue }) => {
             }}  >Categories</Typography>
 
         </ListItem>
-        {carts.map((cart, index) => {
+        {mapping().map((cart, index) => {
             return <Box key={index}>
                 <Box sx={{
                     display: "flex",

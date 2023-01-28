@@ -12,12 +12,13 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import { useEffect, useState, useRef } from "react";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import { motion } from "framer-motion";
-const Foods = ({ flag }) => {
+const Foods = ({ flag, categories }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0)
     const [items, setItems] = useState([]);
     const router = useRouter()
+    const { store } = router.query;
 
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
@@ -29,7 +30,7 @@ const Foods = ({ flag }) => {
         <Box
             ref={rowContainer}
             className={`w-full flex gap-3  my-5 py-2 scroll-smooth ${!flag
-                ? "overflow-x-scroll scrollbar-none "
+                ? "overflow-x-scroll scrollbar-none  "
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}
         >
@@ -38,20 +39,16 @@ const Foods = ({ flag }) => {
                 <Box
                     key={index}
 
-                    onClick={() => router.push(`/store/${12344}`)}
+
                 >
-                    <Card className="
+                    <Card className="md:max-w-[300px] min-w-[250px] 
          bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
                         <CardMedia
                             component="img"
                             alt="green iguana"
-                            height="80"
+                            height="100"
                             sx={{
-                                maxHeight: {
-                                    xs: '100px',
-                                    sm: '100px',
-                                    md: '100px',
-                                },
+                                maxHeight: '140px !important',
                                 objectFit: 'contain !important',
                                 p: 1,
 
@@ -65,24 +62,35 @@ const Foods = ({ flag }) => {
                             alignItems: "center",
                             flexDirection: 'column'
                         }}>
-                            <Typography gutterBottom variant="h5" component="div" className="text-center">
+                            <Typography gutterBottom variant="h5" component="div" sx={{
+                                fontFamily: 'Nunito',
+                                fontWeight: 700,
+                                fontSize: '1.2rem',
+                            }}>
                                 {item.name}
                             </Typography>
                             <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" />
-
+                            <Typography gutterBottom sx={{
+                                fontFamily: 'Nunito',
+                                fontWeight: 700,
+                                fontSize: '.8rem',
+                                textAlign: 'center'
+                            }}>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum.
+                            </Typography>
                         </CardContent>
-                        <Box className="flex flex-wrap justify-center align-center">
+                        <CardActions sx={{
+                            display: 'flex',
+                            justifyContent: "space-between",
+                            width: '100%'
+                        }}>
                             <Button size="small" sx={{
                                 color: `${colors.grey[100]} !important`
                             }}>ksh {1000}</Button>
-                            <Button size="small"
-                                className="shadow-md"
-                                sx={{
-                                    color: `${colors.grey[100]} !important`,
-                                    backgroundColor: `${colors.red[100]} !important`,
-
-                                }}>Add To Cart</Button>
-                        </Box>
+                            <Button size="small" className="shadow-md hover:shadow-inner"
+                                onClick={() => router.push(`/stores/${store}/item/${item.id}`)}
+                                sx={{ color: `${colors.grey[100]} !important`, backgroundColor: `${colors.red[100]} !important` }}>Add To Cart</Button>
+                        </CardActions>
                     </Card>
 
                 </Box>
@@ -124,10 +132,3 @@ export const data = [{
 
 
 export default Foods;
-// scrollBehavior: 'smooth',
-//     scrollSnapType: 'x mandatory',
-//         scrollSnapPointsX: 'repeat(100%)',
-//             scrollSnapType: 'x proximity',
-//                 scrollSnapStop: 'normal',
-//                     scrollSnapCoordinate: '0% 0%',
-//                         scrollSnapDestination: '0% 0%'

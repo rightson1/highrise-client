@@ -18,7 +18,7 @@ export default function Home() {
       <RowContainer />
       <Win />
       <Categories />
-      <Stores />
+      {/* <Stores /> */}
     </div>
   );
 

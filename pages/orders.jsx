@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useRouter } from "next/router";
+import Title from "../components/Title";
 const Orders = () => {
     const router = useRouter()
     function createData(name, calories, fat, carbs, protein) {
@@ -31,8 +32,9 @@ const Orders = () => {
     ];
 
     const { colors } = useGlobalProvider();
-    return <Grid className="bg-primary p-2 py-10">
-        <Grid item component={Paper} elevation={7} className="bg-primary p-1">
+    return <Grid className="bg-primary p-2 ">
+        <Title title="Orders" subtitle="All Your Order" />
+        <Grid item component={Paper} elevation={2} className="bg-primary p-1">
 
             <Box className="flex justify-between p-4 px-2 items-center">
                 <Typography variant="h3" className="text-grey"
@@ -172,11 +174,12 @@ const Orders = () => {
 
                             </TableRow>
                         ))}
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell colSpan={2}>Click View To Order details</TableCell>
+                        </TableRow>
                     </TableBody>
-                    <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell colSpan={2}>Click View To Order details</TableCell>
-                    </TableRow>
+
                 </Table>
             </TableContainer>
 
