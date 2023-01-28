@@ -32,6 +32,7 @@ export const ThemeProvider = ({ children }) => {
     const colors = tokens(mode);
     const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
     const [open, setOpen] = useState(false);
+    const [cartOpen, setCartOpen] = useState(false);
     const [close, setClose] = useState(false);
     const isMobile = useMediaQuery("(max-width: 600px)")
     const isMobileSmall = useMediaQuery("(max-width: 600px)")
@@ -57,9 +58,9 @@ export const ThemeProvider = ({ children }) => {
                 isLarge,
                 setChange,
                 setClose,
-                isMobileSmall
-
-
+                isMobileSmall,
+                cartOpen,
+                setCartOpen
             }}
         >
 

@@ -8,7 +8,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import Sidebar from "../components/Sidebar";
 import { ThemeProvider } from "../utils/themeContext";
 import Navbar from "../components/Navbar";
 import { AnimatePresence } from "framer-motion";
@@ -72,7 +71,7 @@ function MyApp(props) {
             <ThemeProvider>
               <div className="bg-primary  client w-[100vw] overflow-x-hidden">
                 <StoreNav />
-                <div className="pt-[0px] bg-primary">
+                <div className="pt-[80px] bg-primary">
                   <Component {...pageProps} />
                   <TemporaryDrawer />
                   <StoreBottom />

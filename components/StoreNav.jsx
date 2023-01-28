@@ -98,7 +98,7 @@ function StoreNav() {
                             ))}
                         </Box>
 
-                        <Box sx={{ flexGrow: 0 }}>
+                        <Box sx={{ flexGrow: 0 }} className="flex flex-row-reverse">
                             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                                 <IconButton
                                     size="large"
@@ -117,7 +117,7 @@ function StoreNav() {
                             </Box>
                             <Button
                                 sx={{
-                                    display: { xs: 'none', md: 'block' },
+                                    display: { md: 'block' },
                                     color: colors.grey[200]
                                 }}
                             >
