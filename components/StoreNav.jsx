@@ -56,37 +56,25 @@ function StoreNav() {
 
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Box
-                            component="button"
-                            noWrap
-                            onClick={() => router.push('/')}
-                            className="flex items-center gap-2"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'flex', md: 'flex' },
-                                fontFamily: 'Atomic Age',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: colors.grey[100],
-                                textDecoration: 'none',
-                                px: '0px !important',
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenNavMenu}
+                                color="inherit"
+                            >
+                                <MenuIcon sx={{
+                                    color: colors.grey[200],
+                                    fontSize: "1.8rem"
+                                }} />
+                            </IconButton>
 
-                                flexGrow: {
-                                    sm: 1,
-                                    xs: 1,
-                                    md: 0
-
-                                }
-                            }}
-                        >
-                            <KeyboardBackspaceIcon sx={{
-                                color: colors.grey[200],
-                                fontSize: "1.8rem"
-                            }} />H-Foods
                         </Box>
 
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
                             {navItems.map((page) => (
                                 <Button
                                     key={page}
@@ -99,22 +87,7 @@ function StoreNav() {
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }} className="flex flex-row-reverse">
-                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleOpenNavMenu}
-                                    color="inherit"
-                                >
-                                    <MenuIcon sx={{
-                                        color: colors.grey[200],
-                                        fontSize: "1.8rem"
-                                    }} />
-                                </IconButton>
 
-                            </Box>
                             <Button
                                 sx={{
                                     display: { md: 'block' },
@@ -139,15 +112,13 @@ const navItems = [
     {
         name: "Home",
         link: "/"
+    },
+    {
+        name: "About Us",
+        link: "/about"
 
     },
-    {
-        name: "Search",
-        link: "/search"
-    },
-    {
-        name: "Live Chat",
-        link: "/chat"
-    }
+
+
 ]
 export default StoreNav;

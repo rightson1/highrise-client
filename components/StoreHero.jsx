@@ -5,7 +5,7 @@ import Search from "@mui/icons-material/Search";
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { Button, InputBase } from "@mui/material";
 import { useGlobalProvider } from "../utils/themeContext";
-const StoreHero = () => {
+const StoreHero = ({ data: store }) => {
     const { colors } = useGlobalProvider()
     return <Grid container rowGap={5} className="">
         <Grid xs={0} md={6} item sx={{
@@ -41,7 +41,7 @@ const StoreHero = () => {
                 }}
 
             />
-            <img src="/fork.png" alt="" className="max-h-[300px] max-w-[90%] z-[4]" />
+            <img src='/fork.png' alt="" className="max-h-[300px] max-w-[90%] z-[4] rounded-full" />
 
         </Grid>
         <Grid xs={12} md={6} item sx={{
@@ -58,7 +58,7 @@ const StoreHero = () => {
                 fontWeight: 700,
 
                 fontSize: "2rem",
-            }}  >Rightson Eats</Typography>
+            }}  >{store.name}</Typography>
 
             <Typography fontWeight="bold" sx={{
                 fontFamily: 'Nunito',
@@ -70,10 +70,10 @@ const StoreHero = () => {
                     md: '350px'
                 }
             }}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Consequuntur sunt reiciendis nobis ipsum? Sit laborum laborum itaque
-                officiis aliquam quasi et.
+                {store.desc}
             </Typography>
+
+
             <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "
                 sx={{
                     width: {

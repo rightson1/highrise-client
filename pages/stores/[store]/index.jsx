@@ -5,18 +5,59 @@ import { useState } from "react";
 import Foods from "../../../components/Foods";
 import More from "../../../components/More";
 import Dial from "../../../components/Dial";
+import { useRouter } from "next/router";
+import { useSingleBusinessQuery } from "../../../utils/hooks/useBusiness";
+import { Skeleton } from "@mui/material";
+import { Box } from "@mui/system";
+import { Toaster, toast } from "react-hot-toast";
+import { useEffect } from "react";
 export default function Store() {
     const [scroll1, setScroll1] = useState()
     const { colors } = useGlobalProvider()
+    const { store } = useRouter().query;
+    const { data } = useSingleBusinessQuery(store)
+    useEffect(() => {
+        if (!open) {
+            toast.error('Restrunt Closed')
+        }
+    }, [data])
 
     return (
 
-        <div className="bg-primary overflow-x-hidden ">
-            <StoreHero />
+        data ? <>     <div className="bg-primary overflow-x-hidden ">
+            <StoreHero {...{ data }} />
             <Dishes store={true} {...{ scroll1, setScroll1 }} />
             <Foods />
             <More {...{ categories }} />
-        </div>
+        </div></> : (
+            <Box>
+                <Skeleton variant="rectangular" width={"100vw"} height={118} />
+                <Skeleton variant="rectangular" width={"100vw"} height={20} />
+                <Box
+
+                    className="md:max-w-[300px] min-w-[250px]
+            bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                    <Box className="flex gap-2">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
+
+                            return (
+                                <Box
+                                    key={index}
+                                    className="md:max-w-[300px] min-w-[250px]
+            bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                                    <Skeleton variant="rectangular" width={210} height={118} />
+                                    <Skeleton variant="text" width={210} />
+                                    <Skeleton variant="text" width={210} />
+                                    <Skeleton variant="text" width={210} />
+                                </Box>
+                            )
+                        })}
+                    </Box>
+                </Box>
+                <Toaster />
+
+            </Box>
+        )
     );
 
 

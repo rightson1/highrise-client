@@ -15,6 +15,20 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useGlobalProvider } from "../utils/themeContext";
 import { useRouter } from 'next/router'
 const pages = ['Home', 'Contact Us', 'About Us', 'Register Business'];
+const nav = [{
+    name: 'Home',
+    link: '/'
+}, {
+    name: 'Search',
+    link: '/search'
+}, {
+    name: 'orders',
+    link: '/orders'
+}, {
+    name: 'About Us',
+    link: '/about'
+}
+]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -30,9 +44,6 @@ function ResponsiveAppBar() {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -88,13 +99,13 @@ function ResponsiveAppBar() {
 
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
-                            {pages.map((page) => (
+                            {nav.map((page) => (
                                 <Button
                                     key={page}
-                                    onClick={handleCloseNavMenu}
+                                    onClick={() => { router.push(page.link) }}
                                     sx={{ my: 2, color: colors.grey[600], display: 'block' }}
                                 >
-                                    {page}
+                                    {page.name}
                                 </Button>
                             ))}
                         </Box>

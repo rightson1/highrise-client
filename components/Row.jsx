@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { useRouter } from "next/router";
 import Button from '@mui/material/Button';
-import { Box, Rating } from "@mui/material";
+import { Box, Rating, Skeleton } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import { useGlobalProvider } from "../utils/themeContext";
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
@@ -12,20 +12,22 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import { useEffect, useState, useRef } from "react";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import { motion } from "framer-motion";
-const RowContainer = ({ flag, data }) => {
+import { useBusinessQuery } from "../utils/hooks/useBusiness";
+import { useItemQuery } from "../utils/hooks/useItems";
+const RowContainer = ({ flag, filter }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
-    const [scrollValue, setScrollValue] = useState(0)
-    const [items, setItems] = useState([]);
+    const [scrollValue, setScrollValue] = useState(0);
+    const { data, isLoading } = useItemQuery(filter)
+    const { data: businesses } = useBusinessQuery();
     const router = useRouter()
-
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]);
 
 
     return <>
-        <Box className="w-full justify-between items-center flex ">
+        <Box className="w-full justify-between items-center flex sm:px-5 md:px-6">
             <Typography sx={{ visibility: 'hidden' }} className="invisible">
                 Our  Categories
             </Typography>
@@ -58,78 +60,112 @@ const RowContainer = ({ flag, data }) => {
         <div
             ref={rowContainer}
 
-            className={`w-full flex gap-3  my-5 py-2 scroll-smooth  ${!flag
+            className={`w-full flex gap-3  my-5 py-2 scroll-smooth px-3  ${!flag
                 ? "overflow-x-scroll scrollbar-none "
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}
         >
-            {data?.map((item, index) => (
+            {data?.length ? data?.map((item, index) => {
+                const business = businesses?.find(business => business._id === item.business)
+                console.log(businesses)
 
-                <Box
-                    key={index}
+                return (
+
+                    <Box
+                        key={index}
 
 
-                >
-                    <Card className="md:max-w-[300px] min-w-[250px] 
+                    >
+                        <Card className="md:max-w-[300px] min-w-[250px] 
          bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
-                        <CardMedia
-                            component="img"
-                            alt="green iguana"
-                            height="100"
-                            sx={{
-                                maxHeight: '140px !important',
-                                objectFit: 'contain !important',
-                                p: 1,
 
-                            }}
-
-                            image={item.image}
-                        />
-                        <CardContent sx={{
-                            display: 'flex',
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            flexDirection: 'column'
-                        }}>
-                            <Typography gutterBottom variant="h5" component="div" sx={{
-                                fontFamily: 'Nunito',
-                                fontWeight: 700,
-                                fontSize: '1.2rem',
-                            }}>
-                                {item.name}
-                            </Typography>
-                            <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" />
-                            <Typography gutterBottom sx={{
-                                fontFamily: 'Nunito',
-                                fontWeight: 700,
-                                fontSize: '.8rem',
-                                textAlign: 'center'
-                            }}>
-                                {item.description}
-                            </Typography>
-                        </CardContent>
-                        <CardActions sx={{
-                            display: 'flex',
-                            justifyContent: "space-between",
-                            width: '100%'
-                        }}>
-                            <Button size="small" sx={{
-                                color: `${colors.grey[100]} !important`
-                            }}>ksh {1000}</Button>
-                            <Button size="small"
-                                onClick={() => router.push('/stores/12233')}
+                            <CardMedia
+                                component="img"
+                                alt="green iguana"
+                                height="100"
                                 sx={{
-                                    color: `${colors.grey[100]} !important`,
-                                    backgroundColor: `${colors.red[100]} !important`,
-                                    border: `2px solid ${colors.red[400]} !important`,
+                                    maxHeight: '140px !important',
+                                    objectFit: 'contain !important',
+                                    p: 1,
 
-                                }}>View Store</Button>
-                        </CardActions>
-                    </Card>
+                                }}
 
-                </Box>
+                                image={item.image}
+                            />
+                            <CardContent sx={{
+                                display: 'flex',
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                flexDirection: 'column'
+                            }}>
+                                <Typography gutterBottom variant="h5" component="div" sx={{
+                                    fontFamily: 'Nunito',
+                                    fontWeight: 700,
+                                    fontSize: '1.2rem',
+                                }}>
+                                    {business?.name}
+                                </Typography>
+                                <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" />
+                                <Typography gutterBottom sx={{
+                                    fontFamily: 'Nunito',
+                                    fontWeight: 700,
+                                    fontSize: '.8rem',
+                                    textAlign: 'center'
+                                }}>
+                                    Close To {business?.blocks.map((block, index) => <Typography sx={{
+                                        fontFamily: 'Atomic Age',
+                                        fontWeight: 700,
+                                        fontSize: '.8rem',
+                                        textAlign: 'center'
+                                    }} component="span" key={index}>{block} , </Typography>)}
+                                </Typography>
+                                <Typography gutterBottom sx={{
+                                    fontFamily: 'Nunito',
+                                    fontWeight: 700,
+                                    fontSize: '.8rem',
+                                    textAlign: 'center'
+                                }}>
+                                    Delivery {business?.delivery ? 'Free' : 'Not Available'}
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{
+                                display: 'flex',
+                                justifyContent: "space-between",
+                                width: '100%'
+                            }}>
+                                <Button size="small" sx={{
+                                    color: `${colors.grey[100]} !important`
+                                }}>ksh {1000}</Button>
+                                <Button size="small"
+                                    onClick={() => router.push(`/stores/${business?._id}`)}
+                                    sx={{
+                                        color: `${colors.grey[100]} !important`,
+                                        backgroundColor: `${colors.red[100]} !important`,
+                                        border: `2px solid ${colors.red[400]} !important`,
 
-            ))}
+                                    }}>View Store</Button>
+                            </CardActions>
+                        </Card>
+
+                    </Box>
+
+                )
+            }) : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
+                console.log(item)
+                return (
+                    <Box
+                        key={index}
+                        className="md:max-w-[300px] min-w-[250px]
+            bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                        <Skeleton variant="rectangular" width={210} height={118} />
+                        <Skeleton variant="text" width={210} />
+                        <Skeleton variant="text" width={210} />
+                        <Skeleton variant="text" width={210} />
+                    </Box>
+                )
+            })
+            }
+
         </div>
     </>
 };

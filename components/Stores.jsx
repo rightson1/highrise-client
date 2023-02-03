@@ -6,10 +6,14 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { useGlobalProvider } from "../utils/themeContext";
+import { useBusinessQuery } from "../utils/hooks/useBusiness";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0);
+    const { data, isLoading } = useBusinessQuery();
+    console.log(data)
+
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]);
@@ -133,6 +137,7 @@ const Stores = ({ flag }) => {
                     ))}
                 </div>;
             </Box>
+
         })}
     </Box>;
 };

@@ -16,9 +16,9 @@ export default function Home() {
     <div className="bg-primary ">
       <Hero />
       <Dishes  {...{ setFilter, filter }} />
-      <RowContainer data={data} />
+      <RowContainer data={data} {...{ setFilter, filter }} />
       <Win />
-      <Categories />
+      {/* <Categories /> */}
       {/* <Stores /> */}
     </div>
   );
