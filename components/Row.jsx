@@ -12,7 +12,7 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import { useEffect, useState, useRef } from "react";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import { motion } from "framer-motion";
-const RowContainer = ({ flag }) => {
+const RowContainer = ({ flag, data }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0)
@@ -83,7 +83,7 @@ const RowContainer = ({ flag }) => {
 
                             }}
 
-                            image={item.imageSrc}
+                            image={item.image}
                         />
                         <CardContent sx={{
                             display: 'flex',
@@ -105,7 +105,7 @@ const RowContainer = ({ flag }) => {
                                 fontSize: '.8rem',
                                 textAlign: 'center'
                             }}>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum.
+                                {item.description}
                             </Typography>
                         </CardContent>
                         <CardActions sx={{
@@ -134,35 +134,7 @@ const RowContainer = ({ flag }) => {
     </>
 };
 
-export const data = [{
-    id: 1,
-    name: "Mesh Eats",
-    decp: "Chocolate & vanilla",
-    price: "5.25",
-    imageSrc: "/img/i1.png",
-},
-{
-    id: 2,
-    name: "Rightson Foods",
-    decp: "",
-    price: "10.25",
-    imageSrc: "/img/f1.png",
-},
-{
-    id: 3,
-    name: "Chicken Kebab",
-    decp: "Stop Eats",
-    price: "8.25",
-    imageSrc: "/img/c3.png",
-},
-{
-    id: 4,
-    name: "Fish Highrise Eats",
-    decp: "Mixed Fish Kebab",
-    price: "5.25",
-    imageSrc: "/img/fi1.png",
-},
-];
+
 
 
 export default RowContainer;

@@ -80,9 +80,7 @@ const Hero = () => {
                     md: '350px'
                 }
             }}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Consequuntur sunt reiciendis nobis ipsum? Sit laborum laborum itaque
-                officiis aliquam quasi et.
+                Introducing H-Food, the food delivery app for Highrise Estate and Canaan. Order your favorite meals from top food vendors in highrise/canaan. Enjoy delicious food delivered right to your doorstep. Start ordering now!
             </Typography>
             <Box display="flex" bgcolor={colors.looking} alignItems="center" p={1}
                 sx={{

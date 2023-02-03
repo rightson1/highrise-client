@@ -13,7 +13,9 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider as Theme } from "@mui/material/styles";
 import { CssBaseline, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
-
+import { baseUrl } from "./url";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 const ThemeContext = createContext();
 
 
@@ -38,7 +40,7 @@ export const ThemeProvider = ({ children }) => {
     const isMobileSmall = useMediaQuery("(max-width: 600px)")
     const isLarge = useMediaQuery("(min-width: 900px)");
     const [change, setChange] = useState(false)
-
+    const [queryClient] = useState(() => new QueryClient());
 
 
 
@@ -59,17 +61,20 @@ export const ThemeProvider = ({ children }) => {
                 setChange,
                 setClose,
                 isMobileSmall,
+                baseUrl,
                 cartOpen,
                 setCartOpen
             }}
         >
 
-            <Theme theme={theme}>
+            <QueryClientProvider client={queryClient}>
+                <Theme theme={theme}>
+                    <CssBaseline />
+                    {children}
 
-                <CssBaseline />
-                {children}
-
-            </Theme>
+                    <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+                </Theme>
+            </QueryClientProvider>
 
         </ThemeContext.Provider>
     );

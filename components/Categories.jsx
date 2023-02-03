@@ -83,7 +83,7 @@ const Categories = ({ flag, scrollValue, categories }) => {
                                     alt="green iguana"
                                     height="100"
                                     sx={{
-                                        maxHeight: '140px !important',
+                                        maxHeight: '130px !important',
                                         objectFit: 'contain !important',
                                         p: 1,
 
@@ -102,7 +102,7 @@ const Categories = ({ flag, scrollValue, categories }) => {
                                         fontWeight: 700,
                                         fontSize: '1.2rem',
                                     }}>
-                                        {item.name}
+                                        {item.decp}
                                     </Typography>
                                     <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" />
                                     <Typography gutterBottom sx={{
@@ -123,13 +123,13 @@ const Categories = ({ flag, scrollValue, categories }) => {
                                         color: `${colors.grey[100]} !important`
                                     }}>ksh {1000}</Button>
                                     <Button size="small"
-                                        onClick={() => router.push(`/stores/${item.name}`)}
+                                        onClick={() => router.push(`/stores/${item.id}/item/${item.id}`)}
                                         sx={{
                                             color: `${colors.grey[100]} !important`,
                                             backgroundColor: `${colors.red[100]} !important`,
                                             border: `2px solid ${colors.red[400]} !important`,
 
-                                        }}>Order Now!!</Button>
+                                        }}>View</Button>
                                 </CardActions>
                             </Card>
 
@@ -142,11 +142,6 @@ const Categories = ({ flag, scrollValue, categories }) => {
     </Box>;
 };
 const carts = [
-    {
-        id: 1,
-        name: "Nearest Store",
-
-    },
     {
         id: 2,
         name: "On Discount",
@@ -184,14 +179,14 @@ const data = [
     {
         id: 2,
         name: "Rightson Foods",
-        decp: "",
+        decp: "Straw Berry",
         price: "10.25",
         imageSrc: "/img/f1.png",
     },
     {
         id: 3,
         name: "Chicken Kebab",
-        decp: "Stop Eats",
+        decp: "Chicken",
         price: "8.25",
         imageSrc: "/img/c3.png",
     },

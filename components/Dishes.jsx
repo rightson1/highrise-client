@@ -6,9 +6,8 @@ import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import { useEffect, useState, useRef } from "react";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
-const Dishes = ({ store, setScroll1, scroll1 }) => {
+const Dishes = ({ setFilter, filter }) => {
     const [scrollValue, setScrollValue] = React.useState(5)
-    const [filter, setFilter] = useState("chicken");
     const rowRef = useRef();
 
     useEffect(() => {
@@ -58,25 +57,25 @@ const Dishes = ({ store, setScroll1, scroll1 }) => {
                         <div
                             whileTap={{ scale: 0.75 }}
                             key={category.id}
-                            className={`group ${filter === category.urlParamName ? "bg-cartNumBg" : "bg-card"
+                            className={`group ${filter === category.name ? "bg-cartNumBg" : "bg-card"
                                 } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg `}
-                            onClick={() => setFilter(category.urlParamName)}
+                            onClick={() => setFilter(category.name)}
                         >
                             <div
-                                className={`w-10 h-10 rounded-full shadow-lg ${filter === category.urlParamName
+                                className={`w-10 h-10 rounded-full shadow-lg ${filter === category.name
                                     ? "bg-white"
                                     : "bg-cartNumBg"
                                     } group-hover:bg-white flex items-center justify-center`}
                             >
                                 <FastfoodIcon
-                                    className={`${filter === category.urlParamName
+                                    className={`${filter === category.name
                                         ? "text-textColor"
                                         : "text-white"
                                         } group-hover:text-textColor text-lg`}
                                 />
                             </div>
                             <p
-                                className={`text-sm ${filter === category.urlParamName
+                                className={`text-sm ${filter === category.name
                                     ? "text-white"
                                     : "text-textColor"
                                     } group-hover:text-white`}

@@ -1,0 +1,1 @@
+export const baseUrl = "https://highrise-blond.vercel.app/";
