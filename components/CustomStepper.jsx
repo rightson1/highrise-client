@@ -10,13 +10,13 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import MobileStepper from '@mui/material/MobileStepper';
 import { useTheme } from '@mui/material/styles';
-const CustomeStepper = () => {
+const CustomeStepper = ({ items }) => {
 
     const { colors, mode } = useGlobalProvider()
     const theme = useTheme()
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = images.length;
+    const maxSteps = items.length;
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -46,7 +46,7 @@ const CustomeStepper = () => {
 
             }}
         >
-            <Typography>{images[activeStep].label}</Typography>
+            <Typography>{items[activeStep].name}</Typography>
         </Paper>
         <AutoPlaySwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -54,7 +54,7 @@ const CustomeStepper = () => {
             onChangeIndex={handleStepChange}
             enableMouseEvents
         >
-            {images.map((step, index) => (
+            {items.map((step, index) => (
                 <div key={index}>
                     {Math.abs(activeStep - index) <= 2 ? (
                         <Box
@@ -68,8 +68,8 @@ const CustomeStepper = () => {
                                 objectFit: 'contain'
                             }}
 
-                            src={step.imgPath}
-                            alt={step.label}
+                            src={step.image}
+                            alt={step.name}
                         />
                     ) : null}
                 </div>

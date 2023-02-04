@@ -20,7 +20,7 @@ function StoreNav() {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const router = useRouter()
     const { store } = router.query
-    const cartLength = cart.find(item => item.id === store)?.items?.length
+    const cartLength = cart.find(item => item?.id === store)?.items?.length
     const handleOpenNavMenu = (event) => {
         setOpen(true)
     };
@@ -61,8 +61,9 @@ function StoreNav() {
 
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <Box sx={{ display: { xs: 'flex' } }}>
                             <IconButton
+                                sx={{ display: { xs: 'block', md: 'none' } }}
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
@@ -75,11 +76,26 @@ function StoreNav() {
                                     fontSize: "1.8rem"
                                 }} />
                             </IconButton>
+                            <IconButton
+                                sx={{ display: { xs: 'none', md: 'block' } }}
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenNavMenu}
+                                color="inherit"
+                            >
+                                <KeyboardBackspaceIcon sx={{
+                                    color: colors.grey[200],
+                                    fontSize: "1.8rem"
+                                }} />
+                            </IconButton>
 
                         </Box>
 
 
-                        <Box className="sm:-translate-x-1/4 md:translate-x-0" sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
+
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
                             {navItems.map((page, index) => (
                                 <Button
                                     key={index}

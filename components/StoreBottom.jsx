@@ -11,12 +11,21 @@ import { Badge } from '@mui/material';
 import { ReceiptLongOutlined } from '@mui/icons-material';
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 export default function StoreBottom() {
-    const { colors, cart } = useGlobalProvider()
+    const { colors, cart, animate } = useGlobalProvider()
     const isMobileSmall = useMediaQuery("(max-width: 900px)")
     const [value, setValue] = React.useState('recents');
-    const { store } = useRouter().query
+    const { store } = useRouter().query;
+    const [shouldAnimate, setShouldAnimate] = React.useState(false)
     const cartLength = cart.find(item => item.id === store)?.items?.length
+    useEffect(() => {
+        if (animate.find(item => item === store)) {
+            setShouldAnimate(false)
+        } else {
+            setShouldAnimate(true)
+        }
+    }, [animate])
 
     const router = useRouter();
     const handleChange = (event, newValue) => {
@@ -24,17 +33,18 @@ export default function StoreBottom() {
     };
     const AnimatedPaper = motion(Paper)
     const AnimatedBottom = motion(BottomNavigation)
+
     return (
         isMobileSmall && (<AnimatedPaper sx={{
             position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 10,
 
 
         }} elevation={1}
-            initial={{
+            initial={shouldAnimate && {
                 y: 100, opacity: 0,
 
             }}
-            animate={{
+            animate={shouldAnimate && {
                 y: 0, opacity: 1,
                 transition: {
                     duration: 1,
@@ -44,14 +54,14 @@ export default function StoreBottom() {
 
         >
             <AnimatedBottom
-                initial={{
+                initial={shouldAnimate && {
                     backgroundColor: colors.redAccent[500]
 
                 }}
-                animate={{
+                animate={shouldAnimate && {
                     backgroundColor: [colors.find, colors.bg, colors.primary[500], colors.find, colors.primary[500], colors.bg],
                     transition: {
-                        duration: 2.7,
+                        duration: 4,
                         ease: "easeInOut",
                     }
                 }}

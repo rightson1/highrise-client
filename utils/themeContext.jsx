@@ -42,6 +42,7 @@ export const ThemeProvider = ({ children }) => {
     const [change, setChange] = useState(false)
     const [queryClient] = useState(() => new QueryClient());
     const [cart, setCart] = useState([])
+    const [animate, setAnimate] = useState([])
 
 
 
@@ -67,6 +68,8 @@ export const ThemeProvider = ({ children }) => {
                 setCartOpen,
                 cart,
                 setCart,
+                animate,
+                setAnimate
             }}
         >
 

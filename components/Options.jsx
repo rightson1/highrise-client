@@ -46,17 +46,29 @@ export default function Options({ food }) {
     const [optionType, setOptionType] = React.useState([]);
     const router = useRouter()
     const { store } = router.query;
+    const { id } = router.query;
     const [sizes, setSizes] = useState(null);
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState()
+    const [itemExist, setItemExist] = useState(false)
+    useEffect(() => {
+        if (cart.length > 0) {
+            const exists = cart.find((item) => item.id === store)
+            if (exists) {
+                const item = exists.items.find((item) => item.id === id)
+                if (item) {
+                    setItemExist(true)
+                }
+            }
+        }
+    }, [cart])
 
-    console.log(cart)
     useEffect(() => {
         if (food.price) {
             setTotal(food.price)
         }
         else if (sizes || optionType) {
             const option = Number(optionType.reduce((acc, cur) => acc + cur.price, 0))
-            const total = typeof Option == Number ? option : 0 + Number(sizes?.price)
+            const total = typeof Option == Number ? option : 0 + Number(sizes.price)
             setTotal(total)
         }
 
@@ -79,15 +91,16 @@ export default function Options({ food }) {
                 if (item.id === store) {
                     return {
                         ...item,
-                        items: [...item.items, { ...food, options: optionType, sizes, price: total }]
+                        items: [...item.items, { ...food, options: optionType, sizes, price: total, id: item.items.length + 1 }]
                     }
                 } else {
                     return item
                 }
             }))
         } else {
-            setCart([...cart, { id: store, items: [{ ...food, options: optionType, sizes, price: total }] }])
+            setCart([...cart, { id: store, items: [{ ...food, options: optionType, sizes, price: total, id: 1 }] }])
         }
+
 
     }
     const handleChange = (event) => {
@@ -97,7 +110,7 @@ export default function Options({ food }) {
         } = event;
         setOptionType(value);
     };
-
+    console.log(cart)
     return (
         <Box component="form" className='flex flex-col gap-3' onSubmit={handleSubmit}>
             {
@@ -127,8 +140,8 @@ export default function Options({ food }) {
                                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                                 renderValue={(selected) => (
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                        {selected.map((value, index) => (
-                                            <Chip key={index} label={value.optionName} />
+                                        {selected.map((value) => (
+                                            <Chip key={value.optionName} label={value.optionName} />
                                         ))}
                                     </Box>
                                 )}
@@ -179,11 +192,35 @@ export default function Options({ food }) {
             }
             <Box className="flex gap-3 ">
                 <Box>Total</Box>
-                <Box>{total ? total : 0}</Box>
+                <Box>{total}</Box>
             </Box>
-
-            <Button type='submit' sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }} >Add To Cart</Button>
+            {itemExist ? <Button type='submit' sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }} >Item Exists,Add New Variation</Button>
+                : <Button type='submit' sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }} >Add To Cart</Button>
+            }
             <Toaster />
         </Box>
     );
 }
+// setCart(cart.map((item) => {
+//     if (item.id === store) {
+//         return {
+//             ...item,
+//             items: item.items.map((item) => {
+//                 if (item.id === food.id) {
+//                     return {
+//                         ...item,
+//                         options: optionType,
+//                         sizes,
+//                         price: total,
+//                         qty: item.qty + 1
+//                     }
+//                 } else {
+//                     return item
+//                 }
+//             })
+
+//         }
+//     } else {
+//         return item
+//     }
+// }))

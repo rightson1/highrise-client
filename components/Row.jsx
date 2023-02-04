@@ -67,7 +67,6 @@ const RowContainer = ({ flag, filter }) => {
         >
             {data?.length ? data?.map((item, index) => {
                 const business = businesses?.find(business => business._id === item.business)
-                console.log(businesses)
 
                 return (
 
@@ -151,7 +150,7 @@ const RowContainer = ({ flag, filter }) => {
 
                 )
             }) : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
-                console.log(item)
+
                 return (
                     <Box
                         key={index}

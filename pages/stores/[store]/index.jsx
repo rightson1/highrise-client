@@ -14,10 +14,20 @@ import { useCategoryQuery } from "../../../utils/hooks/useCategories";
 export default function Store() {
     const [scroll1, setScroll1] = useState()
     const { store } = useRouter().query
-    const { colors } = useGlobalProvider()
+    const { colors, animate, setAnimate } = useGlobalProvider()
     const { data } = useSingleBusinessQuery(store)
     const { data: categories } = useCategoryQuery(store)
     const [filter, setFilter] = useState('Chicken')
+
+    useEffect(() => {
+        if (animate.find((item) => item === store)) {
+            return
+        } else {
+            setAnimate([...animate, store])
+        }
+
+    }, [])
+
 
     useEffect(() => {
         if (categories) {

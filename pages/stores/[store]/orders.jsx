@@ -215,5 +215,4 @@ const images = [
         price: 220,
     },
 ];
-Orders.layout = true;
 export default Orders;
