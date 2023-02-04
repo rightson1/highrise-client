@@ -1,5 +1,5 @@
-import { Avatar, Chip, Fab, Grid, Box, Paper } from "@mui/material";
-import React, { useState } from "react";
+import { Fab, Grid, Box, Paper } from "@mui/material";
+import React, { useState, useMemo } from "react";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
@@ -24,14 +24,23 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Delete } from "@mui/icons-material";
+import { useRouter } from "next/router";
 const Category = () => {
     const [open, setOpen] = React.useState(null);
-    const { colors, mode } = useGlobalProvider()
+    const { colors, cart } = useGlobalProvider()
     const theme = useTheme()
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     const [activeStep, setActiveStep] = React.useState(0);
     const maxSteps = images.length;
+    const router = useRouter()
+    const { store } = router.query
+    const storeCart = cart.find(item => item.id === store)
+    const order = useMemo(() => {
+        // return cart.reduce((total,item)=>{return total+item.price*item.quantity},0)
+        // return cart.find(item => item.id === store)
+    }, [cart])
 
+    console.log(storeCart)
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -175,7 +184,7 @@ const Category = () => {
 
 
 
-        </Box >;
+        </Box>;
     </>
 };
 

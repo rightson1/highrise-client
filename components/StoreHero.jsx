@@ -64,7 +64,6 @@ const StoreHero = ({ data: store }) => {
                 fontFamily: 'Nunito',
                 alignSelf: "center",
                 textAlign: "center",
-
                 maxWidth: {
                     xs: '80%',
                     md: '350px'
@@ -72,6 +71,38 @@ const StoreHero = ({ data: store }) => {
             }}>
                 {store.desc}
             </Typography>
+            <Typography fontWeight="bold" sx={{
+                fontFamily: 'Atomic Age',
+                alignSelf: "center",
+                textAlign: "center",
+
+                maxWidth: {
+                    xs: '80%',
+                    md: '350px'
+                }
+            }}>
+                Location
+            </Typography>
+
+            <Typography fontWeight="bold" sx={{
+                fontFamily: 'Nunito',
+                alignSelf: "center",
+                textAlign: "center",
+
+                maxWidth: {
+                    xs: '80%',
+                    md: '350px'
+                }
+            }}>
+                We are located close to {store?.blocks.map((block, index) => <Typography sx={{
+                    fontFamily: 'Atomic Age',
+                    fontWeight: 700,
+                    fontSize: '.8rem',
+                    textAlign: 'center'
+                }} component="span" key={index}>{block} , </Typography>)}
+            </Typography>
+
+
 
 
             <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "

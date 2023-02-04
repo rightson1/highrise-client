@@ -15,23 +15,28 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Badge } from '@mui/material';
 import { useRouter } from 'next/router'
 function StoreNav() {
-    const { colors, setOpen } = useGlobalProvider()
+    const { colors, setOpen, cart } = useGlobalProvider()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const router = useRouter()
-
+    const { store } = router.query
+    const cartLength = cart.find(item => item.id === store)?.items?.length
     const handleOpenNavMenu = (event) => {
         setOpen(true)
     };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
+    const navItems = [
+        {
+            name: "Home",
+            link: `/stores/${store}`
+        },
+        {
+            name: "About Us",
+            link: `/stores/${store}/about`
+
+        },
 
 
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
+    ]
 
     return (
         <Box
@@ -74,11 +79,11 @@ function StoreNav() {
                         </Box>
 
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
-                            {navItems.map((page) => (
+                        <Box className="sm:-translate-x-1/4 md:translate-x-0" sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
+                            {navItems.map((page, index) => (
                                 <Button
-                                    key={page}
-                                    onclick={() => router.push(`/store/${page.link}`)}
+                                    key={index}
+                                    onClick={() => router.push(`${page.link}`)}
                                     sx={{ my: 2, color: colors.grey[600], display: 'block' }}
                                 >
                                     {page.name}
@@ -95,7 +100,7 @@ function StoreNav() {
                                 }}
                             >
                                 <Badge
-                                    badgeContent={4} color="primary">
+                                    badgeContent={cartLength} color="primary">
                                     <ShoppingCartOutlinedIcon />
                                 </Badge>
 
@@ -108,17 +113,5 @@ function StoreNav() {
     );
 }
 
-const navItems = [
-    {
-        name: "Home",
-        link: "/"
-    },
-    {
-        name: "About Us",
-        link: "/about"
 
-    },
-
-
-]
 export default StoreNav;

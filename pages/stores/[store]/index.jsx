@@ -4,18 +4,26 @@ import StoreHero from "../../../components/StoreHero";
 import { useState } from "react";
 import Foods from "../../../components/Foods";
 import More from "../../../components/More";
-import Dial from "../../../components/Dial";
 import { useRouter } from "next/router";
 import { useSingleBusinessQuery } from "../../../utils/hooks/useBusiness";
 import { Skeleton } from "@mui/material";
 import { Box } from "@mui/system";
 import { Toaster, toast } from "react-hot-toast";
 import { useEffect } from "react";
+import { useCategoryQuery } from "../../../utils/hooks/useCategories";
 export default function Store() {
     const [scroll1, setScroll1] = useState()
+    const { store } = useRouter().query
     const { colors } = useGlobalProvider()
-    const { store } = useRouter().query;
     const { data } = useSingleBusinessQuery(store)
+    const { data: categories } = useCategoryQuery(store)
+    const [filter, setFilter] = useState('Chicken')
+
+    useEffect(() => {
+        if (categories) {
+            setFilter(categories[0].name)
+        }
+    }, [categories])
     useEffect(() => {
         if (!open) {
             toast.error('Restrunt Closed')
@@ -24,12 +32,12 @@ export default function Store() {
 
     return (
 
-        data ? <>     <div className="bg-primary overflow-x-hidden ">
+        data ? <div className="bg-primary overflow-x-hidden ">
             <StoreHero {...{ data }} />
-            <Dishes store={true} {...{ scroll1, setScroll1 }} />
-            <Foods />
-            <More {...{ categories }} />
-        </div></> : (
+            <Dishes store={true} {...{ scroll1, setScroll1, filter, setFilter, categories }} />
+            <Foods filter={filter} />
+
+        </div> : (
             <Box>
                 <Skeleton variant="rectangular" width={"100vw"} height={118} />
                 <Skeleton variant="rectangular" width={"100vw"} height={20} />

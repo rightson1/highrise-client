@@ -12,9 +12,9 @@ export const useItemQuery = (category) => {
     });
 };
 
-const getSingleItem = (id) => axios.get(`/api/items/${id}`);
+const getSingleItem = (id) => axios.get(`${baseUrl}/api/items/${id}`);
 export const useSingleItemQuery = (id) =>
-    useQuery(["item", id], () => getSingleItem(id), {
+    useQuery(["items", id], () => getSingleItem(id), {
         select: (data) => data.data,
         enabled: !!id,
         cacheTime: 1000 * 60 * 60 * 24,
@@ -22,7 +22,8 @@ export const useSingleItemQuery = (id) =>
         staleTime: 1000 * 60 * 60 * 24,
     });
 
-const updateItem = ({ id, ...item }) => axios.put(`/api/items?id=${id}`, item);
+const updateItem = ({ id, ...item }) =>
+    axios.put(`${baseUrl}/api/items?id=${id}`, item);
 export const useUpdateItem = (id) => {
     const queryClient = useQueryClient();
     return useMutation(updateItem, {
@@ -30,4 +31,17 @@ export const useUpdateItem = (id) => {
             queryClient.refetchQueries(["item", id]), getSingleItem(id);
         },
     });
+};
+const getItemStore = ({ filter, id }) =>
+    axios.get(`${baseUrl}/api/items?id=${id}&&category=${filter}`);
+export const useItemStoreQuery = (store) => {
+    return useQuery(
+        ["items", store.id + store.filter],
+        () => getItemStore(store), {
+            select: (data) => data.data,
+            enabled: !!store.id && !!store.filter,
+            cacheTime: 1000 * 60 * 60 * 24,
+            staleTime: 1000 * 60 * 60 * 24,
+        }
+    );
 };

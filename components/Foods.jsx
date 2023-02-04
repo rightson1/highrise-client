@@ -7,18 +7,16 @@ import Button from '@mui/material/Button';
 import { Box, Rating } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import { useGlobalProvider } from "../utils/themeContext";
-import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
-import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import { useEffect, useState, useRef } from "react";
-import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
-import { motion } from "framer-motion";
-const Foods = ({ flag, categories }) => {
+import { useItemStoreQuery } from "../utils/hooks/useItems";
+import Skeleton from "@mui/material/Skeleton";
+const Foods = ({ flag, filter }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0)
-    const [items, setItems] = useState([]);
     const router = useRouter()
     const { store } = router.query;
+    const { data } = useItemStoreQuery({ id: store, filter })
 
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
@@ -34,7 +32,7 @@ const Foods = ({ flag, categories }) => {
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}
         >
-            {data?.map((item, index) => (
+            {data ? data.map((item, index) => (
 
                 <Box
                     key={index}
@@ -42,7 +40,7 @@ const Foods = ({ flag, categories }) => {
 
                 >
                     <Card className="md:max-w-[300px] min-w-[250px] 
-         bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+         bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-sm flex flex-col items-center justify-evenly relative" >
                         <CardMedia
                             component="img"
                             alt="green iguana"
@@ -54,7 +52,7 @@ const Foods = ({ flag, categories }) => {
 
                             }}
 
-                            image={item.imageSrc}
+                            image={item.image}
                         />
                         <CardContent sx={{
                             display: 'flex',
@@ -76,7 +74,7 @@ const Foods = ({ flag, categories }) => {
                                 fontSize: '.8rem',
                                 textAlign: 'center'
                             }}>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum.
+                                {item.description}
                             </Typography>
                         </CardContent>
                         <CardActions sx={{
@@ -86,49 +84,41 @@ const Foods = ({ flag, categories }) => {
                         }}>
                             <Button size="small" sx={{
                                 color: `${colors.grey[100]} !important`
-                            }}>ksh {1000}</Button>
+                            }}>{item.prices}</Button>
                             <Button size="small" className="shadow-md hover:shadow-inner"
-                                onClick={() => router.push(`/stores/${store}/item/${item.id}`)}
-                                sx={{ color: `${colors.grey[100]} !important`, backgroundColor: `${colors.red[100]} !important` }}>Add To Cart</Button>
+                                onClick={() => router.push(`/stores/${store}/item/${item._id}`)}
+                                sx={{
+                                    color: `${colors.grey[100]} !important`, backgroundColor: `${colors.red[100]} !important`
+                                    , '&:hover': {
+                                        backgroundColor: `${colors.red[200]} !important`
+                                    }
+
+                                }}>Add To Cart</Button>
                         </CardActions>
                     </Card>
 
                 </Box>
 
-            ))}
+            )) : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
+                console.log(item)
+                return (
+                    <Box
+                        key={index}
+                        className="md:max-w-[300px] min-w-[250px]
+            bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                        <Skeleton variant="rectangular" width={210} height={118} />
+                        <Skeleton variant="text" width={210} />
+                        <Skeleton variant="text" width={210} />
+                        <Skeleton variant="text" width={210} />
+                    </Box>
+                )
+            })
+
+            }
         </Box>
     </>
 };
 
-export const data = [{
-    id: 1,
-    name: "Ice Cream",
-    decp: "Chocolate & vanilla",
-    price: "5.25",
-    imageSrc: "/img/i1.png",
-},
-{
-    id: 2,
-    name: "Strawberry",
-    decp: "",
-    price: "10.25",
-    imageSrc: "/img/f1.png",
-},
-{
-    id: 3,
-    name: "Chicken Kebab",
-    decp: "Stop Eats",
-    price: "8.25",
-    imageSrc: "/img/c3.png",
-},
-{
-    id: 4,
-    name: "Mixed Fish Kebab",
-    decp: "Mixed Fish Kebab",
-    price: "5.25",
-    imageSrc: "/img/fi1.png",
-},
-];
 
 
 export default Foods;

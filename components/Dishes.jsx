@@ -6,13 +6,45 @@ import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import { useEffect, useState, useRef } from "react";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
-const Dishes = ({ setFilter, filter }) => {
+const Dishes = ({ setFilter, filter, categories: data }) => {
     const [scrollValue, setScrollValue] = React.useState(5)
     const rowRef = useRef();
+
 
     useEffect(() => {
         rowRef.current.scrollLeft += scrollValue;
     }, [scrollValue])
+    const Cat = ({ category, index }) => {
+        return <div
+            whileTap={{ scale: 0.75 }}
+            key={index}
+            className={`group ${filter === category.name ? "bg-cartNumBg" : "bg-card"
+                } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg `}
+            onClick={() => setFilter(category.name)}
+        >
+            <div
+                className={`w-10 h-10 rounded-full shadow-lg ${filter === category.name
+                    ? "bg-white"
+                    : "bg-cartNumBg"
+                    } group-hover:bg-white flex items-center justify-center`}
+            >
+                <FastfoodIcon
+                    className={`${filter === category.name
+                        ? "text-textColor"
+                        : "text-white"
+                        } group-hover:text-textColor text-lg`}
+                />
+            </div>
+            <p
+                className={`text-sm ${filter === category.name
+                    ? "text-white"
+                    : "text-textColor"
+                    } group-hover:text-white`}
+            >
+                {category.name}
+            </p>
+        </div>
+    }
 
     return <section className="w-full mt-6 px-5" id="menu">
         <div className="w-full flex flex-col items-center justify-center">
@@ -52,38 +84,14 @@ const Dishes = ({ setFilter, filter }) => {
                 layout="position"
                 ref={rowRef}
             >
-                {categories &&
-                    categories.map((category) => (
-                        <div
-                            whileTap={{ scale: 0.75 }}
-                            key={category.id}
-                            className={`group ${filter === category.name ? "bg-cartNumBg" : "bg-card"
-                                } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg `}
-                            onClick={() => setFilter(category.name)}
-                        >
-                            <div
-                                className={`w-10 h-10 rounded-full shadow-lg ${filter === category.name
-                                    ? "bg-white"
-                                    : "bg-cartNumBg"
-                                    } group-hover:bg-white flex items-center justify-center`}
-                            >
-                                <FastfoodIcon
-                                    className={`${filter === category.name
-                                        ? "text-textColor"
-                                        : "text-white"
-                                        } group-hover:text-textColor text-lg`}
-                                />
-                            </div>
-                            <p
-                                className={`text-sm ${filter === category.name
-                                    ? "text-white"
-                                    : "text-textColor"
-                                    } group-hover:text-white`}
-                            >
-                                {category.name}
-                            </p>
-                        </div>
-                    ))}
+                {
+                    data ? data.map((category, index) => (
+                        <Cat key={index} category={category} />
+                    )) : categories &&
+                    categories.map((category, index) => (
+                        <Cat key={index} category={category} />
+                    ))
+                }
             </motion.div>
         </div>
     </section>
