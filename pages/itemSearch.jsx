@@ -13,20 +13,27 @@ import Title from "../components/Title";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
 import { useRouter } from "next/router";
 import { useItemsQuery, useSearchedItemsQuery } from "../utils/hooks/useItems";
+import axios from "axios";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const router = useRouter()
-    const { colors } = useGlobalProvider(0)
+    const { colors, baseUrl } = useGlobalProvider(0)
     const { data, isLoading, error } = useItemsQuery()
     const [filteredData, setFilteredData] = useState()
     const [completed, setCompleted] = useState(false)
     const [searchTerm, setSearchTerm] = useState(null);
-    const { data: results } = useSearchedItemsQuery(searchTerm)
+    const [loading, setLoading] = useState(false)
+    const handleClicked = () => {
+        setLoading(true)
+        axios.get(`${baseUrl}/api/items?search=${searchTerm}`).then((res) => {
+            setFilteredData(res.data)
+            setLoading(false)
+        }).catch((e) => {
+            console.log(e)
+            setLoading(false)
+        })
 
-    console.log(results)
-
-
-
+    }
     return <div className="bg-primary">
         <Title title="Search" subtitle="Search For  Foods " />
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
@@ -84,7 +91,7 @@ const Stores = ({ flag }) => {
                         }} />}
                 />
                 <Button
-                    // onClick={handleClick}
+                    onClick={handleClicked}
                     sx={{
                         bgcolor: colors.find + '!important',
 
@@ -108,7 +115,7 @@ const Stores = ({ flag }) => {
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}
         >
-            {results?.map((item, index) => (
+            {filteredData?.map((item, index) => (
 
                 <Box
                     key={index}

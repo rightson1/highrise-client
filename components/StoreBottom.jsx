@@ -40,31 +40,11 @@ export default function StoreBottom() {
 
 
         }} elevation={1}
-            initial={shouldAnimate && {
-                y: 100, opacity: 0,
 
-            }}
-            animate={shouldAnimate && {
-                y: 0, opacity: 1,
-                transition: {
-                    duration: 1,
-                    ease: "easeInOut",
-                }
-            }}
 
         >
             <AnimatedBottom
-                initial={shouldAnimate && {
-                    backgroundColor: colors.redAccent[500]
 
-                }}
-                animate={shouldAnimate && {
-                    backgroundColor: [colors.find, colors.bg, colors.primary[500], colors.find, colors.primary[500], colors.bg],
-                    transition: {
-                        duration: 4,
-                        ease: "easeInOut",
-                    }
-                }}
                 showLabels
                 sx={{
 
@@ -73,16 +53,19 @@ export default function StoreBottom() {
                         color: colors.find + " !important",
                     }
                 }}
-                className="bg-primary"
+                className="bg-primary relative"
                 value={value}
                 onChange={(event, newValue) => {
                     setValue(newValue);
                 }}
             >
-                <BottomNavigationAction onClick={() => router.push(`/`)} label="Home" icon={<HomeOutlinedIcon />} />
+                <span className="wave absolute  top-1/4 left-0 -translate-y-1/2">👉</span>
+
+                <BottomNavigationAction className='text-red-500' onClick={() => router.push(`/`)} label="Home" icon={<HomeOutlinedIcon />} />
                 {/* <BottomNavigationAction onClick={() => router.push(`/stores/${store}/chat`)} label="Live Chat" icon={<ChatBubbleOutlineOutlinedIcon />} /> */}
-                <BottomNavigationAction onClick={() => router.push(`/stores/${store}/carts`)} label="Cart" icon={<Badge badgeContent={cartLength} color="warning"><ShoppingCartOutlinedIcon /></Badge>} />
-                <BottomNavigationAction onClick={() => router.push(`/stores/${store}/orders`)} label="Orders" icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
+                <BottomNavigationAction className='text-red-500' onClick={() => router.push(`/stores/${store}/carts`)} label="Cart" icon={<Badge badgeContent={cartLength} color="warning"><ShoppingCartOutlinedIcon /></Badge>} />
+                <BottomNavigationAction className='text-red-500' onClick={() => router.push(`/stores/${store}/orders`)} label="Orders" icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
+
 
             </AnimatedBottom>
 

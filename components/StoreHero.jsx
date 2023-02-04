@@ -81,7 +81,7 @@ const StoreHero = ({ data: store }) => {
                     md: '350px'
                 }
             }}>
-                Location
+                Delivery
             </Typography>
 
             <Typography fontWeight="bold" sx={{
@@ -94,12 +94,7 @@ const StoreHero = ({ data: store }) => {
                     md: '350px'
                 }
             }}>
-                We are located close to {store?.blocks.map((block, index) => <Typography sx={{
-                    fontFamily: 'Atomic Age',
-                    fontWeight: 700,
-                    fontSize: '.8rem',
-                    textAlign: 'center'
-                }} component="span" key={index}>{block} , </Typography>)}
+                {store.details}
             </Typography>
 
 

@@ -104,8 +104,8 @@ const RowContainer = ({ flag, filter }) => {
                                 }}>
                                     {business?.name}
                                 </Typography>
-                                <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" />
-                                <Typography gutterBottom sx={{
+                                {/* <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" /> */}
+                                {/* <Typography gutterBottom sx={{
                                     fontFamily: 'Nunito',
                                     fontWeight: 700,
                                     fontSize: '.8rem',
@@ -117,7 +117,7 @@ const RowContainer = ({ flag, filter }) => {
                                         fontSize: '.8rem',
                                         textAlign: 'center'
                                     }} component="span" key={index}>{block} , </Typography>)}
-                                </Typography>
+                                </Typography> */}
                                 <Typography gutterBottom sx={{
                                     fontFamily: 'Nunito',
                                     fontWeight: 700,

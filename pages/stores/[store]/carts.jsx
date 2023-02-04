@@ -31,14 +31,6 @@ const Category = () => {
     const { store } = router.query
     const [storeCart, setStoreCart] = useState(null)
 
-    useEffect(() => {
-        if (animate.find((item) => item === store)) {
-            return
-        } else {
-            setAnimate([...animate, store])
-        }
-
-    }, [])
 
     const [total, setTotal] = useState(0)
     useEffect(() => {

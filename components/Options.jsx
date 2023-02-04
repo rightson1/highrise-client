@@ -70,7 +70,7 @@ export default function Options({ food }) {
         }
         else if (sizes || optionType) {
             const option = Number(optionType.reduce((acc, cur) => acc + cur.price, 0))
-            const total = typeof Option == Number ? option : 0 + Number(sizes.price)
+            const total = typeof Option == Number ? option : 0 + Number(sizes?.price ? sizes.price : 0)
             setTotal(total)
         }
 
