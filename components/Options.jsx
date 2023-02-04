@@ -45,11 +45,13 @@ export default function Options({ food }) {
     const { colors, cart, setCart } = useGlobalProvider()
     const [optionType, setOptionType] = React.useState([]);
     const router = useRouter()
+    const [trimed, setTrimed] = useState(null)
     const { store } = router.query;
     const { id } = router.query;
     const [sizes, setSizes] = useState(null);
     const [total, setTotal] = useState()
     const [itemExist, setItemExist] = useState(false)
+
     useEffect(() => {
         if (cart.length > 0) {
             const exists = cart.find((item) => item.id === store)
@@ -91,14 +93,14 @@ export default function Options({ food }) {
                 if (item.id === store) {
                     return {
                         ...item,
-                        items: [...item.items, { ...food, options: optionType, sizes, price: total, id: item.items.length + 1 }]
+                        items: [...item.items, { ...food, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
                     }
                 } else {
                     return item
                 }
             }))
         } else {
-            setCart([...cart, { id: store, items: [{ ...food, options: optionType, sizes, price: total, id: 1 }] }])
+            setCart([...cart, { id: store, items: [{ ...food, options: optionType, sizes, price: total, id: 1, qty: 1 }] }])
         }
 
 

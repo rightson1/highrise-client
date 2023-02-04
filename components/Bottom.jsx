@@ -12,7 +12,7 @@ import { ReceiptLongOutlined } from '@mui/icons-material';
 import { useRouter } from 'next/router'
 export default function StoreBottom() {
     const { colors } = useGlobalProvider()
-    const isMobileSmall = useMediaQuery("(max-width: 600px)")
+    const isMobileSmall = useMediaQuery("(max-width: 800px)")
     const [value, setValue] = React.useState('recents');
     const router = useRouter();
 

@@ -45,3 +45,22 @@ export const useItemStoreQuery = (store) => {
         }
     );
 };
+
+const getItems = () => axios.get(`${baseUrl}/api/items`);
+export const useItemsQuery = () => {
+    return useQuery("items", getItems, {
+        select: (data) => data.data,
+        cacheTime: 1000 * 60 * 60 * 24,
+        staleTime: 1000 * 60 * 60 * 24,
+    });
+};
+const getSearchedItems = (search) =>
+    axios.get(`${baseUrl}/api/items?search=${search}`);
+export const useSearchedItemsQuery = (search) => {
+    return useQuery(["items", search], () => getSearchedItems(search), {
+        select: (data) => data.data,
+        enabled: !!search,
+        cacheTime: 1000 * 60 * 60 * 24,
+        staleTime: 1000 * 60 * 60 * 24,
+    });
+};

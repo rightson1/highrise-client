@@ -12,24 +12,23 @@ import { InputBase } from "@mui/material";
 import Title from "../components/Title";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
 import { useRouter } from "next/router";
+import { useItemsQuery, useSearchedItemsQuery } from "../utils/hooks/useItems";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
-    const { colors } = useGlobalProvider(0)
-    const { data, isLoading, error } = useBusinessQuery();
-    const [filteredData, setFilteredData] = useState()
-    const [searchTerm, setSearchTerm] = useState('')
     const router = useRouter()
-    useEffect(() => {
-        if (data) {
-            setFilteredData(data.filter((item) => {
-                return item.name.toLowerCase().includes(searchTerm.toLowerCase())
-            }))
-        }
-    }, [searchTerm])
+    const { colors } = useGlobalProvider(0)
+    const { data, isLoading, error } = useItemsQuery()
+    const [filteredData, setFilteredData] = useState()
+    const [completed, setCompleted] = useState(false)
+    const [searchTerm, setSearchTerm] = useState(null);
+    const { data: results } = useSearchedItemsQuery(searchTerm)
+
+    console.log(results)
+
 
 
     return <div className="bg-primary">
-        <Title title="Stores" subtitle="Search For  Stores " />
+        <Title title="Search" subtitle="Search For  Foods " />
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
             <Box className="flex justify-center align-center gap-5" sx={{ alignItems: 'center' }}>
                 <Avatar src="/plate.png" />
@@ -39,7 +38,7 @@ const Stores = ({ flag }) => {
                     fontWeight: 500,
                     fontSize: "1.5rem",
                     mt: 1,
-                }}  >Stores</Typography>
+                }}  >Foods</Typography>
             </Box>
             <Typography fontWeight="bold" sx={{
                 fontFamily: 'Nunito',
@@ -51,9 +50,7 @@ const Stores = ({ flag }) => {
 
                 }
             }}>
-                You can search for your favorite stores and restaurants and
-                order your favorite food from them,Click view to see more details
-                about the store
+                Search for food items
             </Typography>
             <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "
                 sx={{
@@ -68,13 +65,14 @@ const Stores = ({ flag }) => {
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={data}
+                    onChange={(e, value) => setSearchTerm(value?.name)}
+                    options={data || []}
                     getOptionLabel={(option) => option.name}
                     loading={isLoading}
+
                     sx={{ width: "110%" }}
                     renderInput={(params) => <TextField
                         onChange={(e) => setSearchTerm(e.target.value)}
-
                         {...params} placeholder="Search for stores" sx={{
                             width: '100%',
                             "& .MuiOutlinedInput-root": {
@@ -86,6 +84,7 @@ const Stores = ({ flag }) => {
                         }} />}
                 />
                 <Button
+                    // onClick={handleClick}
                     sx={{
                         bgcolor: colors.find + '!important',
 
@@ -109,7 +108,7 @@ const Stores = ({ flag }) => {
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}
         >
-            {filteredData?.map((item, index) => (
+            {results?.map((item, index) => (
 
                 <Box
                     key={index}
@@ -131,7 +130,7 @@ const Stores = ({ flag }) => {
 
                             }}
 
-                            image={item.avatar}
+                            image={item.image}
                         />
                         <CardContent sx={{
                             display: 'flex',
@@ -163,9 +162,9 @@ const Stores = ({ flag }) => {
                         }}>
                             <Button size="small" sx={{
                                 color: `${colors.grey[100]} !important`
-                            }}>{item.open ? 'Open' : 'Closed'}</Button>
+                            }}>Ksh {item.price}</Button>
                             <Button
-                                onClick={() => router.push(`/stores/${item._id}`)}
+                                onClick={() => router.push(`/stores/${item.business}`)}
                                 size="small" sx={{
                                     color: `${colors.grey[100]} !important`,
                                     backgroundColor: `${colors.red[100]} !important`,
@@ -177,7 +176,7 @@ const Stores = ({ flag }) => {
                 </Box>
 
             ))}
-            {/* <Stores /> */}
+
 
         </div>;
 

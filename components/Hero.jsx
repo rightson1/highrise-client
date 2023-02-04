@@ -3,8 +3,10 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { Box, Button, InputBase, Typography } from "@mui/material";
 import React from "react";
 import { useGlobalProvider } from "../utils/themeContext";
+import { useRouter } from "next/router";
 const Hero = () => {
     const { colors } = useGlobalProvider()
+    const router = useRouter()
     return <Box
         display='flex'
         justifyContent="space-between"
@@ -90,6 +92,7 @@ const Hero = () => {
                 }}
             >
                 <Search /><InputBase placeholder="What are you looking for"
+                    onChange={(e) => router.push('/itemSearch')}
                     sx={{
                         width: '100%',
                     }}

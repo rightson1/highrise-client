@@ -12,7 +12,7 @@ const Stores = ({ flag }) => {
     const { colors } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0);
     const { data, isLoading } = useBusinessQuery();
-    console.log(data)
+
 
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;

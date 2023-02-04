@@ -26,14 +26,19 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 
 const Category = () => {
     const [open, setOpen] = React.useState(null);
-    const { colors, cart, setCart } = useGlobalProvider()
-    const theme = useTheme()
-    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-    const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = images.length;
+    const { colors, cart, setCart, animate, setAnimate } = useGlobalProvider()
     const router = useRouter()
     const { store } = router.query
     const [storeCart, setStoreCart] = useState(null)
+
+    useEffect(() => {
+        if (animate.find((item) => item === store)) {
+            return
+        } else {
+            setAnimate([...animate, store])
+        }
+
+    }, [])
 
     const [total, setTotal] = useState(0)
     useEffect(() => {
@@ -50,14 +55,14 @@ const Category = () => {
     };
 
 
-    const handleEdit = (_id, op) => {
+    const handleEdit = (id, op) => {
         if (op === 0) {
-            if (storeCart.items.find((item) => item._id === _id).qty === 1) {
+            if (storeCart.items.find((item) => item.id === id).qty === 1) {
                 setCart(cart.map((item) => {
                     if (item.id === store) {
                         return {
                             ...item,
-                            items: item.items.filter((item) => item._id !== _id)
+                            items: item.items.filter((item) => item.id !== id)
                         }
                     }
                     return item
@@ -75,7 +80,7 @@ const Category = () => {
                     return {
                         ...item,
                         items: item.items.map((item) => {
-                            if (item._id === _id) {
+                            if (item.id === id) {
                                 return {
                                     ...item,
                                     qty: item.qty - 1,
@@ -92,20 +97,23 @@ const Category = () => {
         } else if (op === 1) {
             setCart(cart.map((item) => {
                 if (item.id === store) {
+                    console.log(item)
                     return {
                         ...item,
                         items: item.items.map((item) => {
-                            if (item._id === _id) {
+                            if (item.id === id) {
                                 return {
                                     ...item,
-                                    qty: item.qty + op,
+                                    qty: item.qty + 1,
                                     price: item.price + item.price / item.qty
                                 }
+
 
                             }
                             return item
                         })
                     }
+
                 }
                 return item
             }))
@@ -165,10 +173,10 @@ const Category = () => {
                                                             {item.qty}   <ClearOutlinedIcon className="text-[12px]" />
                                                         </Fab>
                                                         <Typography className="font-bold" fontFamily="Atomic Age">{item.name}</Typography>
-                                                        <Fab onClick={() => handleEdit(item._id, 0)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
+                                                        <Fab onClick={() => handleEdit(item.id, 0)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
                                                             <RemoveOutlinedIcon className="text-[12px]" />
                                                         </Fab>
-                                                        <Fab onClick={() => handleEdit(item._id, 1)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
+                                                        <Fab onClick={() => handleEdit(item.id, 1)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
                                                             <AddOutlinedIcon className="text-[12px]" />
                                                         </Fab>
                                                         <Typography className="font-bold" fontFamily="Atomic Age">Ksh{item.price}</Typography>
@@ -260,34 +268,26 @@ const Category = () => {
         </Box>;
     </>
 };
+export default Category
+// import React, { useState, useEffect } from 'react';
 
-const images = [
-    {
-        label: 'Chicken Wings',
-        imgPath:
-            '/img/c4.png',
-        quantity: 1,
-        price: 200,
-    },
+// function HelloMonday() {
+//     const [greeting, setGreeting] = useState('');
 
-    {
-        label: 'Red Bull',
-        imgPath:
-            '/img/d1.png', quantity: 1,
-        price: 180,
-    },
-    {
-        label: 'Ice Cream',
-        imgPath:
-            '/img/i7.png', quantity: 1,
-        price: 305,
-    },
-    {
-        label: 'Coca Col',
-        imgPath:
-            '/img/d8.png',
-        quantity: 2,
-        price: 220,
-    },
-];
-export default Category;
+//     useEffect(() => {
+//         const today = new Date();
+//         const weekOfMonth = Math.ceil(today.getDate() / 7);
+//         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+//         const month = months[today.getMonth()];
+
+//         if (today.getDay() === 1) {
+//             setGreeting(`Hello! Happy Monday! It's week ${weekOfMonth} of ${month}.`);
+//         } else {
+//             setGreeting('');
+//         }
+//     }, []);
+
+//     return <div>{greeting}</div>;
+// }
+
+// export default HelloMonday;
