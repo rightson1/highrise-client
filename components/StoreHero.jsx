@@ -81,7 +81,7 @@ const StoreHero = ({ data: store }) => {
                     md: '350px'
                 }
             }}>
-                Delivery
+                Phone Number
             </Typography>
 
             <Typography fontWeight="bold" sx={{
@@ -94,7 +94,7 @@ const StoreHero = ({ data: store }) => {
                     md: '350px'
                 }
             }}>
-                {store.details}
+                {store.phone}
             </Typography>
 
 

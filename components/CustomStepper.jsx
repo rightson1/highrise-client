@@ -46,7 +46,7 @@ const CustomeStepper = ({ items }) => {
 
             }}
         >
-            <Typography>{items[activeStep].name}</Typography>
+            <Typography>{items[activeStep]?.name}</Typography>
         </Paper>
         <AutoPlaySwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -68,8 +68,8 @@ const CustomeStepper = ({ items }) => {
                                 objectFit: 'contain'
                             }}
 
-                            src={step.image}
-                            alt={step.name}
+                            src={step?.image}
+                            alt={step?.name}
                         />
                     ) : null}
                 </div>

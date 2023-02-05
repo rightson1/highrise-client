@@ -22,11 +22,23 @@ import { Delete } from "@mui/icons-material";
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { Button, IconButton, Badge } from "@mui/material";
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import Edit from "../../../components/Edit";
+import { useAuth } from "../../../utils/authContext";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../../utils/firebase";
+import { toast, Toaster } from "react-hot-toast";
+import { useNewOrder } from "../../../utils/hooks/useOrder";
+import { LoadingButton } from "@mui/lab";
 
 
 const Category = () => {
     const [open, setOpen] = React.useState(null);
     const { colors, cart, setCart, animate, setAnimate } = useGlobalProvider()
+    const { mutate, isSuccess, isError } = useNewOrder();
+    const [drawer, setDrawer] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [food, setFood] = useState(null)
+    const { admin } = useAuth()
     const router = useRouter()
     const { store } = router.query
     const [storeCart, setStoreCart] = useState(null)
@@ -45,7 +57,55 @@ const Category = () => {
         setCart(cart.filter((item) => item.id !== store))
         setStoreCart(null)
     };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setLoading(true)
+        if (!storeCart.items.length > 0) {
+            toast.error('Cart is empty')
+            return
+        }
+        const location = e.target.location.value
+        const description = e.target.details.value
+        const { id: business, items } = storeCart;
+        const data = {
+            name: admin.displayName, email: admin.email, location, description, business, items, status: 'Pending', date: {
+                day: new Date().getDate(),
+                week: Math.ceil((new Date()).getDate() / 7),
+                month: new Date().getMonth(),
+            }
+        }
+        addDoc((collection(db, 'orders')), {
+            user: admin?.email,
+            business: storeCart.id,
+            status: 'Pending',
+        }).then(() => {
+            mutate(data)
+        }).catch((err) => {
+            toast.error('Error', {
+                timeout: 2000
+            })
+            setLoading(false)
+        })
 
+
+
+    }
+    useEffect(() => {
+        if (isError) {
+            toast.error('Error', {
+                timeout: 2000
+            })
+            setLoading(false)
+        }
+        if (isSuccess) {
+            toast.success('Order placed', {
+                timeout: 2000
+            })
+            setLoading(false)
+            router.push('/orders')
+        }
+
+    }, [isError, isSuccess])
 
     const handleEdit = (id, op) => {
         if (op === 0) {
@@ -115,6 +175,7 @@ const Category = () => {
 
     return <>
 
+        <Edit {...{ drawer, setDrawer, food }} />
         <Box className="bg-primary">
             <Title title="Cart" />
             <Paper elevation={1} sx={{
@@ -127,7 +188,7 @@ const Category = () => {
                     storeCart ? (
                         <Grid container spacing={0} sx={{ height: '100%' }} gap={2}>
 
-                            <Grid item
+                            <Grid item component="form" onSubmit={handleSubmit}
                                 xs={12} sm={12} md={7}
 
                                 sx={{
@@ -178,13 +239,17 @@ const Category = () => {
                                                     <Collapse in={open === index} timeout="auto" unmountOnExit>
 
                                                         <List component="div" disablePadding sx={{ pl: 4, py: 2 }} >
-                                                            <Typography color={colors.orange[500]} fontFamily='Atomic Age'>Options</Typography>
+                                                            <div className="flex gap-4 items-center">  <Typography color={colors.orange[500]} fontFamily='Atomic Age'>Options</Typography>  <Button size="small" onClick={() => {
+                                                                setDrawer(true)
+                                                                setFood(item)
+                                                            }}
+                                                                className="text-[14px] bg-red-100" sx={{ color: colors.orange[500], fontFamily: 'Roboto', }}>
+                                                                Edit
+                                                            </Button></div>
                                                             {
                                                                 item?.options?.map((option, index) => {
                                                                     return <ListItem className="flex  gap-4" key={index}>
-                                                                        <Fab size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
-                                                                            Edit
-                                                                        </Fab>
+
                                                                         <Typography className="font-bold" fontFamily="Atomic Age">{option.optionName}</Typography>
 
                                                                         <Typography className="font-bold" fontFamily="Atomic Age">KSH. {option.price ? option.price : 0}</Typography>
@@ -209,6 +274,7 @@ const Category = () => {
                                     <Typography className='text-xl ' color={colors.orange[500]} fontFamily="Atomic Age">Add Custom Details</Typography>
                                     <Box
                                         component="textarea"
+                                        name="details"
                                         sx={{
                                             width: "100%",
                                             outline: colors.teal[100],
@@ -222,7 +288,26 @@ const Category = () => {
                                         placeholder="Enter your elergies/or what you want to add to your order"
                                     />
                                 </Box>
-                                <Button className="w-full  text-white" sx={{ bgcolor: `${colors.orange[500]} !important` }}>Checkout</Button>
+                                <Box className="my-5  flex flex-col gap-2">
+                                    <Typography className='text-xl ' color={colors.orange[500]} fontFamily="Atomic Age">Add Location Details</Typography>
+                                    <Box
+                                        component="textarea"
+                                        name="location"
+                                        sx={{
+                                            width: "100%",
+                                            outline: colors.teal[100],
+                                            border: `2px solid ${colors.orange[500]}`,
+                                            p: 1,
+                                            '$:focus': {
+                                                outline: colors.teal[100],
+                                            }
+                                        }}
+                                        className="resize-none rounded-sm px-2 focus:border-teal-500 focus:border-2 "
+                                        required
+                                        placeholder="Specify Your Block Number, Floor, Room Number"
+                                    />
+                                </Box>
+                                <LoadingButton loading={loading} loadingIndicator="Loading…" type="submit" className="w-full  text-white" sx={{ bgcolor: `${colors.orange[500]} !important` }}>Checkout</LoadingButton>
                             </Grid>
                             <Grid item sx={{
                                 bgcolor: colors.bg,
@@ -256,7 +341,7 @@ const Category = () => {
             </Paper>
 
 
-
+            <Toaster />
         </Box>;
     </>
 };

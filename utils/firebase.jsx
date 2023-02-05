@@ -1,12 +1,17 @@
-
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage"
+import { getAuth } from "firebase/auth";
 const firebaseConfig = {
-    apiKey: "AIzaSyB6u50e7DwzDntcMyw4vv-FMfENpuPq16o",
-    authDomain: "highrise-foods.firebaseapp.com",
-    projectId: "highrise-foods",
-    storageBucket: "highrise-foods.appspot.com",
-    messagingSenderId: "744429174347",
-    appId: "1:744429174347:web:c1636d752ffaa39d8357ce"
+    apiKey: "AIzaSyDkSAqVBylMMp5yuaNTrusczyLvmNLsW0Y",
+    authDomain: "admins-f0142.firebaseapp.com",
+    projectId: "admins-f0142",
+    storageBucket: "admins-f0142.appspot.com",
+    messagingSenderId: "210520532864",
+    appId: "1:210520532864:web:dc61c6237f75434e32c365"
 };
 
 const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+export const auth = getAuth(app);

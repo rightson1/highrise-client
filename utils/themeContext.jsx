@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { baseUrl } from "./url";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { AuthProvider } from "./authContext";
 const ThemeContext = createContext();
 
 
@@ -75,10 +76,11 @@ export const ThemeProvider = ({ children }) => {
 
             <QueryClientProvider client={queryClient}>
                 <Theme theme={theme}>
-                    <CssBaseline />
-                    {children}
-
-                    <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+                    <AuthProvider>
+                        <CssBaseline />
+                        {children}
+                        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+                    </AuthProvider>
                 </Theme>
             </QueryClientProvider>
 

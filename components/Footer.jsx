@@ -2,8 +2,36 @@ import { Box, Button, Grid, List, ListItem, ListItemButton, Typography } from "@
 import React from "react";
 import { useGlobalProvider } from "../utils/themeContext";
 import TextField from '@mui/material/TextField';
-
+import emailjs from '@emailjs/browser';
+import { toast, Toaster } from "react-hot-toast";
+import { useRouter } from "next/router";
 const Footer = () => {
+    const [loading, setLoading] = React.useState(false);
+    const router = useRouter();
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        setLoading(true);
+        emailjs
+            .sendForm(
+                "service_0ady6pa",
+                "template_ver6v3e",
+                e.target,
+                "5kOjUoERLzqz_vj0O"
+            )
+            .then((res) => {
+                e.target.reset();
+                setLoading(false);
+                toast.success('Message sent, will get back to you as soon as possible')
+            })
+            .catch((e) => {
+                toast.error('Sorry, there was an error')
+
+                setLoading(false);
+
+            });
+        e.target.reset();
+
+    }
     const { colors } = useGlobalProvider()
     return <Grid
         sx={{
@@ -99,9 +127,10 @@ const Footer = () => {
                     <List
 
                     >
-                        {list.map((item, index) => {
+                        {pages.map((item, index) => {
                             return (
                                 <ListItemButton key={index}
+                                    onClick={() => router.push(item.link)}
                                     sx={{
                                         display: 'flex',
                                         flexDirection: 'column',
@@ -129,7 +158,7 @@ const Footer = () => {
 
                                         }}
 
-                                    >{item}</Typography>
+                                    >{item.name}</Typography>
                                 </ListItemButton>
                             )
                         })}
@@ -138,7 +167,7 @@ const Footer = () => {
                 </ListItem>
             </List>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} component="form" onSubmit={handleSubmit}>
             <List>
                 <ListItem
                     sx={{
@@ -176,6 +205,7 @@ const Footer = () => {
                     </Typography>
                     <List
 
+
                         sx={{
                             width: {
                                 xs: '82%',
@@ -191,7 +221,7 @@ const Footer = () => {
                             className="py-3 my-2"
 
                         >
-                            <input type="name" className="bg-transparent border-b-[rgba(255,255,255,.6)] border-b-[1px] w-[100%] outline-none" placeholder="Enter Your Name" />
+                            <input type="text" required name="name" className="bg-transparent border-b-[rgba(255,255,255,.6)] border-b-[1px] w-[100%] outline-none" placeholder="Enter Your Name" />
                         </ListItem>
                         <ListItem
                             disablePadding
@@ -199,7 +229,7 @@ const Footer = () => {
                             className="py-3 my-2"
 
                         >
-                            <input type="email" className="bg-transparent border-b-[rgba(255,255,255,.6)] border-b-[1px] w-[100%] outline-none" placeholder="Enter Your Email" />
+                            <input type="email" required name="email" className="bg-transparent border-b-[rgba(255,255,255,.6)] border-b-[1px] w-[100%] outline-none focus:bg-transparent" placeholder="Enter Your Email" />
                         </ListItem>
                         <ListItem
                             disablePadding
@@ -207,12 +237,12 @@ const Footer = () => {
                             className="my-2"
 
                         >
-                            <textarea className="bg-transparent resize-none border-b-[rgba(255,255,255,.6)] border-b-[1px] w-[100%] outline-none" placeholder="Enter Your Message" />
+                            <textarea className="bg-transparent resize-none border-b-[rgba(255,255,255,.6)] border-b-[1px] w-[100%] outline-none text-white" required name="message" placeholder="Enter Your Message" />
                         </ListItem>
 
 
                     </List>
-                    <Button sx={{
+                    <Button type="submit" sx={{
                         width: {
                             xs: '82%',
                             md: '90%'
@@ -220,12 +250,26 @@ const Footer = () => {
                         },
                         bgcolor: colors.red[500] + " !important",
                         color: colors.grey[100] + " !important",
-                    }}>Send</Button>
+                    }}>{loading ? 'Loading...' : 'Send'}</Button>
                 </ListItem>
             </List>
         </Grid>
+        <Toaster />
     </Grid>;
 };
 
 const list = ['Register Business', 'Contact us', 'About us', 'Developers']
+const pages = [
+    {
+        name: 'Register Business',
+        link: 'https://highrise-blond.vercel.app/'
+    }, {
+        name: 'About us',
+        link: '/about',
+
+    }, {
+        name: 'Developers',
+        link: 'https://rightson1.github.io/portfolio/'
+    }
+]
 export default Footer;

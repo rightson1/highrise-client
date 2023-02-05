@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
+import { useSingleItemQuery } from '../utils/hooks/useItems';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -40,7 +41,8 @@ function getStyles(name, optionType, theme) {
 }
 
 
-export default function Options({ food }) {
+export default function OptionEdit({ food: data, setDrawer }) {
+    const { data: food, isLoading } = useSingleItemQuery(data._id)
     const theme = useTheme();
     const { colors, cart, setCart } = useGlobalProvider()
     const [optionType, setOptionType] = React.useState([]);
@@ -74,7 +76,7 @@ export default function Options({ food }) {
             setTotal(total)
         }
 
-    }, [optionType])
+    }, [optionType, sizes])
 
 
 
@@ -87,21 +89,31 @@ export default function Options({ food }) {
             return;
 
         }
-        const exists = cart.find((item) => item.id === store)
-        if (exists) {
-            setCart(cart.map((item) => {
-                if (item.id === store) {
-                    return {
-                        ...item,
-                        items: [...item.items, { ...food, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
-                    }
-                } else {
-                    return item
+
+        const filtered = cart.map(item => {
+            if (item.id === store) {
+
+                return {
+                    ...item,
+                    items: item.items.filter(item => item.id !== data.id)
                 }
-            }))
-        } else {
-            setCart([...cart, { id: store, items: [{ ...food, options: optionType, sizes, price: total, id: 1, qty: 1 }] }])
-        }
+            } else {
+                return item
+            }
+        }).map((item) => {
+            if (item.id === store) {
+                return {
+                    ...item,
+                    items: [...item.items, { ...food, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
+                }
+            } else {
+                return item
+            }
+        })
+        setCart(filtered)
+        setDrawer(false)
+        toast.success('Edited successfully')
+
 
 
     }
@@ -112,7 +124,6 @@ export default function Options({ food }) {
         } = event;
         setOptionType(value);
     };
-    console.log(cart)
     return (
         <Box component="form" className='flex flex-col gap-3' onSubmit={handleSubmit}>
             {
@@ -196,33 +207,9 @@ export default function Options({ food }) {
                 <Box>Total</Box>
                 <Box>{total}</Box>
             </Box>
-            {itemExist ? <Button type='submit' sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }} >Item Exists,Add New Variation</Button>
-                : <Button type='submit' sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }} >Add To Cart</Button>
-            }
+            <Button type='submit' sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }} >Edit</Button>
+
             <Toaster />
         </Box>
     );
 }
-// setCart(cart.map((item) => {
-//     if (item.id === store) {
-//         return {
-//             ...item,
-//             items: item.items.map((item) => {
-//                 if (item.id === food.id) {
-//                     return {
-//                         ...item,
-//                         options: optionType,
-//                         sizes,
-//                         price: total,
-//                         qty: item.qty + 1
-//                     }
-//                 } else {
-//                     return item
-//                 }
-//             })
-
-//         }
-//     } else {
-//         return item
-//     }
-// }))

@@ -134,7 +134,7 @@ const RowContainer = ({ flag, filter }) => {
                             }}>
                                 <Button size="small" sx={{
                                     color: `${colors.grey[100]} !important`
-                                }}>ksh {1000}</Button>
+                                }}>ksh {item.price}</Button>
                                 <Button size="small"
                                     onClick={() => router.push(`/stores/${business?._id}`)}
                                     sx={{

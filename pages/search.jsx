@@ -22,7 +22,7 @@ const Stores = ({ flag }) => {
     useEffect(() => {
         if (data) {
             setFilteredData(data.filter((item) => {
-                return item.name.toLowerCase().includes(searchTerm.toLowerCase())
+                return item.name.toLowerCase().includes(searchTerm?.toLowerCase())
             }))
         }
     }, [searchTerm])
@@ -70,6 +70,7 @@ const Stores = ({ flag }) => {
                     id="combo-box-demo"
                     options={data}
                     getOptionLabel={(option) => option.name}
+                    onChange={(e, value) => setSearchTerm(value?.name)}
                     loading={isLoading}
                     sx={{ width: "110%" }}
                     renderInput={(params) => <TextField

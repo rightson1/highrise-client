@@ -76,20 +76,16 @@ function StoreNav() {
                                     fontSize: "1.8rem"
                                 }} />
                             </IconButton>
-                            <IconButton
-                                sx={{ display: { xs: 'none', md: 'block' } }}
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleOpenNavMenu}
-                                color="inherit"
+                            <Button className='font-bold text-xl'
+                                onClick={() => router.push(`/`)}
+                                sx={{
+                                    display: { xs: 'none', md: 'block' },
+                                    fontFamily: 'Atomic Age', color: colors.grey[200]
+                                }}
+
                             >
-                                <KeyboardBackspaceIcon sx={{
-                                    color: colors.grey[200],
-                                    fontSize: "1.8rem"
-                                }} />
-                            </IconButton>
+                                H-Foods
+                            </Button>
 
                         </Box>
 
@@ -110,6 +106,7 @@ function StoreNav() {
                         <Box sx={{ flexGrow: 0 }} className="flex flex-row-reverse">
 
                             <Button
+                                onClick={() => router.push(`/stores/${store}/carts`)}
                                 sx={{
                                     display: { md: 'block' },
                                     color: colors.grey[200]

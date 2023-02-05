@@ -10,19 +10,32 @@ import { useGlobalProvider } from "../utils/themeContext";
 import { useEffect, useState, useRef } from "react";
 import { useItemStoreQuery } from "../utils/hooks/useItems";
 import Skeleton from "@mui/material/Skeleton";
+import { useAuth } from "../utils/authContext";
+import { signInWithPopup, GoogleAuthProvider, } from "firebase/auth";
+import { toast, Toaster } from "react-hot-toast";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useRegister } from "../utils/hooks/useUser";
+import { auth, db } from "../utils/firebase";
 const Foods = ({ flag, filter }) => {
     const rowContainer = useRef();
+    const { admin, signInWithGoogle } = useAuth();
     const { colors } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0)
     const router = useRouter()
     const { store } = router.query;
     const { data } = useItemStoreQuery({ id: store, filter })
-
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]);
 
+    const handleClick = (id) => {
+        if (!admin) {
+            signInWithGoogle(id);
+        } else {
+            router.push(`/stores/${store}/item/${id}`)
+        }
 
+    }
     return <>
 
         <Box
@@ -86,7 +99,7 @@ const Foods = ({ flag, filter }) => {
                                 color: `${colors.grey[100]} !important`
                             }}>{item.prices}</Button>
                             <Button size="small" className="shadow-md hover:shadow-inner"
-                                onClick={() => router.push(`/stores/${store}/item/${item._id}`)}
+                                onClick={() => handleClick(item._id)}
                                 sx={{
                                     color: `${colors.grey[100]} !important`, backgroundColor: `${colors.red[100]} !important`
                                     , '&:hover': {
@@ -115,6 +128,7 @@ const Foods = ({ flag, filter }) => {
             })
 
             }
+            <Toaster />
         </Box>
     </>
 };

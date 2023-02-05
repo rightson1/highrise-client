@@ -42,7 +42,7 @@ const Category = () => {
                         flexDirection: 'column',
                         height: {
                             xs: undefined,
-                            md: "70vh"
+                            md: "auto"
                         }
 
                     }}
@@ -85,7 +85,7 @@ const Category = () => {
 
                             height: {
                                 xs: undefined,
-                                md: "70vh"
+                                md: "auto"
                             },
 
                         }}

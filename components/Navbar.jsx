@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,12 +14,14 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useGlobalProvider } from "../utils/themeContext";
 import { useRouter } from 'next/router'
+import { useAuth } from '../utils/authContext';
+
 const pages = ['Home', 'Contact Us', 'About Us', 'Register Business'];
 const nav = [{
     name: 'Home',
     link: '/'
 }, {
-    name: 'Search',
+    name: 'Stores',
     link: '/search'
 }, {
     name: 'orders',
@@ -29,26 +31,19 @@ const nav = [{
     link: '/about'
 }
 ]
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 function ResponsiveAppBar() {
     const router = useRouter()
+    const { logout, admin, signInWithGoogle } = useAuth();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const isOpen = Boolean(anchorEl);
+    const handleClick = (event) => setAnchorEl(event.currentTarget);
+    const handleClose = () => setAnchorEl(null);
     const { colors, setOpen } = useGlobalProvider()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
     const handleOpenNavMenu = (event) => {
         setOpen(true)
     };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
     return (
         <Box
             sx={{
@@ -127,13 +122,38 @@ function ResponsiveAppBar() {
                                 </IconButton>
 
                             </Box>
-                            <Button
-                                sx={{
-                                    display: { xs: 'none', md: 'block' },
-                                    bgcolor: colors.orange[500] + '!important',
-                                    color: colors.grey[200]
-                                }}
-                            >Get Started</Button>
+                            {
+                                admin ? <Button
+                                    onClick={() => logout()}
+                                    sx={{
+                                        display: { xs: 'none', md: 'block' },
+                                        bgcolor: colors.orange[500] + '!important',
+                                        color: colors.grey[200]
+                                    }}
+                                >Logout</Button> : <Button onClick={handleClick}
+                                    sx={{
+                                        display: { xs: 'none', md: 'block' },
+                                        bgcolor: colors.orange[500] + '!important',
+                                        color: colors.grey[200]
+                                    }}
+                                >Get Started</Button>
+                            }
+                            <Menu
+                                anchorEl={anchorEl}
+                                open={isOpen}
+                                onClose={handleClose}
+                                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                            >
+                                <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
+                                    onClick={() => signInWithGoogle()}
+                                >Login</MenuItem>
+                                <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
+                                    onClick={() => signInWithGoogle()}
+                                >Create Account</MenuItem>
+                                <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }} component="a" href="https://highrise-blond.vercel.app/"
+                                    tabIndex={-1} target="_blank" rel="noopener noreferrer"
+                                >Register Business</MenuItem>
+                            </Menu>
                         </Box>
                     </Toolbar>
                 </Container>

@@ -26,7 +26,7 @@ const Stores = ({ flag }) => {
     const [loading, setLoading] = useState(false)
     const handleClicked = () => {
         setLoading(true)
-        axios.patch(`${baseUrl}/api/items`, { search: searchTerm }).then((res) => {
+        axios.get(`${baseUrl}/api/items/search?search=${searchTerm}`).then((res) => {
             setFilteredData(res.data)
             setLoading(false)
         }).catch((e) => {
