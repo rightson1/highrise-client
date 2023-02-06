@@ -29,6 +29,7 @@ import { db } from "../../../utils/firebase";
 import { toast, Toaster } from "react-hot-toast";
 import { useNewOrder } from "../../../utils/hooks/useOrder";
 import { LoadingButton } from "@mui/lab";
+import { useSingleBusinessQuery } from "../../../utils/hooks/useBusiness";
 
 
 const Category = () => {
@@ -38,12 +39,11 @@ const Category = () => {
     const [drawer, setDrawer] = useState(false)
     const [loading, setLoading] = useState(false)
     const [food, setFood] = useState(null)
-    const { admin } = useAuth()
+    const { admin, user } = useAuth()
     const router = useRouter()
     const { store } = router.query
     const [storeCart, setStoreCart] = useState(null)
-
-
+    const { data: business } = useSingleBusinessQuery(store)
     const [total, setTotal] = useState(0)
     useEffect(() => {
         if (cart) {
@@ -57,6 +57,7 @@ const Category = () => {
         setCart(cart.filter((item) => item.id !== store))
         setStoreCart(null)
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true)
@@ -66,20 +67,33 @@ const Category = () => {
         }
         const location = e.target.location.value
         const description = e.target.details.value
-        const { id: business, items } = storeCart;
+        const { id, items } = storeCart;
+
         const data = {
-            name: admin.displayName, email: admin.email, location, description, business, items, status: 'Pending', date: {
+            name: admin.displayName, email: admin.email, location, total, description, business: id, items, status: 'Pending', date: {
+                day: new Date().getDate(),
+                week: Math.ceil((new Date()).getDate() / 7),
+                month: new Date().getMonth(),
+            },
+            payment: 'Pending'
+        }
+        const cartRef = collection(db, 'orders')
+        console.log(business)
+        addDoc(cartRef, {
+            user: admin?.email,
+            business: storeCart.id,
+            status: 'Pending',
+            name: business?.name,
+            read: 'false',
+            userName: admin?.displayName,
+            date: {
                 day: new Date().getDate(),
                 week: Math.ceil((new Date()).getDate() / 7),
                 month: new Date().getMonth(),
             }
-        }
-        addDoc((collection(db, 'orders')), {
-            user: admin?.email,
-            business: storeCart.id,
-            status: 'Pending',
-        }).then(() => {
-            mutate(data)
+        }).then((res) => {
+            const realId = res.id
+            mutate({ realId, ...data })
         }).catch((err) => {
             toast.error('Error', {
                 timeout: 2000
@@ -88,8 +102,9 @@ const Category = () => {
         })
 
 
-
     }
+
+
     useEffect(() => {
         if (isError) {
             toast.error('Error', {
@@ -102,7 +117,8 @@ const Category = () => {
                 timeout: 2000
             })
             setLoading(false)
-            router.push('/orders')
+            setCart(cart.filter((item) => item.id !== store))
+            router.push(`/stores/${store}/orders`)
         }
 
     }, [isError, isSuccess])
@@ -195,7 +211,7 @@ const Category = () => {
 
                                     height: {
                                         xs: undefined,
-                                        md: "70vh"
+                                        md: "auto"
                                     },
 
                                 }}
@@ -318,7 +334,7 @@ const Category = () => {
                                 flexDirection: 'column',
                                 height: {
                                     xs: undefined,
-                                    md: "70vh"
+                                    md: "auto"
                                 }
 
                             }}

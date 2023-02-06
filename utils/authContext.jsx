@@ -37,32 +37,7 @@ export const AuthProvider = ({ children }) => {
                             setUser(remoteUser);
                             localStorage.setItem('user', JSON.stringify(remoteUser))
                         } else {
-                            // const userRef = collection(db, "users")
-                            // console.log('no remote user')
-                            // addDoc(userRef, {
-                            //     email: user.email,
-                            //     displayName: user.displayName,
-                            //     photoURL: user.photoURL,
-                            //     uid: user.uid,
-                            //     role: 'user',
-                            //     createdAt: serverTimestamp(),
-                            // }).then((res) => {
-                            //     getDocs(q).then((res) => {
-                            //         const [remoteUser, ...rest] = res.docs.map((doc) => {
-                            //             return { id: doc.id, ...doc.data() }
-                            //         })
-                            //         if (remoteUser) {
-                            //             setUser(remoteUser);
-                            //             localStorage.setItem('user', JSON.stringify(remoteUser))
-                            //         }
-                            //     }).catch((e) => {
-                            //         console.log(e)
-                            //     })
 
-                            // }
-                            // ).catch((e) => {
-                            //     console.log(e)
-                            // })
                             setUser(null)
 
                         }

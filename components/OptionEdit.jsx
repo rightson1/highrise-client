@@ -82,7 +82,7 @@ export default function OptionEdit({ food: data, setDrawer }) {
 
 
     const handleSubmit = (e) => {
-
+        const { image, category, desc, status, ...others } = food
         e.preventDefault()
         if (food?.sizes.length > 0 && !sizes) {
             toast.error('Please select a size')
@@ -104,7 +104,7 @@ export default function OptionEdit({ food: data, setDrawer }) {
             if (item.id === store) {
                 return {
                     ...item,
-                    items: [...item.items, { ...food, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
+                    items: [...item.items, { ...others, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
                 }
             } else {
                 return item

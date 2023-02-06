@@ -74,13 +74,13 @@ export default function Options({ food }) {
             setTotal(total)
         }
 
-    }, [optionType])
+    }, [optionType, food, sizes])
 
 
 
 
     const handleSubmit = (e) => {
-
+        const { category, desc, status, ...others } = food
         e.preventDefault()
         if (food?.sizes.length > 0 && !sizes) {
             toast.error('Please select a size')
@@ -93,14 +93,14 @@ export default function Options({ food }) {
                 if (item.id === store) {
                     return {
                         ...item,
-                        items: [...item.items, { ...food, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
+                        items: [...item.items, { ...others, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
                     }
                 } else {
                     return item
                 }
             }))
         } else {
-            setCart([...cart, { id: store, items: [{ ...food, options: optionType, sizes, price: total, id: 1, qty: 1 }] }])
+            setCart([...cart, { id: store, items: [{ ...others, options: optionType, sizes, price: total, id: 1, qty: 1 }] }])
         }
 
 
