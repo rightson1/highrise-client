@@ -17,23 +17,18 @@ import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useRouter } from "next/router";
 import Title from "../../../components/Title";
+import { useOrders } from "../../../utils/orderContext";
+import { format } from "timeago.js";
+import { useSingleBusinessQuery } from "../../../utils/hooks/useBusiness";
+import Skeleton from "@mui/material/Skeleton";
 const Orders = () => {
     const router = useRouter()
-    function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
-    }
-
-    const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-        createData('Gingerbread', 356, 16.0, 49, 3.9),
-    ];
-
+    const { store } = router.query
+    const { orders } = useOrders();
     const { colors } = useGlobalProvider();
-    return <Grid className="bg-primary p-2 ">
-        <Title title="Orders" subtitle="All Your Order" />
+    const { data: business } = useSingleBusinessQuery(store)
+    return orders ? <Grid className="bg-primary p-2 ">
+        <Title title="Orders" subtitle={`All Your ${business?.name ? business.name : ''} Orders`} />
         <Grid item component={Paper} elevation={2} className="bg-primary p-1">
 
             <Box className="flex justify-between p-4 px-2 items-center">
@@ -42,35 +37,12 @@ const Orders = () => {
                 >
                     Orders
                 </Typography>
-                <FormControl sx={{
-                    m: 1, minWidth: 120,
-
-
-                }} size="small">
-                    <InputLabel id="demo-select-small">Month</InputLabel>
-                    <Select
-                        labelId="demo-select-small"
-                        id="demo-select-small"
-                        label="Age"
-                        className="no-border"
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Jan</MenuItem>
-                        <MenuItem value={20}>Feb</MenuItem>
-                        <MenuItem value={30}>March</MenuItem>
-                    </Select>
-                </FormControl>
 
             </Box>
             <Box className="w-full justify-between items-center flex ">
                 <p className="">
                 </p>
 
-                <Box className="items-center flex md:hidden  italic text-[10px]">
-                    <Typography>Scroll</Typography> <ArrowRightAltOutlinedIcon className=" text-2xl text-black" />
-                </Box>
             </Box>
             <TableContainer component={Paper} className="bg-primary " elevation={0}>
                 <Table sx={{ minWidth: 400 }} aria-label="simple table">
@@ -78,14 +50,16 @@ const Orders = () => {
                         <TableRow>
                             <TableCell>
                                 <Typography variant="h6">
-                                    Order
+                                    Created At
                                 </Typography>
                             </TableCell>
+
                             <TableCell>
                                 <Typography variant="h6">
                                     Status
                                 </Typography>
                             </TableCell>
+
                             <TableCell>
                                 <Typography variant="h6">
                                     View
@@ -97,10 +71,11 @@ const Orders = () => {
                                 </Typography>
                             </TableCell>
 
+
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {images.map((product, index) => (
+                        {orders.filter((order) => order.business === store).map((order, index) => (
                             <TableRow key={index}
 
                             >
@@ -111,7 +86,7 @@ const Orders = () => {
 
                                         }}
                                     >
-                                        {product.label}
+                                        {format(order.createdAt)}
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
@@ -119,16 +94,16 @@ const Orders = () => {
                                         sx={{
                                             pl: "4px",
                                             pr: "4px",
-                                            backgroundColor: product.status == 'Delivered' ? colors.teal[500] : colors.orange[300],
+                                            backgroundColor: order.status == 'Delivered' ? colors.teal[500] : colors.orange[300],
                                             color: "#fff",
                                         }}
                                         size="small"
-                                        label={product.status}
+                                        label={order.status}
                                     ></Chip>
                                 </TableCell>
                                 <TableCell>
                                     <Chip
-                                        onClick={() => router.push('/stores/123/order/1233')}
+                                        onClick={() => router.push(`/stores/${store}/order/${order._id}`)}
                                         sx={{
                                             px: 1,
                                             backgroundColor: colors.yellow[500],
@@ -139,7 +114,7 @@ const Orders = () => {
                                     ></Chip>
                                 </TableCell>
                                 <TableCell>
-                                    <Fab src="/avatar2.jpeg"
+                                    <Fab
                                         size="small"
                                         sx={{
                                             px: 1,
@@ -163,6 +138,7 @@ const Orders = () => {
                         <TableRow>
                             <TableCell></TableCell>
                             <TableCell colSpan={2}>Click View To Order details</TableCell>
+                            <TableCell>Scroll left</TableCell>
                         </TableRow>
                     </TableBody>
 
@@ -175,44 +151,10 @@ const Orders = () => {
 
 
         </Grid>
-    </Grid>
+    </Grid> :
+        <Skeleton width="100vw" height={500}>
+
+        </Skeleton>
 };
-const images = [
-    {
-        label: '#od102',
-        store: 'Kilimani',
-        imgPath:
-            '/img/c4.png',
-        quantity: 1,
-        price: 200,
-        status: 'Pending',
-    },
 
-    {
-        label: '#od102',
-        store: "Mesh",
-        imgPath:
-            '/img/d1.png', quantity: 1,
-        price: 180,
-        status: 'Delivered'
-    },
-    {
-        status: 'Pending',
-        label: '#od102',
-        store: "Rightson Eats",
-        imgPath:
-            '/img/i7.png', quantity: 1,
-        price: 305,
-    },
-    {
-        label: '#od102',
-        store: "Adum",
-        status: 'Pending',
-
-        imgPath:
-            '/img/d8.png',
-        quantity: 2,
-        price: 220,
-    },
-];
 export default Orders;

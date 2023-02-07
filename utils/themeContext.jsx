@@ -17,6 +17,7 @@ import { baseUrl } from "./url";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { AuthProvider } from "./authContext";
+import { OrderProvider } from "./orderContext";
 const ThemeContext = createContext();
 
 
@@ -44,8 +45,11 @@ export const ThemeProvider = ({ children }) => {
     const [queryClient] = useState(() => new QueryClient());
     const [cart, setCart] = useState([])
     const [animate, setAnimate] = useState([])
-
-
+    useEffect(() => {
+        if (localStorage.getItem('cart')) {
+            setCart(JSON.parse(localStorage.getItem('cart')))
+        } []
+    }, [])
 
     return (
         <ThemeContext.Provider
@@ -78,7 +82,9 @@ export const ThemeProvider = ({ children }) => {
                 <Theme theme={theme}>
                     <AuthProvider>
                         <CssBaseline />
-                        {children}
+                        <OrderProvider>
+                            {children}
+                        </OrderProvider>
                         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
                     </AuthProvider>
                 </Theme>

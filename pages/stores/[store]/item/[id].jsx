@@ -26,7 +26,7 @@ const Category = () => {
     return food ? (
         <Box className="bg-primary">
             <Title subtitle={food.name} />
-            <Paper elevation={1} sx={{
+            <Box elevation={1} sx={{
                 margin: "-5px 20px !important",
                 overflow: 'hidden',
                 p: '1rem',
@@ -99,10 +99,10 @@ const Category = () => {
                 </Grid>
 
 
-            </Paper>
+            </Box>
 
 
-            <More />
+            {/* <More /> */}
         </Box>
     ) : (
         <Box className="flex gap-3 flex-col">

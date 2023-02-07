@@ -17,6 +17,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useEffect } from 'react';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -52,11 +53,12 @@ export default function Options({ food }) {
     const [total, setTotal] = useState()
     const [itemExist, setItemExist] = useState(false)
 
+
     useEffect(() => {
         if (cart.length > 0) {
             const exists = cart.find((item) => item.id === store)
             if (exists) {
-                const item = exists.items.find((item) => item.id === id)
+                const item = exists.items.find((item) => item._id === id)
                 if (item) {
                     setItemExist(true)
                 }
@@ -89,7 +91,7 @@ export default function Options({ food }) {
         }
         const exists = cart.find((item) => item.id === store)
         if (exists) {
-            setCart(cart.map((item) => {
+            const items = cart.map((item) => {
                 if (item.id === store) {
                     return {
                         ...item,
@@ -98,9 +100,12 @@ export default function Options({ food }) {
                 } else {
                     return item
                 }
-            }))
+            })
+            setCart(items)
+            localStorage.setItem('cart', JSON.stringify(items))
         } else {
             setCart([...cart, { id: store, items: [{ ...others, options: optionType, sizes, price: total, id: 1, qty: 1 }] }])
+            localStorage.setItem('cart', JSON.stringify([...cart, { id: store, items: [{ ...others, options: optionType, sizes, price: total, id: 1, qty: 1 }] }]))
         }
 
 
@@ -196,9 +201,25 @@ export default function Options({ food }) {
                 <Box>Total</Box>
                 <Box>{total}</Box>
             </Box>
-            {itemExist ? <Button type='submit' sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }} >Item Exists,Add New Variation</Button>
-                : <Button type='submit' sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }} >Add To Cart</Button>
+            {itemExist ? <button
+                type='submit'
+                className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center rounded-2xl font-[700] text-[16px]'
+            >
+                Add New Variation
+                <ShoppingCartOutlinedIcon />
+
+            </button>
+                : <button
+                    type='submit'
+                    className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center rounded-2xl font-[700] text-[16px]'
+                >
+                    Add to cart
+                    <ShoppingCartOutlinedIcon />
+
+                </button>
             }
+
+
             <Toaster />
         </Box>
     );

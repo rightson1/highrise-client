@@ -111,6 +111,7 @@ export default function OptionEdit({ food: data, setDrawer }) {
             }
         })
         setCart(filtered)
+        localStorage.setItem('cart', JSON.stringify(filtered))
         setDrawer(false)
         toast.success('Edited successfully')
 

@@ -45,13 +45,27 @@ const Category = () => {
     const [storeCart, setStoreCart] = useState(null)
     const { data: business } = useSingleBusinessQuery(store)
     const [total, setTotal] = useState(0)
+    const [on, setOn] = useState(false)
+
+    useEffect(() => {
+        document.addEventListener('visibilitychange', function (e) {
+            setOn(!on)
+        });
+        return () => {
+            document.removeEventListener('visibilitychange', function (e) {
+                setOn(!on)
+            });
+        }
+    }, [])
+
+
     useEffect(() => {
         if (cart) {
             setStoreCart(cart.find((item) => item.id === store))
             setTotal(cart.find((item) => item.id === store)?.items.reduce((total, item) => { return total + item.price }, 0))
 
         }
-    }, [cart])
+    }, [cart, on, admin])
 
     const handleClear = () => {
         setCart(cart.filter((item) => item.id !== store))
@@ -118,6 +132,7 @@ const Category = () => {
             })
             setLoading(false)
             setCart(cart.filter((item) => item.id !== store))
+            localStorage.setItem('cart', JSON.stringify(cart.filter((item) => item.id !== store)))
             router.push(`/stores/${store}/orders`)
         }
 
@@ -126,7 +141,7 @@ const Category = () => {
     const handleEdit = (id, op) => {
         if (op === 0) {
             if (storeCart.items.find((item) => item.id === id).qty === 1) {
-                setCart(cart.map((item) => {
+                const items = cart.map((item) => {
                     if (item.id === store) {
                         return {
                             ...item,
@@ -134,16 +149,19 @@ const Category = () => {
                         }
                     }
                     return item
-                }))
+                })
+                setCart(items)
+                localStorage.setItem('cart', JSON.stringify(items))
                 if (storeCart.items.length === 1) {
                     handleClear()
+                    localStorage.setItem('cart', JSON.stringify(cart.filter((item) => item.id !== store)))
                 }
 
                 return;
 
 
             }
-            setCart(cart.map((item) => {
+            const items = cart.map((item) => {
                 if (item.id === store) {
                     return {
                         ...item,
@@ -161,9 +179,11 @@ const Category = () => {
                     }
                 }
                 return item
-            }))
+            })
+            setCart(items)
+            localStorage.setItem('cart', JSON.stringify(items))
         } else if (op === 1) {
-            setCart(cart.map((item) => {
+            const items = cart.map((item) => {
                 if (item.id === store) {
                     console.log(item)
                     return {
@@ -184,7 +204,9 @@ const Category = () => {
 
                 }
                 return item
-            }))
+            })
+            setCart(items)
+            localStorage.setItem('cart', JSON.stringify(items))
         }
 
     }
