@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
+
         const localUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
         const unsub = onAuthStateChanged(auth, (user) => {
             if (user) {

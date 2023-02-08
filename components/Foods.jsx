@@ -23,7 +23,7 @@ const Foods = ({ flag, filter }) => {
     const [scrollValue, setScrollValue] = useState(0)
     const router = useRouter()
     const { store } = router.query;
-    const { data } = useItemStoreQuery({ id: store, filter })
+    const { data, isLoading } = useItemStoreQuery({ id: store, filter })
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]);
@@ -40,23 +40,26 @@ const Foods = ({ flag, filter }) => {
 
         <Box
             ref={rowContainer}
-            className={`w-full flex gap-3  my-5 py-2 scroll-smooth ${!flag
+            className={`w-full flex gap-3  my-5 py-2 scroll-smooth min-h-[200px] ${!flag
                 ? "overflow-x-scroll scrollbar-none  "
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}
         >
-            {data ? data.map((item, index) => (
+            {data?.length > 0 ? data.map((item, index) => (
 
                 <Box
                     key={index}
 
 
                 >
-                    <Card className="md:max-w-[300px] min-w-[250px] 
-         bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-sm flex flex-col items-center justify-evenly relative" >
+                    <Card
+                        onClick={() => router.push(`/stores/${item.business}/item/${item._id}`)}
+                        className="md:max-w-[300px] min-w-[250px]  h-[250px]
+         bg-cardOverlay rounded-lg py-2 px-4  cursor-pointer  hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+
                         <CardMedia
                             component="img"
-                            alt="green iguana"
+                            alt={item.name}
                             height="100"
                             sx={{
                                 maxHeight: '140px !important',
@@ -80,7 +83,6 @@ const Foods = ({ flag, filter }) => {
                             }}>
                                 {item.name}
                             </Typography>
-                            <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" />
                             <Typography gutterBottom sx={{
                                 fontFamily: 'Nunito',
                                 fontWeight: 700,
@@ -89,30 +91,16 @@ const Foods = ({ flag, filter }) => {
                             }}>
                                 {item.description}
                             </Typography>
+                            <Typography sx={{ color: colors.red[500] }}>ksh {item.price ? item.price :
+                                item?.sizes?.length > 0 && item?.sizes?.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>
+                            <Typography></Typography>
                         </CardContent>
-                        <CardActions sx={{
-                            display: 'flex',
-                            justifyContent: "space-between",
-                            width: '100%'
-                        }}>
-                            <Button size="small" sx={{
-                                color: `${colors.grey[100]} !important`
-                            }}>{item.prices}</Button>
-                            <Button size="small" className="shadow-md hover:shadow-inner"
-                                onClick={() => handleClick(item._id)}
-                                sx={{
-                                    color: `${colors.grey[100]} !important`, backgroundColor: `${colors.red[100]} !important`
-                                    , '&:hover': {
-                                        backgroundColor: `${colors.red[200]} !important`
-                                    }
 
-                                }}>Add To Cart</Button>
-                        </CardActions>
                     </Card>
 
                 </Box>
 
-            )) : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
+            )) : isLoading ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
 
                 return (
                     <Box
@@ -125,7 +113,18 @@ const Foods = ({ flag, filter }) => {
                         <Skeleton variant="text" width={210} />
                     </Box>
                 )
-            })
+            }) :
+                <Box
+                    className="md:max-w-[300px] min-w-[250px]
+            bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                    <Typography variant="h5" sx={{
+                        fontFamily: 'Nunito',
+                        fontWeight: 700,
+                        fontSize: '1.2rem',
+                    }}>
+                        No items found
+                    </Typography>
+                </Box>
 
             }
             <Toaster />

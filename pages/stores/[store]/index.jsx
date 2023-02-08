@@ -31,7 +31,7 @@ export default function Store() {
 
     useEffect(() => {
         if (categories) {
-            setFilter(categories[0].name)
+            setFilter(categories[0]?.name)
         }
     }, [categories])
     useEffect(() => {

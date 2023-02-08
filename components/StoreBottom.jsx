@@ -8,7 +8,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import { Badge } from '@mui/material';
-import { ReceiptLongOutlined } from '@mui/icons-material';
+import ReceiptLongOutlined from '@mui/icons-material/ReceiptLongOutlined';
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';

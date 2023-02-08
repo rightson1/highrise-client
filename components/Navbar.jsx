@@ -16,7 +16,7 @@ import { useGlobalProvider } from "../utils/themeContext";
 import { useRouter } from 'next/router'
 import { useAuth } from '../utils/authContext';
 
-const pages = ['Home', 'Contact Us', 'About Us', 'Register Business'];
+
 const nav = [{
     name: 'Home',
     link: '/'

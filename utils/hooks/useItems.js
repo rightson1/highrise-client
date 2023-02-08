@@ -12,7 +12,7 @@ export const useItemQuery = (category) => {
     });
 };
 
-const getSingleItem = (id) => axios.get(`${baseUrl}/api/items/${id}`);
+const getSingleItem = (id) => axios.get(`${baseUrl}/api/items/single/${id}`);
 export const useSingleItemQuery = (id) =>
     useQuery(["items", id], () => getSingleItem(id), {
         select: (data) => data.data,

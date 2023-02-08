@@ -10,10 +10,12 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Badge } from '@mui/material';
 import { ReceiptLongOutlined } from '@mui/icons-material';
 import { useRouter } from 'next/router'
+import { useOrders } from '../utils/orderContext';
 export default function StoreBottom() {
     const { colors } = useGlobalProvider()
     const isMobileSmall = useMediaQuery("(max-width: 800px)")
     const [value, setValue] = React.useState('recents');
+    const { orders } = useOrders();
     const router = useRouter();
 
     const handleChange = (event, newValue) => {
@@ -45,7 +47,8 @@ export default function StoreBottom() {
             >
                 <BottomNavigationAction onClick={() => router.push(`/`)} label="Home" icon={<HomeOutlinedIcon />} />
                 <BottomNavigationAction onClick={() => router.push(`/search`)} label="Stores" icon={<StorefrontOutlinedIcon />} />
-                <BottomNavigationAction label="Orders" onClick={() => router.push(`/orders`)} icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
+                <BottomNavigationAction onClick={() => router.push(`/itemSearch`)} label="Search" icon={<SearchOutlinedIcon />} />
+                <BottomNavigationAction label="Orders" onClick={() => router.push(`/orders`)} icon={<Badge badgeContent={orders.length} ><ReceiptLongOutlined /></Badge>} />
 
             </BottomNavigation>
         </Paper>)

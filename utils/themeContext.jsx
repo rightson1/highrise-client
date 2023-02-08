@@ -85,7 +85,7 @@ export const ThemeProvider = ({ children }) => {
                         <OrderProvider>
                             {children}
                         </OrderProvider>
-                        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+                        <ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
                     </AuthProvider>
                 </Theme>
             </QueryClientProvider>

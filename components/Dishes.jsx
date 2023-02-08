@@ -52,7 +52,7 @@ const Dishes = ({ setFilter, filter, categories: data }) => {
                 <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto">
                     Our  Categories
                 </p>
-                <div className="hidden md:flex items-center gap-3">
+                <div className="flex items-center gap-3">
 
                     <motion.div
                         onClick={() => setScrollValue(-200)}
@@ -76,11 +76,9 @@ const Dishes = ({ setFilter, filter, categories: data }) => {
                     </motion.div>
 
                 </div>
-                <Box className="items-center flex md:hidden  italic text-[10px]">
-                    <ArrowRightAltOutlinedIcon className=" text-2xl text-orange-400" />
-                </Box>
+
             </Box>
-            <motion.div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none px-3"
+            <motion.div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scroll-smooth scrollbar-none px-3"
                 layout="position"
                 ref={rowRef}
             >

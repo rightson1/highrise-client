@@ -31,7 +31,7 @@ const RowContainer = ({ flag, filter }) => {
             <Typography sx={{ visibility: 'hidden' }} className="invisible">
                 Our  Categories
             </Typography>
-            <div className="hidden md:flex items-center gap-3">
+            <div className="flex items-center gap-3">
 
                 <motion.div
                     onClick={() => setScrollValue(-200)}
@@ -55,12 +55,13 @@ const RowContainer = ({ flag, filter }) => {
                 </motion.div>
 
             </div>
-            <ArrowRightAltOutlinedIcon className=" flex md:hidden text-2xl text-orange-400" />
+
+
         </Box>
         <div
             ref={rowContainer}
 
-            className={`w-full flex gap-3  my-5 py-2 scroll-smooth px-3  ${!flag
+            className={`w-full flex gap-3  my-5 py-2 scroll-smooth px-3 min-h-[200px] ${!flag
                 ? "overflow-x-scroll scrollbar-none "
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}
@@ -75,12 +76,14 @@ const RowContainer = ({ flag, filter }) => {
 
 
                     >
-                        <Card className="md:max-w-[300px] min-w-[250px] 
-         bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                        <Card
+                            onClick={() => router.push(`/stores/${item.business}/item/${item._id}`)}
+                            className="md:max-w-[300px] min-w-[250px]  h-[250px]
+         bg-cardOverlay rounded-lg py-2 px-4  cursor-pointer  hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
 
                             <CardMedia
                                 component="img"
-                                alt="green iguana"
+                                alt={item.name}
                                 height="100"
                                 sx={{
                                     maxHeight: '140px !important',
@@ -102,54 +105,27 @@ const RowContainer = ({ flag, filter }) => {
                                     fontWeight: 700,
                                     fontSize: '1.2rem',
                                 }}>
-                                    {business?.name}
+                                    {item.name}
                                 </Typography>
-                                {/* <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" /> */}
-                                {/* <Typography gutterBottom sx={{
-                                    fontFamily: 'Nunito',
-                                    fontWeight: 700,
-                                    fontSize: '.8rem',
-                                    textAlign: 'center'
-                                }}>
-                                    Close To {business?.blocks.map((block, index) => <Typography sx={{
-                                        fontFamily: 'Atomic Age',
-                                        fontWeight: 700,
-                                        fontSize: '.8rem',
-                                        textAlign: 'center'
-                                    }} component="span" key={index}>{block} , </Typography>)}
-                                </Typography> */}
                                 <Typography gutterBottom sx={{
                                     fontFamily: 'Nunito',
                                     fontWeight: 700,
                                     fontSize: '.8rem',
                                     textAlign: 'center'
                                 }}>
-                                    Delivery {business?.delivery ? 'Free' : 'Not Available'}
+                                    Delivery {business?.delivery ? 'Free' : 'Not Available'}-{business?.name}
                                 </Typography>
+                                <Typography sx={{ color: colors.red[500] }}>ksh {item.price ? item.price :
+                                    item?.sizes?.length > 0 && item?.sizes?.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>
+                                <Typography></Typography>
                             </CardContent>
-                            <CardActions sx={{
-                                display: 'flex',
-                                justifyContent: "space-between",
-                                width: '100%'
-                            }}>
-                                <Button size="small" sx={{
-                                    color: `${colors.grey[100]} !important`
-                                }}>ksh {item.price}</Button>
-                                <Button size="small"
-                                    onClick={() => router.push(`/stores/${business?._id}`)}
-                                    sx={{
-                                        color: `${colors.grey[100]} !important`,
-                                        backgroundColor: `${colors.red[100]} !important`,
-                                        border: `2px solid ${colors.red[400]} !important`,
 
-                                    }}>View Store</Button>
-                            </CardActions>
                         </Card>
 
                     </Box>
 
                 )
-            }) : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
+            }) : isLoading ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
 
                 return (
                     <Box
@@ -162,9 +138,20 @@ const RowContainer = ({ flag, filter }) => {
                         <Skeleton variant="text" width={210} />
                     </Box>
                 )
-            })
-            }
+            }) :
+                <Box
+                    className="md:max-w-[300px] min-w-[250px]
+            bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                    <Typography variant="h5" sx={{
+                        fontFamily: 'Nunito',
+                        fontWeight: 700,
+                        fontSize: '1.2rem',
+                    }}>
+                        No items found
+                    </Typography>
+                </Box>
 
+            }
         </div>
     </>
 };

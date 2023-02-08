@@ -20,10 +20,13 @@ const Stores = ({ flag }) => {
     const [searchTerm, setSearchTerm] = useState('')
     const router = useRouter()
     useEffect(() => {
-        if (data) {
+        if (data && searchTerm) {
             setFilteredData(data.filter((item) => {
                 return item.name.toLowerCase().includes(searchTerm?.toLowerCase())
             }))
+        }
+        else {
+            setFilteredData(data)
         }
     }, [searchTerm])
 
@@ -117,17 +120,18 @@ const Stores = ({ flag }) => {
 
 
                 >
-                    <Card className="md:max-w-[300px] min-w-[250px] 
-         bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                    <Card
+                        onClick={() => router.push(`/stores/${item._id}`)}
+                        className="md:max-w-[300px] min-w-[250px]  h-[250px]
+         bg-cardOverlay rounded-lg py-2 px-4 cursor-pointer   hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+
                         <CardMedia
                             component="img"
-                            alt="green iguana"
+                            alt={item.name}
                             height="100"
-                            width="100%"
                             sx={{
                                 maxHeight: '140px !important',
-                                width: '100% !important',
-                                objectFit: 'cover !important',
+                                objectFit: 'contain !important',
                                 p: 1,
 
                             }}
@@ -147,32 +151,12 @@ const Stores = ({ flag }) => {
                             }}>
                                 {item.name}
                             </Typography>
-                            <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" />
-                            <Typography gutterBottom sx={{
-                                fontFamily: 'Nunito',
-                                fontWeight: 700,
-                                fontSize: '.8rem',
-                                textAlign: 'center'
-                            }}>
-                                {item.desc}
-                            </Typography>
-                        </CardContent>
-                        <CardActions sx={{
-                            display: 'flex',
-                            justifyContent: "space-between",
-                            width: '100%'
-                        }}>
                             <Button size="small" sx={{
                                 color: `${colors.grey[100]} !important`
                             }}>{item.open ? 'Open' : 'Closed'}</Button>
-                            <Button
-                                onClick={() => router.push(`/stores/${item._id}`)}
-                                size="small" sx={{
-                                    color: `${colors.grey[100]} !important`,
-                                    backgroundColor: `${colors.red[100]} !important`,
 
-                                }}>View Store</Button>
-                        </CardActions>
+                        </CardContent>
+
                     </Card>
 
                 </Box>

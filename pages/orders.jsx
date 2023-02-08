@@ -27,7 +27,7 @@ const Orders = () => {
     const { data: businesses } = useBusinessQuery();
     return orders ? <Grid className="bg-primary p-2 ">
         <Title title="Orders" subtitle="All Your Order" />
-        <Grid item component={Paper} elevation={2} className="bg-primary p-1">
+        <Grid item component={Paper} elevation={2} className="bg-primary p-1 pt-3 pb-10">
 
             <Box className="flex justify-between p-4 px-2 items-center">
                 <Typography variant="h3" className="text-grey"

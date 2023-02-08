@@ -131,74 +131,60 @@ const Stores = ({ flag }) => {
                         </Box>
                     )
                 })
-                ) : filteredData?.map((item, index) => (
+                ) : filteredData?.map((item, index) => {
 
-                    <Box
-                        key={index}
+                    return (
+
+                        <Box
+                            key={index}
 
 
-                    >
-                        <Card className="md:max-w-[300px] min-w-[250px] 
-         bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
-                            <CardMedia
-                                component="img"
-                                alt="green iguana"
-                                height="100"
-                                width="100%"
-                                sx={{
-                                    maxHeight: '140px !important',
-                                    width: '100% !important',
-                                    objectFit: 'cover !important',
-                                    p: 1,
+                        >
+                            <Card
+                                onClick={() => router.push(`/stores/${item.business}/item/${item._id}`)}
+                                className="md:max-w-[300px] min-w-[250px]  h-[250px]
+         bg-cardOverlay rounded-lg py-2 px-4  cursor-pointer  hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
 
-                                }}
+                                <CardMedia
+                                    component="img"
+                                    alt={item.name}
+                                    height="100"
+                                    sx={{
+                                        maxHeight: '140px !important',
+                                        objectFit: 'contain !important',
+                                        p: 1,
 
-                                image={item.image}
-                            />
-                            <CardContent sx={{
-                                display: 'flex',
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                flexDirection: 'column'
-                            }}>
-                                <Typography gutterBottom variant="h5" component="div" sx={{
-                                    fontFamily: 'Nunito',
-                                    fontWeight: 700,
-                                    fontSize: '1.2rem',
+                                    }}
+
+                                    image={item.image}
+                                />
+                                <CardContent sx={{
+                                    display: 'flex',
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    flexDirection: 'column'
                                 }}>
-                                    {item.name}
-                                </Typography>
-                                <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" />
-                                <Typography gutterBottom sx={{
-                                    fontFamily: 'Nunito',
-                                    fontWeight: 700,
-                                    fontSize: '.8rem',
-                                    textAlign: 'center'
-                                }}>
-                                    {item.desc}
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{
-                                display: 'flex',
-                                justifyContent: "space-between",
-                                width: '100%'
-                            }}>
-                                <Button size="small" sx={{
-                                    color: `${colors.grey[100]} !important`
-                                }}>Ksh {item.price}</Button>
-                                <Button
-                                    onClick={() => router.push(`/stores/${item.business}`)}
-                                    size="small" sx={{
-                                        color: `${colors.grey[100]} !important`,
-                                        backgroundColor: `${colors.red[100]} !important`,
+                                    <Typography gutterBottom variant="h5" component="div" sx={{
+                                        fontFamily: 'Nunito',
+                                        fontWeight: 700,
+                                        fontSize: '1.2rem',
+                                    }}>
+                                        {item.name}
+                                    </Typography>
+                                    <Typography sx={{ color: colors.red[500] }}>ksh {item.price ? item.price :
+                                        item.sizes.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>
+                                    <Typography></Typography>
+                                </CardContent>
 
-                                    }}>View Store</Button>
-                            </CardActions>
-                        </Card>
+                            </Card>
 
-                    </Box>
 
-                ))
+                        </Box>
+
+                    )
+                }
+
+                )
             }
 
 
