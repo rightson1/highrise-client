@@ -7,7 +7,51 @@ import { Button, InputBase } from "@mui/material";
 import { useGlobalProvider } from "../utils/themeContext";
 const StoreHero = ({ data: store }) => {
     const { colors } = useGlobalProvider()
-    return <Grid container rowGap={5} className="">
+    return <Grid container rowGap={5} className="" direction={
+        {
+            xs: "column-reverse",
+            md: "row"
+        }
+    }>
+
+        <Grid xs={12} md={6} item sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: 2,
+            alignItems: "center",
+            my: {
+                xs: 2,
+                md: 5
+            }
+        }}>
+            <Typography sx={{
+                fontFamily: "Quicksand",
+                fontWeight: 700,
+
+                fontSize: "2rem",
+            }}  >{store.name}</Typography>
+
+            <Typography fontWeight="bold" sx={{
+                fontFamily: 'Nunito',
+                alignSelf: "center",
+                textAlign: "center",
+                maxWidth: {
+                    xs: '80%',
+                    md: '350px'
+                }
+            }}>
+                {store.desc},We are always open by {store.opening} to {store.closing},we are located next to {store?.blocks?.map((block, index) => <span className="px-1" key={index}>{block}</span>)}
+                {store.delivery ? 'and we deliver to your door step' : 'and we dont deliver'},{store.details}
+            </Typography>
+
+
+
+
+
+        </Grid>
         <Grid xs={0} md={6} item sx={{
             position: "relative",
             width: "100%",
@@ -15,9 +59,6 @@ const StoreHero = ({ data: store }) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            display: {
-                xs: "none", md: "flex"
-            }
 
 
         }}>
@@ -41,91 +82,7 @@ const StoreHero = ({ data: store }) => {
                 }}
 
             />
-            <img src='/fork.png' alt="" className="max-h-[300px] max-w-[90%] z-[4] rounded-full" />
-
-        </Grid>
-        <Grid xs={12} md={6} item sx={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: 2,
-            alignItems: "center",
-        }}>
-            <Typography sx={{
-                fontFamily: "Quicksand",
-                fontWeight: 700,
-
-                fontSize: "2rem",
-            }}  >{store.name}</Typography>
-
-            <Typography fontWeight="bold" sx={{
-                fontFamily: 'Nunito',
-                alignSelf: "center",
-                textAlign: "center",
-                maxWidth: {
-                    xs: '80%',
-                    md: '350px'
-                }
-            }}>
-                {store.desc}
-            </Typography>
-            <Typography fontWeight="bold" sx={{
-                fontFamily: 'Atomic Age',
-                alignSelf: "center",
-                textAlign: "center",
-
-                maxWidth: {
-                    xs: '80%',
-                    md: '350px'
-                }
-            }}>
-                Phone Number
-            </Typography>
-
-            <Typography fontWeight="bold" sx={{
-                fontFamily: 'Nunito',
-                alignSelf: "center",
-                textAlign: "center",
-
-                maxWidth: {
-                    xs: '80%',
-                    md: '350px'
-                }
-            }}>
-                {store.phone}
-            </Typography>
-
-
-
-
-            <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "
-                sx={{
-                    width: {
-                        xs: '90%',
-                        sm: '90%',
-                        md: '70%'
-                    }
-                }}
-            >
-                <Search /><InputBase placeholder="What are you looking for"
-                    sx={{
-                        width: '100%',
-                    }}
-                />
-                <Button
-                    sx={{
-                        bgcolor: colors.find + '!important',
-
-                    }}
-                ><ArrowRightAltIcon sx={{
-                    color: colors.grey[100],
-                    width: '5rem'
-                }} /></Button>
-
-            </Box>
-
+            <img src='/img/plate.svg' alt="" className="max-h-[300px] max-w-[90%] z-[4] rounded-full" />
 
         </Grid>
     </Grid>;

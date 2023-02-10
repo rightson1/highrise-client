@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import "../styles/client.css";
+
 import Head from "next/head";
 import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '../utils/createCache';
@@ -18,6 +19,7 @@ import LabelBottomNavigation from "../components/Bottom";
 import TemporaryDrawer from "../components/SideDrawer";
 import StoreBottom from "../components/StoreBottom";
 import StoreFab from "../components/StoreFab";
+
 
 function MyApp(props) {
 

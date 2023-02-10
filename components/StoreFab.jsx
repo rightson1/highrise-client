@@ -29,7 +29,6 @@ export default function StoreFab() {
     const { data: business } = useSingleBusinessQuery(store)
     const actions = [
         { icon: <HomeOutlinedIcon />, name: business?.name, link: `/stores/${store}` },
-        { icon: <FastfoodOutlinedIcon />, name: 'About Them', link: `/stores/${store}/about` },
         { icon: <ShoppingCartOutlinedIcon />, name: 'Cart', link: `/stores/${store}/carts` },
         { icon: <ReceiptLongOutlined />, name: 'Orders', link: `/stores/${store}/orders` },
 

@@ -24,7 +24,8 @@ const Stores = ({ flag }) => {
     const [completed, setCompleted] = useState(false)
     const [searchTerm, setSearchTerm] = useState(null);
     const [loading, setLoading] = useState(false)
-    const handleClicked = () => {
+    const { data: businesses } = useBusinessQuery();
+    const handleClicked = (value) => {
         setLoading(true)
         axios.get(`${baseUrl}/api/items/search?search=${searchTerm}`).then((res) => {
             setFilteredData(res.data)
@@ -38,28 +39,7 @@ const Stores = ({ flag }) => {
     return <div className="bg-primary">
         <Title title="Search" subtitle="Search For  Foods " />
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
-            <Box className="flex justify-center align-center gap-5" sx={{ alignItems: 'center' }}>
-                <Avatar src="/plate.png" />
 
-                <Typography sx={{
-                    fontFamily: "Roboto",
-                    fontWeight: 500,
-                    fontSize: "1.5rem",
-                    mt: 1,
-                }}  >Foods</Typography>
-            </Box>
-            <Typography fontWeight="bold" sx={{
-                fontFamily: 'Nunito',
-                alignSelf: "center",
-                textAlign: "center",
-
-                maxWidth: {
-                    xs: '90%',
-
-                }
-            }}>
-                Search for food items
-            </Typography>
             <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "
                 sx={{
                     width: {
@@ -132,6 +112,7 @@ const Stores = ({ flag }) => {
                     )
                 })
                 ) : filteredData?.map((item, index) => {
+                    const business = businesses?.find(business => business._id === item.business)
 
                     return (
 
@@ -171,8 +152,16 @@ const Stores = ({ flag }) => {
                                     }}>
                                         {item.name}
                                     </Typography>
+                                    <Typography gutterBottom sx={{
+                                        fontFamily: 'Nunito',
+                                        fontWeight: 700,
+                                        fontSize: '.8rem',
+                                        textAlign: 'center'
+                                    }}>
+                                        Delivery {business?.delivery ? 'Free' : 'Not Available'}-{business?.name}
+                                    </Typography>
                                     <Typography sx={{ color: colors.red[500] }}>ksh {item.price ? item.price :
-                                        item.sizes.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>
+                                        item?.sizes?.length > 0 && item?.sizes?.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>
                                     <Typography></Typography>
                                 </CardContent>
 

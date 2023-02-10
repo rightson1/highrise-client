@@ -39,8 +39,6 @@ function ResponsiveAppBar() {
     const handleClick = (event) => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
     const { colors, setOpen } = useGlobalProvider()
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
     const handleOpenNavMenu = (event) => {
         setOpen(true)
     };

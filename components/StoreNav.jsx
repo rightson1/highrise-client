@@ -14,29 +14,16 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Badge } from '@mui/material';
 import { useRouter } from 'next/router'
+import { useSingleBusinessQuery } from "../utils/hooks/useBusiness";
+import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
 function StoreNav() {
     const { colors, setOpen, cart } = useGlobalProvider()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const router = useRouter()
     const { store } = router.query
+    const { data: business } = useSingleBusinessQuery(store)
     const cartLength = cart.find(item => item?.id === store)?.items?.length
-    const handleOpenNavMenu = (event) => {
-        setOpen(true)
-    };
-    const navItems = [
-        {
-            name: "Home",
-            link: `/stores/${store}`
-        },
-        {
-            name: "About Us",
-            link: `/stores/${store}/about`
-
-        },
-
-
-    ]
 
     return (
         <Box
@@ -60,51 +47,44 @@ function StoreNav() {
             }} className="shadow-md mb-[2px]">
 
                 <Container maxWidth="xl">
-                    <Toolbar disableGutters>
+                    <Toolbar disableGutters className='flex justify-between'>
                         <Box sx={{ display: { xs: 'flex' } }}>
-                            <IconButton
-                                sx={{ display: { xs: 'block', md: 'none' } }}
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleOpenNavMenu}
-                                color="inherit"
-                            >
-                                <MenuIcon sx={{
-                                    color: colors.grey[200],
-                                    fontSize: "1.8rem"
-                                }} />
-                            </IconButton>
+
                             <Button className='font-bold text-xl'
-                                onClick={() => router.push(`/`)}
+                                onClick={() => router.push(`/stores/${store}`)}
                                 sx={{
-                                    display: { xs: 'none', md: 'block' },
+
                                     fontFamily: 'Atomic Age', color: colors.grey[200]
                                 }}
 
                             >
-                                H-Foods
+                                {business?.name}
                             </Button>
 
                         </Box>
 
 
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
-                            {navItems.map((page, index) => (
-                                <Button
-                                    key={index}
-                                    onClick={() => router.push(`${page.link}`)}
-                                    sx={{ my: 2, color: colors.grey[600], display: 'block' }}
-                                >
-                                    {page.name}
-                                </Button>
-                            ))}
-                        </Box>
 
-                        <Box sx={{ flexGrow: 0 }} className="flex flex-row-reverse">
+                        <Box sx={{ flexGrow: 0 }} className="flex ">
 
+                            <Button className='flex'
+                                onClick={() => router.push(`/stores/${store}/carts`)}
+                                sx={{
+                                    display: { md: 'block' },
+                                    color: colors.grey[200]
+                                }}
+                            >
+                                <DeliveryDiningIcon sx={{
+                                    display: {
+                                        xs: 'none',
+                                        md: 'block'
+                                    }
+                                }} />
+                                {/* <Typography className='capitalize '>{business?.delivery ? 'Free' : 'Cheap'}</Typography> */}
+                                <Typography className='capitalize '>{business?.phone}</Typography>
+
+                            </Button>
                             <Button
                                 onClick={() => router.push(`/stores/${store}/carts`)}
                                 sx={{

@@ -34,30 +34,7 @@ const Stores = ({ flag }) => {
     return <div className="bg-primary">
         <Title title="Stores" subtitle="Search For  Stores " />
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
-            <Box className="flex justify-center align-center gap-5" sx={{ alignItems: 'center' }}>
-                <Avatar src="/plate.png" />
 
-                <Typography sx={{
-                    fontFamily: "Roboto",
-                    fontWeight: 500,
-                    fontSize: "1.5rem",
-                    mt: 1,
-                }}  >Stores</Typography>
-            </Box>
-            <Typography fontWeight="bold" sx={{
-                fontFamily: 'Nunito',
-                alignSelf: "center",
-                textAlign: "center",
-
-                maxWidth: {
-                    xs: '90%',
-
-                }
-            }}>
-                You can search for your favorite stores and restaurants and
-                order your favorite food from them,Click view to see more details
-                about the store
-            </Typography>
             <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "
                 sx={{
                     width: {
@@ -108,7 +85,7 @@ const Stores = ({ flag }) => {
 
             ref={rowContainer}
 
-            className={`w-full flex gap-3  my-4 py-2 scroll-smooth  ${!flag
+            className={`w-full flex gap-3  my-4 py-2 scroll-smooth  ${flag
                 ? "overflow-x-scroll scrollbar-none "
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}

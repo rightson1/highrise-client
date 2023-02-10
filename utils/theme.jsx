@@ -218,9 +218,11 @@ export const tokens = (mode) => ({
                 900: "#332803"
             },
             find: "#FF6929",
+            submit: '#FF621F',
             lightRed: "#FFD4A2",
             looking: "#FFE2D8",
-            bg: "rgba(245, 242, 242, .98)"
+            bg: "rgba(245, 242, 242, .98)",
+            sidebar: '#FFECD6',
 
         }),
 });

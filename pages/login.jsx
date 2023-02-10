@@ -8,20 +8,10 @@ import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { auth } from "../utils/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-const Register = () => {
+const Login = () => {
     const [values, setValues] = useState(null);
     const router = useRouter()
     const [loading, setLoading] = useState(false);
-    const [visibility, setVisibility] = useState(false);
-    const [open, setOpen] = React.useState(false);
     const [state, setState] = useState({
         opened: false,
         error: null,
@@ -32,12 +22,6 @@ const Register = () => {
 
         setValues({ ...values, [e.target.name]: e.target.value })
 
-    }
-    const submit = (e) => {
-        e.preventDefault();
-        createUserWithEmailAndPassword(auth, values.email, values.password).then((user) => {
-            const { email, uid } = user.user;
-        })
     }
     return <Grid container
         sx={{
@@ -56,13 +40,12 @@ const Register = () => {
                 },
             }}
         >
-            <img src="/table.png" alt="" className="w-full" />
+            <img src="/table.png" alt="" />
 
         </Grid>
         <Grid item
             xs={12}
-            onSubmit={submit}
-            component="form"
+            component={Paper}
             md={6}
             sx={{
                 width: "100%",
@@ -80,44 +63,38 @@ const Register = () => {
                 <Typography fontFamily="Nunito" variant="h3" className="font-semibold self-start">Create An  Account</Typography>
                 <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Already have an account? <Typography component="span" fontFamily="Nunito" variant="h6" className="font-semibold self-start" color={colors.find}>Log In</Typography></Typography>
                 <div className="flex flex-col">
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={6} className="flex flex-col">
-                            <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Name</Typography>
-                            <Box className="w-full flex rounded-md p-2 " sx={{ bgcolor: colors.red[300] }}>
-                                <InputBase type="text" name="name" onChange={handleChange} className="  flex-1 " fullWidth />
-                                <Person2OutlinedIcon sx={{ color: 'black', }} />
-                            </Box>
-                        </Grid>
-                        <Grid item xs={12} md={6} className="flex flex-col">
-                            <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Phone</Typography>
-                            <Box className="w-full flex rounded-md p-2 " sx={{ bgcolor: colors.red[300] }}>
-                                <InputBase type="text" name="phone" onChange={handleChange} className="  flex-1 " fullWidth />
-                                <LocalPhoneOutlinedIcon sx={{ color: 'black', }} />
-                            </Box>
-                        </Grid>
 
-                    </Grid>
                     <Box className="flex flex-col">
                         <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Email</Typography>
                         <Box className="w-full flex rounded-md p-2 " sx={{ bgcolor: colors.red[300] }}>
-                            <InputBase type="email" name="email" onChange={handleChange} className="  flex-1 " fullWidth />
+                            <InputBase type="text" name="firstName" onChange={handleChange} className="  flex-1 " fullWidth />
                             <EmailOutlinedIcon sx={{ color: 'black', }} />
                         </Box>
                     </Box>
                     <Box className="flex flex-col">
                         <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Password</Typography>
                         <Box className="w-full flex rounded-md p-2 " sx={{ bgcolor: colors.red[300] }}>
-                            <InputBase type={visibility ? "text" : 'password'} name="firstName" onChange={handleChange} className="  flex-1 " fullWidth />
-                            {visibility ? <RemoveRedEyeOutlinedIcon onClick={() => setVisibility(false)} sx={{ color: 'black', }} /> : <VisibilityOffOutlinedIcon sx={{ color: 'black', }} onClick={() => setVisibility(true)} />}
+                            <InputBase type="text" name="firstName" onChange={handleChange} className="  flex-1 " fullWidth />
+                            <RemoveRedEyeOutlinedIcon sx={{ color: 'black', }} />
                         </Box>
                     </Box>
                 </div>
-                <Button my={4}
-                    type="submit"
-                    sx={{
-                        color: colors.black[900],
-                        bgcolor: colors.submit + " !important",
-                    }}>Create Account</Button>
+                <Grid container spacing={2} className="flex items-center flex">
+                    <Grid item xs={6} md={6} className="flex  items-center">
+                        <Typography sx={{ color: colors.submit }} fontFamily="Nunito" variant="h5" className="font-semibold self-start text-center">
+                            Forgot Password?
+                        </Typography>
+
+                    </Grid>
+                    <Grid item xs={6} md={6} className="flex flex-col ">
+                        <Button my={4} sx={{
+                            color: colors.black[900],
+                            bgcolor: colors.submit + " !important",
+                        }}>Create Account</Button>
+                    </Grid>
+
+                </Grid>
+
                 <Divider />
                 <Button
                     className="flex gap-2 items-center justify-center border-gray-300 "
@@ -138,32 +115,7 @@ const Register = () => {
                 </Button>
             </Box>
         </Grid>
-
-        <Dialog open={open}
-        // onClose={handleClose}
-        >
-            <DialogTitle>Subscribe</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We
-                    will send updates occasionally.
-                </DialogContentText>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email Address"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                />
-            </DialogContent>
-            <DialogActions>
-                <Button >Cancel</Button>
-                <Button >Subscribe</Button>
-            </DialogActions>
-        </Dialog>
     </Grid>;
 };
-Register.nolayout = true;
-export default Register;
+Login.nolayout = true;
+export default Login;
