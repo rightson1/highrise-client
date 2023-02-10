@@ -58,41 +58,6 @@ export const AuthProvider = ({ children }) => {
         }
     }, [])
 
-    const signInWithGoogle = (id) => {
-
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const user = result.user;
-                const q = query(collection(db, "users"), where("email", "==", user.email));
-                getDocs(q).then((res) => {
-                    const [remote, ...rest] = res.docs.map((doc) => {
-                        return { id: doc.id, ...doc.data() }
-                    })
-                    if (remote) {
-
-                    } else {
-                        const userRef = collection(db, "users")
-                        addDoc(userRef, {
-                            email: user.email,
-                            displayName: user.displayName,
-                            photoURL: user.photoURL,
-                            uid: user.uid,
-                            role: 'user',
-                            createdAt: serverTimestamp(),
-                        }).then((res) => {
-
-                        }
-                        ).catch((e) => {
-                            console.log(e)
-                        })
-                    }
-                })
-            }).catch((e) => {
-                console.log(e)
-            })
-    }
     const logout = async () => {
         await signOut(auth).then(() => {
             localStorage.removeItem('user')
@@ -103,7 +68,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ logout, admin, user, signInWithGoogle }}>
+        <AuthContext.Provider value={{ logout, admin, user, }}>
             {loading ? null : children}
         </AuthContext.Provider>
     );

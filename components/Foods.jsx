@@ -11,14 +11,10 @@ import { useEffect, useState, useRef } from "react";
 import { useItemStoreQuery } from "../utils/hooks/useItems";
 import Skeleton from "@mui/material/Skeleton";
 import { useAuth } from "../utils/authContext";
-import { signInWithPopup, GoogleAuthProvider, } from "firebase/auth";
 import { toast, Toaster } from "react-hot-toast";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { useRegister } from "../utils/hooks/useUser";
-import { auth, db } from "../utils/firebase";
 const Foods = ({ flag, filter }) => {
     const rowContainer = useRef();
-    const { admin, signInWithGoogle } = useAuth();
+
     const { colors } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0)
     const router = useRouter()
@@ -28,14 +24,7 @@ const Foods = ({ flag, filter }) => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]);
 
-    const handleClick = (id) => {
-        if (!admin) {
-            signInWithGoogle(id);
-        } else {
-            router.push(`/stores/${store}/item/${id}`)
-        }
 
-    }
     return <>
 
         <Box

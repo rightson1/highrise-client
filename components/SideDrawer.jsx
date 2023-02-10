@@ -13,11 +13,13 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useGlobalProvider } from '../utils/themeContext';
 import { Dashboard, MessageOutlined, Person, PersonOutlined, Sell } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
+import { useAuth } from '../utils/authContext';
 export default function TemporaryDrawer() {
     const { open, setOpen, colors } = useGlobalProvider()
+    const { admin, logout } = useAuth()
 
     const router = useRouter()
 
@@ -80,7 +82,7 @@ export default function TemporaryDrawer() {
                         return (
                             <ListItem key={index} className="flex justify-center" sx={{
                                 color: item.link === router.pathname ? colors.find : colors.primary[100],
-                                mt: 1
+
 
                             }} >
                                 <ListItemButton className="flex justify-center" onClick={() => router.push(item.link)}>
@@ -94,6 +96,27 @@ export default function TemporaryDrawer() {
                     })
                 }
             </List>
+            <Box px={3}>
+                {
+                    admin ? <Button className='w-full'
+                        sx={{
+                            bgcolor: colors.find + ' !important',
+                            color: colors.bg + ' !important',
+                        }}
+                        onClick={logout}
+                    >
+                        Logout
+                    </Button> : <Button className='w-full'
+                        sx={{
+                            bgcolor: colors.find + ' !important',
+                            color: colors.bg + ' !important',
+                        }}
+                        onClick={() => router.push('/login')}
+                    >
+                        Login
+                    </Button>
+                }
+            </Box>
         </Box>
     );
 
@@ -154,9 +177,5 @@ const listItems = [
         icon: <Sell />
     },
 
-    {
-        name: 'Create Account',
-        link: '/account',
-        icon: <PersonOutlined />
-    }
+
 ]
