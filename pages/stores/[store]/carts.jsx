@@ -46,7 +46,6 @@ const Category = () => {
     const { data: business } = useSingleBusinessQuery(store)
     const [total, setTotal] = useState(0)
     const [on, setOn] = useState(false)
-
     useEffect(() => {
         document.addEventListener('visibilitychange', function (e) {
             setOn(!on)
@@ -74,46 +73,61 @@ const Category = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setLoading(true)
-        if (!storeCart.items.length > 0) {
-            toast.error('Cart is empty')
-            return
-        }
-        const location = e.target.location.value
-        const description = e.target.details.value
-        const { id, items } = storeCart;
+        if (!admin) {
+            toast.error('Please login to continue, you will be redirected to login page')
+            setTimeout(() => {
+                router.push('/login')
 
-        const data = {
-            name: admin.displayName, email: admin.email, location, total, description, business: id, items, status: 'Pending', date: {
-                day: new Date().getDate(),
-                week: Math.ceil((new Date()).getDate() / 7),
-                month: new Date().getMonth(),
-            },
-            payment: 'Pending'
-        }
-        const cartRef = collection(db, 'orders')
-        console.log(business)
-        addDoc(cartRef, {
-            user: admin?.email,
-            business: storeCart.id,
-            status: 'Pending',
-            name: business?.name,
-            read: 'false',
-            userName: admin?.displayName,
-            date: {
-                day: new Date().getDate(),
-                week: Math.ceil((new Date()).getDate() / 7),
-                month: new Date().getMonth(),
+            }, 2000)
+
+        } else {
+
+
+            setLoading(true);
+
+            if (!storeCart.items.length > 0) {
+                toast.error('Cart is empty')
+                return
             }
-        }).then((res) => {
-            const realId = res.id
-            mutate({ realId, ...data })
-        }).catch((err) => {
-            toast.error('Error', {
-                timeout: 2000
+            const location = e.target.location.value
+            const description = e.target.details.value
+            const { id, items } = storeCart;
+
+            const data = {
+                name: admin.displayName, email: admin.email, phone: user.phone, location, total, description, business: id, items, status: 'Pending', date: {
+                    day: new Date().getDate(),
+                    week: Math.ceil((new Date()).getDate() / 7),
+                    month: new Date().getMonth(),
+                },
+                payment: 'Pending'
+            }
+            const cartRef = collection(db, 'orders')
+
+            addDoc(cartRef, {
+                user: admin?.email,
+                business: storeCart.id,
+                status: 'Pending',
+                name: business?.name,
+                read: 'false',
+                mesage: 'New order',
+                userName: admin?.displayName,
+                date: {
+                    day: new Date().getDate(),
+                    week: Math.ceil((new Date()).getDate() / 7),
+                    month: new Date().getMonth(),
+                }
+            }).then((res) => {
+                const realId = res.id
+                mutate({ realId, ...data })
+            }).catch((err) => {
+                toast.error('Error', {
+                    timeout: 2000
+                })
+                setLoading(false)
             })
-            setLoading(false)
-        })
+        }
+
+
 
 
     }
