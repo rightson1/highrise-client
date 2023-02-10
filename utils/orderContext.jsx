@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useSingleBusinessQuery } from "./hooks/useBusiness";
 import { useAuth } from "./authContext";
 import { useGlobalProvider } from "./themeContext";
+import { useOrderQuery } from "./hooks/useOrder";
 const OrderContext = createContext();
 
 
@@ -22,17 +23,21 @@ export const OrderProvider = ({ children }) => {
     const [orderChanges, setOrderChanges] = useState([])
     const [todayOrders, setTodayOrders] = useState([])
     const [notifications, setNotifications] = useState([])
+    const { data, refetch } = useOrderQuery();
+
     useEffect(() => {
         if (!user) return;
-        const q = query(collection(db, "orders"), where("user", "==", user?.email), where('date.day', '>=', today - 1))
+        const q = query(collection(db, "orders"), where("user", "==", user?.email))
         const unsub = onSnapshot(q, (querySnapshot) => {
             const docs = [];
             querySnapshot.forEach((doc) => {
                 docs.push({ ...doc.data(), id: doc.id });
             });
             setTodayOrders(docs)
+            console.log('today orders', docs)
 
         });
+
         return () => unsub();
 
     }, [user])
@@ -54,19 +59,16 @@ export const OrderProvider = ({ children }) => {
     // }, [business,user])
     useEffect(() => {
         if (!user) return;
-        axios.get(`${baseUrl}/api/orders?email=${user.email}&day=${today}`).then((res) => {
-            setOrders(res.data)
-        }).catch((e) => {
-            console.log(e)
-
-        })
+        setTimeout(() => {
+            refetch()
+        }, 5000)
     }, [todayOrders, user])
     const fetch = () => {
 
     }
 
     return (
-        <OrderContext.Provider value={{ orders, fetch, notifications, setNotifications }}>
+        <OrderContext.Provider value={{ orders, setOrders, fetch, notifications, setNotifications }}>
             {children}
         </OrderContext.Provider>
     )

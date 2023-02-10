@@ -20,13 +20,19 @@ import { useAuth } from '../utils/authContext';
 const nav = [{
     name: 'Home',
     link: '/'
+},
+{
+    name: 'Search',
+    link: '/itemSearch'
 }, {
     name: 'Stores',
     link: '/search'
 }, {
     name: 'orders',
     link: '/orders'
-}, {
+},
+
+{
     name: 'About Us',
     link: '/about'
 }
@@ -143,10 +149,10 @@ function ResponsiveAppBar() {
                                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                             >
                                 <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
-                                    onClick={() => signInWithGoogle()}
+                                    onClick={() => router.push('/login')}
                                 >Login</MenuItem>
                                 <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
-                                    onClick={() => signInWithGoogle()}
+                                    onClick={() => router.push('/register')}
                                 >Create Account</MenuItem>
                                 <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }} component="a" href="https://highrise-blond.vercel.app/"
                                     tabIndex={-1} target="_blank" rel="noopener noreferrer"

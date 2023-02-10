@@ -296,7 +296,7 @@ export const themeSettings = (mode) => {
                 fontSize: 16,
             },
             h6: {
-                fontFamily: ["Atomic Age", "sans-serif"].join(","),
+                fontFamily: ["Nunito", "sans-serif"].join(","),
                 fontSize: 14,
             },
         },

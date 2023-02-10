@@ -20,18 +20,20 @@ import Title from "../components/Title";
 import { useOrders } from "../utils/orderContext";
 import { format } from "timeago.js";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
+import { useOrderQuery } from "../utils/hooks/useOrder";
 const Orders = () => {
     const router = useRouter()
-    const { orders } = useOrders();
+    const { data: orders } = useOrderQuery();
     const { colors } = useGlobalProvider();
     const { data: businesses } = useBusinessQuery();
+    const store = router.query.store;
     return orders ? <Grid className="bg-primary p-2 ">
         <Title title="Orders" subtitle="All Your Order" />
         <Grid item component={Paper} elevation={2} className="bg-primary p-1 pt-3 pb-10">
 
             <Box className="flex justify-between p-4 px-2 items-center">
                 <Typography variant="h3" className="text-grey"
-                    fontFamily="Atomic Age"
+                    fontFamily="Nunito"
                 >
                     Orders
                 </Typography>
@@ -73,7 +75,7 @@ const Orders = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {orders.map((order, index) => (
+                        {orders?.length ? orders.map((order, index) => (
                             <TableRow key={index}
 
                             >
@@ -106,7 +108,7 @@ const Orders = () => {
                                 </TableCell>
                                 <TableCell>
                                     <Chip
-                                        onClick={() => router.push(`/stores/${store}/order/${order._id}`)}
+                                        onClick={() => router.push(`/stores/${order.business}/order/${order._id}`)}
                                         sx={{
                                             px: 1,
                                             backgroundColor: colors.yellow[500],
@@ -119,7 +121,14 @@ const Orders = () => {
 
 
                             </TableRow>
-                        ))}
+                        )) : <Box>
+                            <Typography variant="h6" className="text-grey">
+
+                                No Orders Yet
+                            </Typography>
+
+                        </Box>
+                        }
                         <TableRow>
                             <TableCell></TableCell>
                             <TableCell colSpan={2}>Click View To Order details</TableCell>

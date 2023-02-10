@@ -147,7 +147,7 @@ const Category = () => {
             setLoading(false)
             setCart(cart.filter((item) => item.id !== store))
             localStorage.setItem('cart', JSON.stringify(cart.filter((item) => item.id !== store)))
-            router.push(`/stores/${store}/orders`)
+            router.push(`/stores/${store}`)
         }
 
     }, [isError, isSuccess])

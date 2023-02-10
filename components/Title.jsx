@@ -8,14 +8,15 @@ const Title = ({ title, subtitle }) => {
     return <Box px={2} pb={2}>
         {/* <Header title={title} desc={subtitle} /> */}
         {title && <Typography variant="h6" fontWeight="thin" sx={{
-            fontSize: "1.2rem",
+            fontSize: "1.2rem", fontFamily: "Nunito",
         }} color={colors.grey[100]}> Home <ChevronRightOutlinedIcon />
             <Typography fontWeight="bold" variant="h6" component="span" sx={{
                 fontSize: "1.3rem",
+                fontFamily: "Nunito",
             }}> {title}</Typography>
 
         </Typography>}
-        <Typography variant="h3" fontWeight="bold" color={colors.orange[500]} >{subtitle}</Typography>
+        <Typography variant="h3" fontWeight="bold"  >{subtitle}</Typography>
     </Box>;
 };
 
