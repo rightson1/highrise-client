@@ -7,14 +7,24 @@ import Categories from "../components/Categories";
 import { useGlobalProvider } from "../utils/themeContext";
 import { useState } from "react";
 import { useItemQuery } from "../utils/hooks/useItems";
+import { Toaster, toast } from "react-hot-toast";
+import { useOrders } from "../utils/orderContext";
 
 export default function Home() {
-  const { colors, setAnimate } = useGlobalProvider()
+  const { notifications, setNotifications } = useOrders();
   const [filter, setFilter] = useState("Chicken");
   const { data } = useItemQuery(filter)
   useEffect(() => {
-    setAnimate([])
-  }, []);
+    notifications.map((item) => {
+      if (item.status === 'Cancelled') {
+        toast.error(item.message)
+      } else {
+        toast.success(item.message)
+      }
+      setNotifications(notifications.filter((i) => i.id !== item.id))
+    })
+  }, [notifications])
+
 
   return (
 
@@ -23,8 +33,7 @@ export default function Home() {
       <Dishes  {...{ setFilter, filter }} />
       <RowContainer data={data} {...{ setFilter, filter }} />
       <Win />
-      {/* <Categories /> */}
-      {/* <Stores /> */}
+      <Toaster />
     </div>
   );
 

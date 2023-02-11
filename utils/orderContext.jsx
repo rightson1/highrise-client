@@ -25,10 +25,16 @@ export const OrderProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([])
     const { data, refetch } = useOrderQuery();
 
+
     useEffect(() => {
         if (!user) return;
         const q = query(collection(db, "orders"), where("user", "==", user?.email))
         const unsub = onSnapshot(q, (querySnapshot) => {
+            querySnapshot.docChanges().forEach(function (change) {
+                if (change.type === "modified") {
+                    setNotifications([...notifications, { ...change.doc.data(), message: `Order status changed to ${change.doc.data().status} `, }])
+                }
+            });
             const docs = [];
             querySnapshot.forEach((doc) => {
                 docs.push({ ...doc.data(), id: doc.id });

@@ -93,7 +93,7 @@ function ResponsiveAppBar() {
                                 }
                             }}
                         >
-                            H-Foods
+                            Foodie
                         </Box>
 
 

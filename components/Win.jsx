@@ -51,12 +51,12 @@ const Win = () => {
                 fontWeight: 700,
                 pb: '1rem',
                 fontSize: "2rem",
-            }}  >Highrise Foods</Typography>
+            }}  >Foods & Gas</Typography>
             <Typography sx={{
                 fontFamily: "Roboto",
                 fontWeight: 500,
                 fontSize: "1rem",
-            }}  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem esse dolore illum recusandae.</Typography>
+            }}  >For now our services are limited to foods from highris vendors and gas delivery, but mama fua app is comming soon, stay tuned</Typography>
 
             <List>
                 <ListItem>

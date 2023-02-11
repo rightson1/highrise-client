@@ -102,11 +102,7 @@ const categories = [{
     name: "Chicken",
     urlParamName: "chicken",
 },
-{
-    id: 2,
-    name: "Curry",
-    urlParamName: "curry",
-},
+
 {
     id: 3,
     name: "Rice",

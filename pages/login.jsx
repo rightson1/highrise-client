@@ -105,10 +105,10 @@ const Login = () => {
 
             }}
         >
-            <Typography fontFamily="Atomic Age" variant="h3" className="font-bold self-start">H-Foods</Typography>
+            <Typography fontFamily="Atomic Age" variant="h3" className="font-bold self-start">Foodie</Typography>
             <Box my={5} className="flex flex-col w-full gap-4">
                 <Typography fontFamily="Nunito" variant="h2" className="font-bold self-start">Welcome Back</Typography>
-                <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Dont have an account? <Typography component="span" fontFamily="Nunito" variant="h6" className="font-semibold self-start cursor-pointer" color={colors.find} onClick={() => router.push('/register')}>Register</Typography></Typography>
+                <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Dont have an account? <Typography component="button" fontFamily="Nunito" variant="h6" className="font-semibold self-start cursor-pointer" color={colors.find} onClick={() => router.push('/register')}>Register</Typography></Typography>
                 <Box component="form" onSubmit={submit} className="flex flex-col">
 
                     <Box className="flex flex-col">

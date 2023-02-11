@@ -154,10 +154,10 @@ const Register = () => {
 
             }}
         >
-            <Typography fontFamily="Atomic Age" variant="h3" className="font-bold self-start">H-Foods</Typography>
+            <Typography fontFamily="Atomic Age" variant="h3" className="font-bold self-start">Foodie</Typography>
             <Box mt={5} className="flex flex-col w-full gap-4" component="form" onSubmit={submit}>
                 <Typography fontFamily="Nunito" variant="h3" className="font-semibold self-start">Create An  Account</Typography>
-                <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Already have an account? <Typography component="span" fontFamily="Nunito" variant="h6" className="font-semibold self-start cursor-pointer" color={colors.find} onClick={() => router.push('/login')}>Log In</Typography></Typography>
+                <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Already have an account? <Typography component="button" fontFamily="Nunito" variant="h6" className="font-semibold self-start cursor-pointer" color={colors.find} onClick={() => router.push('/login')}>Log In</Typography></Typography>
                 <div className="flex flex-col">
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={6} className="flex flex-col">

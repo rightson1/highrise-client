@@ -80,17 +80,32 @@ export default function TemporaryDrawer() {
 
 
                         return (
-                            <ListItem key={index} className="flex justify-center" sx={{
-                                color: item.link === router.pathname ? colors.find : colors.primary[100],
+
+                            item.name == 'Sell' ? <ListItem component="a" target="_blank" href={item.link} key={index} className="flex justify-center"
+
+                                sx={{
+                                    color: item.link === router.pathname ? colors.find : colors.primary[100],
 
 
-                            }} >
-                                <ListItemButton className="flex justify-center" onClick={() => router.push(item.link)}>
+                                }} >
+                                <ListItemButton className="flex justify-center" >
                                     <Typography fontFamily="Nunito" className='font-bold text-xl'>
                                         {item.name}
                                     </Typography>
                                 </ListItemButton>
-                            </ListItem>
+                            </ListItem> :
+                                <ListItem key={index} className="flex justify-center" sx={{
+                                    color: item.link === router.pathname ? colors.find : colors.primary[100],
+
+
+                                }} >
+                                    <ListItemButton className="flex justify-center" onClick={() => router.push(item.link)}>
+                                        <Typography fontFamily="Nunito" className='font-bold text-xl'>
+                                            {item.name}
+                                        </Typography>
+                                    </ListItemButton>
+                                </ListItem>
+
                         )
 
                     })
@@ -173,7 +188,7 @@ const listItems = [
     },
     {
         name: 'Sell',
-        link: "/https://highrise-blond.vercel.app/",
+        link: "https://highrise-blond.vercel.app/",
         icon: <Sell />
     },
 

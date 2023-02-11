@@ -109,7 +109,7 @@ const Category = () => {
                 status: 'Pending',
                 name: business?.name,
                 read: 'false',
-                mesage: 'New order',
+                message: 'Placed A New Order',
                 userName: admin?.displayName,
                 date: {
                     day: new Date().getDate(),

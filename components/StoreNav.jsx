@@ -24,7 +24,26 @@ function StoreNav() {
     const { store } = router.query
     const { data: business } = useSingleBusinessQuery(store)
     const cartLength = cart.find(item => item?.id === store)?.items?.length
+    const nav = [{
+        name: 'Home',
+        link: '/'
+    },
+    {
+        name: 'Search',
+        link: '/itemSearch'
+    }, {
+        name: 'Stores',
+        link: '/search'
+    }, {
+        name: 'orders',
+        link: '/orders'
+    },
 
+    {
+        name: 'About Us',
+        link: '/about'
+    }
+    ]
     return (
         <Box
 
@@ -62,7 +81,17 @@ function StoreNav() {
                             </Button>
 
                         </Box>
-
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center', bgcolor: 'red' } }}>
+                            {nav.map((page) => (
+                                <Button
+                                    key={page}
+                                    onClick={() => { router.push(page.link) }}
+                                    sx={{ my: 2, color: colors.grey[600], display: 'block' }}
+                                >
+                                    {page.name}
+                                </Button>
+                            ))}
+                        </Box>
 
 
 
