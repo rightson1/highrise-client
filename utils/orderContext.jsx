@@ -40,7 +40,7 @@ export const OrderProvider = ({ children }) => {
                 docs.push({ ...doc.data(), id: doc.id });
             });
             setTodayOrders(docs)
-            console.log('today orders', docs)
+
 
         });
 

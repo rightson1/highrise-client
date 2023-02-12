@@ -1,5 +1,5 @@
 import { Avatar, Chip, Fab, Grid, Box, Paper, Skeleton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
@@ -14,22 +14,26 @@ import MobileStepper from '@mui/material/MobileStepper';
 import { useTheme } from '@mui/material/styles';
 import Options from "../../../../components/Options";
 import { useRouter } from "next/router";
-import { useSingleItemQuery } from "../../../../utils/hooks/useItems";
+import { useItemsByStoreQuery, useSingleItemQuery } from "../../../../utils/hooks/useItems";
 import More from "../../../../components/More";
+import Carousel from "../../../../components/Carousel";
 const Category = () => {
     const { id } = useRouter().query
     const { data: food, isLoading } = useSingleItemQuery(id)
+    const { data, isLoading: lodaing } = useItemsByStoreQuery(food?.business, food?.items)
 
     const { colors, mode } = useGlobalProvider()
-    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
 
     return food ? (
         <Box className="bg-primary">
-            <Title subtitle={food.name} />
+            <Box className="hidden md:flex">
+                <Title subtitle={food.name} />
+            </Box>
             <Box elevation={1} sx={{
-                margin: "-5px 20px !important",
+                margin: "-5px 0 !important",
                 overflow: 'hidden',
-                p: '1rem',
+
                 rounded: '10px',
             }}>
                 <Grid container spacing={0} sx={{ height: '100%' }} gap={2}>
@@ -52,48 +56,46 @@ const Category = () => {
 
                     >
                         <Box sx={{
-                            flexGrow: 1.
+                            flexGrow: 1,
+                            position: 'relative',
 
 
                         }}>
-                            <Typography>{food.price ? `${food.price} Ksh` : null}</Typography>
-                            <AutoPlaySwipeableViews className="">
+                            <Typography className="">{food.price ? `${food.price} Ksh` : null}</Typography>
 
-                                <Box
-                                    component="img"
-                                    sx={{
-                                        height: 185,
-                                        display: 'block',
 
-                                        overflow: 'hidden',
-                                        width: '100%',
-                                        objectFit: 'contain'
-                                    }}
+                            <Box
+                                component="img"
+                                sx={{
+                                    height: 250,
+                                    display: 'block',
+                                    width: {
+                                        xs: '100%',
+                                        md: 'auto'
 
-                                    src={food.image}
+                                    },
 
-                                />
+                                    overflow: 'hidden',
+                                    width: '100%',
+                                    objectFit: 'contain'
+                                }}
 
-                            </AutoPlaySwipeableViews>
+                                src={food.image}
 
+                            />
+
+
+                            <Options {...{ food }} />
                         </Box>
                     </Grid>
-                    <Grid item
+                    <Grid item p={4}
                         xs={12} sm={12} md={7}
 
-                        sx={{
 
-                            height: {
-                                xs: undefined,
-                                md: "auto"
-                            },
-
-                        }}
                     >
-                        <Box className="flex  justify-between items-center">
-                        </Box>
+                        <Typography variant="h5" fontFamily="Nunito" className="mb-2 text-2xl font--bold">Related Items</Typography>
+                        <Carousel {...{ data, loading: isLoading }} />
 
-                        <Options {...{ food }} />
                     </Grid>
 
                 </Grid>

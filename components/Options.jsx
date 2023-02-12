@@ -117,7 +117,7 @@ export default function Options({ food }) {
         } = event;
         setOptionType(value);
     };
-    console.log(cart)
+
     return (
         <Box component="form" className='flex flex-col gap-3' onSubmit={handleSubmit}>
             {
@@ -147,8 +147,8 @@ export default function Options({ food }) {
                                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                                 renderValue={(selected) => (
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                        {selected.map((value) => (
-                                            <Chip key={value.optionName} label={value.optionName} />
+                                        {selected.map((value, index) => (
+                                            <Chip key={value.index} label={value.optionName} />
                                         ))}
                                     </Box>
                                 )}
@@ -203,7 +203,7 @@ export default function Options({ food }) {
             </Box>
             {itemExist ? <button
                 type='submit'
-                className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center rounded-2xl font-[700] text-[16px]'
+                className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center font-[700] text-[16px]'
             >
                 Add New Variation
                 <ShoppingCartOutlinedIcon />
@@ -211,7 +211,7 @@ export default function Options({ food }) {
             </button>
                 : <button
                     type='submit'
-                    className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center rounded-2xl font-[700] text-[16px]'
+                    className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center  font-[700] text-[16px]'
                 >
                     Add to cart
                     <ShoppingCartOutlinedIcon />

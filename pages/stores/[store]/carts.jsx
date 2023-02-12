@@ -253,12 +253,12 @@ const Category = () => {
                                 }}
                             >
                                 <Box justifyContent="flex-start">
-                                    <Button sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }}
+                                    <Button sx={{ color: colors.grey[800], background: colors.primary[500] + '!important' }}
                                         onClick={handleClear}
                                     >Clear</Button>
                                 </Box>
                                 <Box className="flex  justify-between items-center">
-                                    <Typography my={1} variant="h3" fontWeight="bold" color={colors.orange[500]} fontFamily="Atomic Age">Products</Typography>
+                                    <Typography my={1} variant="h3" fontWeight="bold" fontFamily="Nunito">Products</Typography>
 
                                 </Box>
                                 <Box
@@ -271,17 +271,17 @@ const Category = () => {
                                             storeCart.items.map((item, index) => {
                                                 return (<Box key={index}>
                                                     <ListItem className="flex  justify-between">
-                                                        <Fab className="z-[3]" onClick={() => setOpen(open === index ? null : index)} size="small" color="primary" aria-label="add" sx={{ background: colors.red[300] + '!important' }}>
+                                                        <Fab className="z-[3]" onClick={() => setOpen(open === index ? null : index)} size="small" color="primary" aria-label="add" sx={{ background: colors.primary[300] + '!important' }}>
                                                             <KeyboardArrowLeft className="-rotate-[90deg]" />
                                                         </Fab>
                                                         <Fab className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
                                                             {item.qty}   <ClearOutlinedIcon className="text-[12px]" />
                                                         </Fab>
                                                         <Typography className="font-bold" fontFamily="Atomic Age">{item.name}</Typography>
-                                                        <Fab onClick={() => handleEdit(item.id, 0)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
+                                                        <Fab onClick={() => handleEdit(item.id, 0)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.primary[500] + '!important' }}>
                                                             <RemoveOutlinedIcon className="text-[12px]" />
                                                         </Fab>
-                                                        <Fab onClick={() => handleEdit(item.id, 1)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
+                                                        <Fab onClick={() => handleEdit(item.id, 1)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.primary[500] + '!important' }}>
                                                             <AddOutlinedIcon className="text-[12px]" />
                                                         </Fab>
                                                         <Typography className="font-bold" fontFamily="Atomic Age">Ksh{item.price}</Typography>
@@ -323,14 +323,14 @@ const Category = () => {
                                 </Box>
 
                                 <Box className="my-5  flex flex-col gap-2">
-                                    <Typography className='text-xl ' color={colors.orange[500]} fontFamily="Atomic Age">Add Custom Details</Typography>
+                                    <Typography className='text-xl ' fontFamily="Nunito">Add Custom Details</Typography>
                                     <Box
                                         component="textarea"
                                         name="details"
                                         sx={{
                                             width: "100%",
                                             outline: colors.teal[100],
-                                            border: `2px solid ${colors.orange[500]}`,
+                                            // border: `2px solid ${colors.orange[500]}`,
                                             height: '100px',
                                             '$:focus': {
                                                 outline: colors.teal[100],
@@ -341,14 +341,14 @@ const Category = () => {
                                     />
                                 </Box>
                                 <Box className="my-5  flex flex-col gap-2">
-                                    <Typography className='text-xl ' color={colors.orange[500]} fontFamily="Atomic Age">Add Location Details</Typography>
+                                    <Typography className='text-xl ' fontFamily="Nunito">Add Location Details</Typography>
                                     <Box
                                         component="textarea"
                                         name="location"
                                         sx={{
                                             width: "100%",
                                             outline: colors.teal[100],
-                                            border: `2px solid ${colors.orange[500]}`,
+                                            // border: `2px solid ${colors.orange[500]}`,
                                             p: 1,
                                             '$:focus': {
                                                 outline: colors.teal[100],
@@ -359,7 +359,7 @@ const Category = () => {
                                         placeholder="Specify Your Block Number, Floor, Room Number"
                                     />
                                 </Box>
-                                <LoadingButton loading={loading} loadingIndicator="Loading…" type="submit" className="w-full  text-white" sx={{ bgcolor: `${colors.orange[500]} !important` }}>Checkout</LoadingButton>
+                                <LoadingButton loading={loading} loadingIndicator="Loading…" type="submit" className="w-full  text-white" sx={{ bgcolor: `${colors.primary[500]} !important` }}>Checkout</LoadingButton>
                             </Grid>
                             <Grid item sx={{
                                 bgcolor: colors.bg,

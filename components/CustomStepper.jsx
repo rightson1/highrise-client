@@ -75,75 +75,9 @@ const CustomeStepper = ({ items }) => {
                 </div>
             ))}
         </AutoPlaySwipeableViews>
-        <MobileStepper
-            steps={maxSteps}
-            position="static"
-            activeStep={activeStep}
-            sx={{
-                bgcolor: colors.orange[400],
-                "& .MuiMobileStepper-dotActive ": {
-                    bgcolor: colors.orange[100] + '!important',
 
-                }
-            }}
-            nextButton={
-                <Button
-                    size="small"
-                    onClick={handleNext}
-                    sx={{ color: colors.orange[100] }}
-                    disabled={activeStep === maxSteps - 1}
-                >
-                    Next
-                    {theme.direction === 'rtl' ? (
-                        <KeyboardArrowLeft />
-                    ) : (
-                        <KeyboardArrowRight />
-                    )}
-                </Button>
-            }
-            backButton={
-                <Button
-                    sx={{ color: colors.orange[100] }}
-                    size="small" onClick={handleBack} disabled={activeStep === 0}>
-                    {theme.direction === 'rtl' ? (
-                        <KeyboardArrowRight />
-                    ) : (
-                        <KeyboardArrowLeft />
-                    )}
-                    Back
-                </Button>
-            }
-        />
     </Box>
 };
-const images = [
-    {
-        label: 'Chicken Wings',
-        imgPath:
-            '/img/c4.png',
-        quantity: 1,
-        price: 200,
-    },
 
-    {
-        label: 'Red Bull',
-        imgPath:
-            '/img/d1.png', quantity: 1,
-        price: 180,
-    },
-    {
-        label: 'Ice Cream',
-        imgPath:
-            '/img/i7.png', quantity: 1,
-        price: 305,
-    },
-    {
-        label: 'Coca Col',
-        imgPath:
-            '/img/d8.png',
-        quantity: 2,
-        price: 220,
-    },
-];
 
 export default CustomeStepper;
