@@ -90,9 +90,12 @@ export default function Options({ food }) {
 
         }
         const exists = cart.find((item) => item.id === store)
+
         if (exists) {
+
             const items = cart.map((item) => {
                 if (item.id === store) {
+                    toast.success('New Item Variation added to cart')
                     return {
                         ...item,
                         items: [...item.items, { ...others, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
@@ -104,6 +107,7 @@ export default function Options({ food }) {
             setCart(items)
             localStorage.setItem('cart', JSON.stringify(items))
         } else {
+            toast.success('Item added to cart')
             setCart([...cart, { id: store, items: [{ ...others, options: optionType, sizes, price: total, id: 1, qty: 1 }] }])
             localStorage.setItem('cart', JSON.stringify([...cart, { id: store, items: [{ ...others, options: optionType, sizes, price: total, id: 1, qty: 1 }] }]))
         }
@@ -148,7 +152,7 @@ export default function Options({ food }) {
                                 renderValue={(selected) => (
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                         {selected.map((value, index) => (
-                                            <Chip key={value.index} label={value.optionName} />
+                                            <Chip key={index + value.optionName} label={value.optionName} />
                                         ))}
                                     </Box>
                                 )}
@@ -156,7 +160,7 @@ export default function Options({ food }) {
                             >
                                 {food?.options?.map((option, index) => (
                                     <MenuItem
-                                        key={index}
+                                        key={index + option.optionName}
                                         value={option}
                                         style={getStyles(name, optionType, theme)}
                                         className='flex gap-3'
@@ -188,7 +192,7 @@ export default function Options({ food }) {
                             >
                                 {
                                     food?.sizes?.map((size, index) => (
-                                        <FormControlLabel key={index} value={size.name} control={<Radio />} label={size.name.toUpperCase() + ' ' + size.price + ' Ksh'} />
+                                        <FormControlLabel key={index + size.name} value={size.name} control={<Radio />} label={size.name.toUpperCase() + ' ' + size.price + ' Ksh'} />
 
                                     ))
                                 }

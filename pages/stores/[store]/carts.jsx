@@ -30,7 +30,8 @@ import { toast, Toaster } from "react-hot-toast";
 import { useNewOrder } from "../../../utils/hooks/useOrder";
 import { LoadingButton } from "@mui/lab";
 import { useSingleBusinessQuery } from "../../../utils/hooks/useBusiness";
-
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../../utils/firebase";
 
 const Category = () => {
     const [open, setOpen] = React.useState(null);
@@ -44,6 +45,7 @@ const Category = () => {
     const { store } = router.query
     const [storeCart, setStoreCart] = useState(null)
     const { data: business } = useSingleBusinessQuery(store)
+    console.log(business)
     const [total, setTotal] = useState(0)
     const [on, setOn] = useState(false)
     useEffect(() => {
@@ -118,6 +120,13 @@ const Category = () => {
                 }
             }).then((res) => {
                 const realId = res.id
+                const email = () => sendPasswordResetEmail(auth, business?.admin).catch(e => console.log(e))
+                toast.promise(email(), {
+                    loading: 'Sending Email',
+                    success: 'Email Sent',
+                    error: 'Error Sending Email'
+                })
+
                 mutate({ realId, ...data })
             }).catch((err) => {
                 toast.error('Error', {
