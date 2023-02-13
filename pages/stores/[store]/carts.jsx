@@ -420,3 +420,54 @@ export default Category
 // }
 
 // export default HelloMonday;
+
+// function deleteTop(stack, i) {
+//     const x = stack;
+//     let n = x.length;
+//     const top = n - 1;
+//     if (x[top] !== null) {
+//         x.pop();
+//         return x
+//     } else {
+//         console.log('stack full')
+//         return x
+//     }
+
+// }
+// function insert(stack, i) {
+//     const x = stack;
+//     let n = x.length;
+//     const top = n - 1;
+//     if (x[top] === null) {
+//         x.push(i)
+//         return x
+//     } else {
+//         console.log('stack full')
+//         return x
+//     }
+
+// }
+// const x = [1, 2, 4, 4, 2];
+// console.log(insert(x, 1))
+
+
+// const func = (arr, i) => {
+//     const x = arr;
+//     let n = x.length;
+
+//     if (i >= n) {
+//         console.log("i is greater than n");
+//         return x;
+//     }
+//     let j = i;
+//     while (!(j >= n)) {
+//         if (j >= n - 1) {
+//             x.pop()
+//             return x
+//         }
+//         x[j] = x[j + 1];
+//         j++;
+//     }
+//     return x;
+// };
+// console.log(func([1, 2, 3, 4, 5], 4))
