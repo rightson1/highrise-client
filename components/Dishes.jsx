@@ -55,7 +55,7 @@ const Dishes = ({ setFilter, filter, categories: data }) => {
                     Categories Available
 
                 </p>
-                <div className="flex items-center gap-3">
+                <div className="hidden md:flex items-center gap-3">
 
                     <motion.div
                         onClick={() => setScrollValue(-200)}

@@ -17,7 +17,10 @@ const StoreHero = ({ data: store }) => {
         <Grid xs={12} md={6} item sx={{
             width: "100%",
             height: "100%",
-            display: "flex",
+            display: {
+                xs: "none",
+                md: "flex"
+            },
             flexDirection: "column",
             justifyContent: "center",
             gap: 2,
@@ -82,7 +85,7 @@ const StoreHero = ({ data: store }) => {
                 }}
 
             />
-            <img src='/img/plate.svg' alt="" className="max-h-[300px] max-w-[90%] z-[4] rounded-full" />
+            <img src={store.avatar} alt="" className="max-h-[300px] max-w-[90%] z-[4] rounded-full" />
 
         </Grid>
     </Grid>;

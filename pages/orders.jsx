@@ -29,9 +29,9 @@ const Orders = () => {
     const { colors } = useGlobalProvider();
     const { data: businesses } = useBusinessQuery();
     const store = router.query.store;
-    return <Grid className="bg-primary p-2 ">
+    return <Grid className="bg-primary p-2  ">
         <Title title="Orders" subtitle="All Your Order" />
-        <Grid item component={Paper} elevation={2} className="bg-primary p-1 pt-3 pb-10">
+        <Grid item component={Paper} elevation={2} className="bg-primary p-1 pt-3 pb-10 min-h-screen">
 
 
             <List>

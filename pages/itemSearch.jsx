@@ -37,7 +37,7 @@ const Stores = ({ flag }) => {
         })
 
     }
-    return <div className="bg-primary">
+    return <div className="bg-primary min-h-screen">
         <Title title="Search" subtitle="Search For  Foods " />
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
 

@@ -49,7 +49,7 @@ export default function Store() {
 
         </div> : (
             <Box>
-                <Skeleton variant="rectangular" width={"100vw"} height={118} />
+                <Skeleton variant="rectangular" width={"100vw"} height={350} />
                 <Skeleton variant="rectangular" width={"100vw"} height={20} />
                 <Box
 

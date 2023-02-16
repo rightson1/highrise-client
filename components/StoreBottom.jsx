@@ -66,8 +66,7 @@ export default function StoreBottom() {
                 <BottomNavigationAction className='' onClick={() => router.push(`/stores/${store}`)} label="Home" icon={<HomeOutlinedIcon />} />
                 <BottomNavigationAction onClick={() => router.push(`/stores/${store}/chat`)} label="Contact Us" icon={<CallOutlinedIcon />} />
                 <BottomNavigationAction className='' onClick={() => router.push(`/stores/${store}/carts`)} label="About Us" icon={<InfoOutlinedIcon />} />
-                {/* <BottomNavigationAction className='' onClick={() => router.push(`/stores/${store}/orders`)} label="Your Orders" icon={<ReceiptLongOutlined />} />
- */}
+                <BottomNavigationAction label="Orders" onClick={() => router.push(`/orders`)} icon={<ReceiptLongOutlined />} />
 
 
             </AnimatedBottom>
