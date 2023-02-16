@@ -31,7 +31,7 @@ const Category = () => {
                 <Title subtitle={food.name} />
             </Box>
             <Box elevation={1} sx={{
-                margin: "-5px 0 !important",
+                margin: "-5px 0 0 0 !important",
                 overflow: 'hidden',
 
                 rounded: '10px',

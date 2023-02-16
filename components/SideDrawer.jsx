@@ -169,6 +169,12 @@ const listItems = [
         icon: <Dashboard />
 
     },
+    {
+        name: 'Gas',
+        link: '/gas',
+        icon: <Dashboard />
+
+    },
 
     {
         name: 'About',
@@ -188,7 +194,7 @@ const listItems = [
     },
     {
         name: 'Sell',
-        link: "https://highrise-blond.vercel.app/",
+        link: "https://h-foods-theta.vercel.app/",
         icon: <Sell />
     },
 

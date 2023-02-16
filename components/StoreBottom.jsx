@@ -7,9 +7,12 @@ import { useGlobalProvider } from '../utils/themeContext';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Badge } from '@mui/material';
 import ReceiptLongOutlined from '@mui/icons-material/ReceiptLongOutlined';
+import PropaneOutlinedIcon from '@mui/icons-material/PropaneOutlined';
 import { useRouter } from 'next/router'
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 export default function StoreBottom() {
@@ -59,12 +62,12 @@ export default function StoreBottom() {
                     setValue(newValue);
                 }}
             >
-                <span className="wave absolute  top-1/4 left-0 -translate-y-1/2">👉</span>
 
-                <BottomNavigationAction className='text-red-500' onClick={() => router.push(`/`)} label="Home" icon={<HomeOutlinedIcon />} />
-                {/* <BottomNavigationAction onClick={() => router.push(`/stores/${store}/chat`)} label="Live Chat" icon={<ChatBubbleOutlineOutlinedIcon />} /> */}
-                <BottomNavigationAction className='text-red-500' onClick={() => router.push(`/stores/${store}/carts`)} label="Cart" icon={<Badge badgeContent={cartLength} color="warning"><ShoppingCartOutlinedIcon /></Badge>} />
-                <BottomNavigationAction className='text-red-500' onClick={() => router.push(`/stores/${store}/orders`)} label="Orders" icon={<Badge badgeContent={1} ><ReceiptLongOutlined /></Badge>} />
+                <BottomNavigationAction className='' onClick={() => router.push(`/stores/${store}`)} label="Home" icon={<HomeOutlinedIcon />} />
+                <BottomNavigationAction onClick={() => router.push(`/stores/${store}/chat`)} label="Contact Us" icon={<CallOutlinedIcon />} />
+                <BottomNavigationAction className='' onClick={() => router.push(`/stores/${store}/carts`)} label="About Us" icon={<InfoOutlinedIcon />} />
+                {/* <BottomNavigationAction className='' onClick={() => router.push(`/stores/${store}/orders`)} label="Your Orders" icon={<ReceiptLongOutlined />} />
+ */}
 
 
             </AnimatedBottom>

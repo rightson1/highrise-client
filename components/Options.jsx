@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import { useGlobalProvider } from '../utils/themeContext';
-import { Typography } from '@mui/material';
+import { Checkbox, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ListItemText from '@mui/material/ListItemText';
 import { useEffect } from 'react';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -67,13 +68,14 @@ export default function Options({ food }) {
     }, [cart])
 
     useEffect(() => {
-        if (food.price) {
-            setTotal(food.price)
-        }
-        else if (sizes || optionType) {
+
+        if (sizes || optionType) {
             const option = Number(optionType.reduce((acc, cur) => acc + cur.price, 0))
             const total = typeof Option == Number ? option : 0 + Number(sizes?.price ? sizes.price : 0)
             setTotal(total)
+        }
+        else if (food.price) {
+            setTotal(food.price)
         }
 
     }, [optionType, food, sizes])
@@ -92,6 +94,20 @@ export default function Options({ food }) {
         const exists = cart.find((item) => item.id === store)
 
         if (exists) {
+            const item = exists.items.find((item) => item._id === id)
+            if (item) {
+                const itemExist = exists.items.find((item) => {
+                    return item.sizes.name === sizes.name && !((optionType.filter((option) => item.options?.find((itemOption) => itemOption.optionName !== option.optionName)))?.length > 0)
+                })
+
+                if (itemExist) {
+                    toast.error('Item already exist in cart,change options or sizes to add it to cart')
+
+                    return;
+                }
+
+            }
+
 
             const items = cart.map((item) => {
                 if (item.id === store) {
@@ -139,36 +155,28 @@ export default function Options({ food }) {
 
                         >
 
-                            <InputLabel id="demo-multiple-chip-label">Options</InputLabel>
+                            <InputLabel id="demo-multiple-chip-label"></InputLabel>
+                            <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
                             <Select
-                                required
-                                labelId="demo-multiple-chip-label"
-                                id="demo-multiple-chip"
+                                labelId="demo-multiple-checkbox-label"
+                                id="demo-multiple-checkbox"
                                 multiple
-                                fullWidth
                                 value={optionType}
                                 onChange={handleChange}
-                                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                                renderValue={(selected) => (
-                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                        {selected.map((value, index) => (
-                                            <Chip key={index + value.optionName} label={value.optionName} />
-                                        ))}
-                                    </Box>
-                                )}
+                                input={<OutlinedInput label="Tag" />}
+                                renderValue={(selected) => {
+                                    return selected?.map((sel) => sel.optionName + " ,")
+                                }}
                                 MenuProps={MenuProps}
                             >
-                                {food?.options?.map((option, index) => (
-                                    <MenuItem
-                                        key={index + option.optionName}
-                                        value={option}
-                                        style={getStyles(name, optionType, theme)}
-                                        className='flex gap-3'
-                                    >
-                                        <Typography> {option.optionName}</Typography><Typography className='text-red-500'>  {option.price ? '+' + option.price : ''}</Typography>
+                                {food?.options?.map((option) => (
+                                    <MenuItem key={option} value={option}>
+                                        <Checkbox checked={optionType.indexOf(option) > -1} />
+                                        <ListItemText primary={option.optionName} />
                                     </MenuItem>
                                 ))}
                             </Select>
+
                         </FormControl>
                     </Box>
                 )

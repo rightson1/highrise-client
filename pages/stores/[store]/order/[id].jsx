@@ -33,6 +33,7 @@ import { db } from "../../../../utils/firebase"
 import axios from "axios";
 import { useAuth } from "../../../../utils/authContext";
 import { useOrderQuery } from "../../../../utils/hooks/useOrder";
+import { useSingleBusinessQuery } from "../../../../utils/hooks/useBusiness";
 const Category = () => {
 
     const { colors, mode, baseUrl } = useGlobalProvider()
@@ -43,6 +44,8 @@ const Category = () => {
     const theme = useTheme()
     const today = new Date().getDay()
     const { user } = useAuth
+    const [open, setOpen] = useState(false);
+    const { data: business } = useSingleBusinessQuery(order.business)
     const handleDelete = () => {
 
         const deleteRef = doc(db, "orders", order.realId)
@@ -60,6 +63,7 @@ const Category = () => {
             error: "Error",
         })
     }
+
     return <Box className="bg-primary">
         <Title title="Orders" />
         <Box elevation={0} sx={{
@@ -86,15 +90,15 @@ const Category = () => {
 
                         }}
                     >
-                        <Box justifyContent="flex-start">
+                        <Box className="flex justify-between">
                             <Button sx={{ color: colors.grey[100], background: colors.red[300] + '!important' }}
                                 onClick={() => {
                                     confirm("Are you sure you want to delete this order?") && handleDelete()
                                 }}
                             >Cancel</Button>
-                            {/* <Button sx={{ color: colors.grey[100] }} background={colors.teal[300]}>Change</Button> */}
+                            <Button className="underline" onClick={() => router.push(`/stores/${order.business}`)} sx={{ color: colors.grey[100] }} background={colors.teal[300]}>{business.name}</Button>
                         </Box>
-                        <Box className="flex  justify-between items-center w-full ">
+                        <Box className="flex  justify-between items-center w-full  ">
                             <Typography my={1} variant="h3" fontWeight="bold" color={colors.orange[500]}>{order?.status}</Typography>
                             <div className="scroll-down rotate-[90deg] translate-y-[80px] -translate-x-6 md:hidden"></div>
                         </Box>
@@ -224,6 +228,11 @@ const Category = () => {
                         sm={12}
 
                     >
+
+
+                        <Typography variant="h6" className="font-bold capitalize">Total</Typography>
+                        <Typography>{order.total} Ksh</Typography>
+
 
                         {
                             order.details && <>

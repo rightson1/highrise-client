@@ -19,6 +19,7 @@ import LabelBottomNavigation from "../components/Bottom";
 import TemporaryDrawer from "../components/SideDrawer";
 import StoreBottom from "../components/StoreBottom";
 import StoreFab from "../components/StoreFab";
+import FoooterBusiness from "../components/FooterBusiness";
 
 
 function MyApp(props) {
@@ -45,7 +46,7 @@ function MyApp(props) {
                 <div className="pt-[80px] bg-primary">
                   <Component {...pageProps} />
                   <Footer />
-                  <LabelBottomNavigation />
+                  {/* <LabelBottomNavigation /> */}
                   <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" />
                   <TemporaryDrawer />
                 </div>
@@ -97,11 +98,10 @@ function MyApp(props) {
                 <div className="pt-[80px] bg-primary">
                   <Component {...pageProps} />
                   <TemporaryDrawer />
-                  {/* <StoreBottom /> */}
-                  <LabelBottomNavigation />
+                  <StoreBottom />
                   {/* <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" /> */}
                   <StoreFab />
-                  <Footer />
+                  <FoooterBusiness />
                 </div>
               </div>
             </ThemeProvider>

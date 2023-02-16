@@ -16,6 +16,7 @@ import { Badge } from '@mui/material';
 import ReceiptLongOutlined from '@mui/icons-material/ReceiptLongOutlined';
 import FastfoodOutlinedIcon from '@mui/icons-material/FastfoodOutlined';
 import { useRouter } from 'next/router';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useSingleBusinessQuery } from '../utils/hooks/useBusiness';
 
 
@@ -28,16 +29,16 @@ export default function StoreFab() {
     const { store } = useRouter().query;
     const { data: business } = useSingleBusinessQuery(store)
     const actions = [
-        { icon: <HomeOutlinedIcon />, name: business?.name, link: `/stores/${store}` },
-        { icon: <ShoppingCartOutlinedIcon />, name: 'Cart', link: `/stores/${store}/carts` },
-        { icon: <ReceiptLongOutlined />, name: 'Orders', link: `/stores/${store}/orders` },
+        { icon: <HomeOutlinedIcon />, name: "Foodie", link: `/` },
+        { icon: <ShoppingCartOutlinedIcon />, name: 'Search', link: `/itemSearch` },
+        { icon: <ReceiptLongOutlined />, name: 'Gas', link: `/gas` },
 
     ];
     return (
         business && <Box className="z-10"
             sx={{
 
-                position: 'fixed', bottom: 40, right: 16,
+                position: 'fixed', bottom: 60, right: 16,
                 "& .MuiSpeedDial-fab": {
                     backgroundColor: colors.find,
                     "&:hover": {

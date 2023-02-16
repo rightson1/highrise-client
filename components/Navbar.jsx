@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useGlobalProvider } from "../utils/themeContext";
 import { useRouter } from 'next/router'
 import { useAuth } from '../utils/authContext';
@@ -111,6 +111,23 @@ function ResponsiveAppBar() {
 
                         <Box sx={{ flexGrow: 0 }}>
                             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={() => router.push('/itemSearch')}
+                                    color="inherit"
+                                >
+                                    <SearchOutlinedIcon
+
+                                        sx={{
+                                            color: colors.grey[200],
+                                            fontSize: "1.8rem"
+                                        }}
+
+                                    />
+                                </IconButton>
                                 <IconButton
                                     size="large"
                                     aria-label="account of current user"

@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useItemQuery } from "../utils/hooks/useItems";
 import { Toaster, toast } from "react-hot-toast";
 import { useOrders } from "../utils/orderContext";
+import Stores from "../components/Stores";
 
 export default function Home() {
   const { notifications, setNotifications } = useOrders();
@@ -31,7 +32,8 @@ export default function Home() {
     <div className="bg-primary ">
       <Hero />
       <Dishes  {...{ setFilter, filter }} />
-      <RowContainer data={data} {...{ setFilter, filter }} />
+      {/* <RowContainer data={data} {...{ setFilter, filter }} /> */}
+      <Stores />
       <Win />
       <Toaster />
     </div>

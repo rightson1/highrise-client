@@ -111,7 +111,7 @@ function StoreNav() {
                                     }
                                 }} />
                                 {/* <Typography className='capitalize '>{business?.delivery ? 'Free' : 'Cheap'}</Typography> */}
-                                <Typography className='capitalize '>{business?.phone}</Typography>
+                                {/* <Typography className='capitalize '>{business?.phone}</Typography> */}
 
                             </Button>
                             <Button

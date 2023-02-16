@@ -273,54 +273,51 @@ const Category = () => {
                                 <Box
                                     className="w-full overflow-auto block "
                                 >
-                                    <List sx={{
-                                        minWidth: '500px',
-                                    }}>
+                                    <List>
                                         {
                                             storeCart.items.map((item, index) => {
                                                 return (<Box key={index}>
-                                                    <ListItem className="flex  justify-between">
-                                                        <Fab className="z-[3]" onClick={() => setOpen(open === index ? null : index)} size="small" color="primary" aria-label="add" sx={{ background: colors.primary[300] + '!important' }}>
-                                                            <KeyboardArrowLeft className="-rotate-[90deg]" />
-                                                        </Fab>
+                                                    <Typography className="font-bold" fontFamily="Atomic Age">{item.name}</Typography>
+                                                    <ListItem className="flex justify-between">
+
                                                         <Fab className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
                                                             {item.qty}   <ClearOutlinedIcon className="text-[12px]" />
                                                         </Fab>
-                                                        <Typography className="font-bold" fontFamily="Atomic Age">{item.name}</Typography>
+
                                                         <Fab onClick={() => handleEdit(item.id, 0)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.primary[500] + '!important' }}>
                                                             <RemoveOutlinedIcon className="text-[12px]" />
                                                         </Fab>
+                                                        <Typography className="font-bold" fontFamily="Atomic Age">Ksh{item.price}</Typography>
+
                                                         <Fab onClick={() => handleEdit(item.id, 1)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.primary[500] + '!important' }}>
                                                             <AddOutlinedIcon className="text-[12px]" />
                                                         </Fab>
-                                                        <Typography className="font-bold" fontFamily="Atomic Age">Ksh{item.price}</Typography>
 
                                                     </ListItem>
 
-                                                    <Collapse in={open === index} timeout="auto" unmountOnExit>
 
-                                                        <List component="div" disablePadding sx={{ pl: 4, py: 2 }} >
-                                                            <div className="flex gap-4 items-center">  <Typography color={colors.orange[500]} fontFamily='Atomic Age'>Options</Typography>  <Button size="small" onClick={() => {
-                                                                setDrawer(true)
-                                                                setFood(item)
-                                                            }}
-                                                                className="text-[14px] bg-red-100" sx={{ color: colors.orange[500], fontFamily: 'Roboto', }}>
-                                                                Edit
-                                                            </Button></div>
-                                                            {
-                                                                item?.options?.map((option, index) => {
-                                                                    return <ListItem className="flex  gap-4" key={index}>
+                                                    <List component="div" disablePadding sx={{ pl: 4, py: 2 }} >
+                                                        <div className="flex gap-4 items-center">  <Typography color={colors.orange[500]} fontFamily='Atomic Age'>Options</Typography>  <Button size="small" onClick={() => {
+                                                            setDrawer(true)
+                                                            setFood(item)
+                                                        }}
+                                                            className="text-[14px] bg-red-100" sx={{ color: colors.orange[500], fontFamily: 'Roboto', }}>
+                                                            Edit
+                                                        </Button></div>
+                                                        {
+                                                            item?.options?.map((option, index) => {
+                                                                return <ListItem className="flex  gap-4" key={index}>
 
-                                                                        <Typography className="font-bold" fontFamily="Atomic Age">{option.optionName}</Typography>
+                                                                    <Typography className="font-bold" fontFamily="Atomic Age">{option.optionName}</Typography>
 
-                                                                        <Typography className="font-bold" fontFamily="Atomic Age">KSH. {option.price ? option.price : 0}</Typography>
+                                                                    <Typography className="font-bold" fontFamily="Atomic Age">KSH. {option.price ? option.price : 0}</Typography>
 
-                                                                    </ListItem>
-                                                                })
+                                                                </ListItem>
+                                                            })
 
-                                                            }
-                                                        </List>
-                                                    </Collapse>
+                                                        }
+                                                    </List>
+
                                                 </Box>)
                                             })
                                         }
@@ -368,14 +365,18 @@ const Category = () => {
                                         placeholder="Specify Your Block Number, Floor, Room Number"
                                     />
                                 </Box>
-                                <LoadingButton loading={loading} loadingIndicator="Loading…" type="submit" className="w-full  text-white" sx={{ bgcolor: `${colors.primary[500]} !important` }}>Checkout</LoadingButton>
+                                <LoadingButton loading={loading} loadingIndicator="Loading…" type="submit" className="w-full  text-white" sx={{ bgcolor: `${colors.primary[500]} !important` }}>Order</LoadingButton>
                             </Grid>
                             <Grid item sx={{
                                 bgcolor: colors.bg,
                                 height: '100%',
                                 overflow: "hidden",
                                 padding: '1rem !important',
-                                display: 'flex',
+
+                                display: {
+                                    xs: 'none',
+                                    md: 'flex'
+                                },
                                 flexDirection: 'column',
                                 height: {
                                     xs: undefined,

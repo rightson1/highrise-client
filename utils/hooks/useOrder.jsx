@@ -11,7 +11,7 @@ export const useNewOrder = () => {
         onSuccess: () => console.log('success'),
     })
 }
-const today = new Date().getDay();
+const today = new Date().getDate();
 
 const getOrders = (email) => axios.get(`${baseUrl}/api/orders?email=${email}&day=${today}`)
 export const useOrderQuery = () => {

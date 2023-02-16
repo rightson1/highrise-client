@@ -1,4 +1,4 @@
-import { Avatar, Chip, Fab, Grid, ListItem, ListItemIcon, ListItemText, Skeleton } from "@mui/material";
+import { Avatar, Chip, Fab, Grid, List, ListItem, ListItemIcon, ListItemText, Skeleton } from "@mui/material";
 import { useGlobalProvider } from "../utils/themeContext";
 import { Box } from "@mui/system";
 import InputLabel from '@mui/material/InputLabel';
@@ -10,7 +10,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
@@ -21,80 +20,73 @@ import { useOrders } from "../utils/orderContext";
 import { format } from "timeago.js";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
 import { useOrderQuery } from "../utils/hooks/useOrder";
+import { useState } from "react";
 const Orders = () => {
     const router = useRouter()
-    const { data: orders } = useOrderQuery();
+    const [today, setToday] = useState(new Date().getDay());
+
+    const { data: orders, isLoading } = useOrderQuery({ today });
     const { colors } = useGlobalProvider();
     const { data: businesses } = useBusinessQuery();
     const store = router.query.store;
-    return orders ? <Grid className="bg-primary p-2 ">
+    return <Grid className="bg-primary p-2 ">
         <Title title="Orders" subtitle="All Your Order" />
         <Grid item component={Paper} elevation={2} className="bg-primary p-1 pt-3 pb-10">
 
-            <Box className="flex justify-between p-4 px-2 items-center">
-                <Typography variant="h3" className="text-grey"
-                    fontFamily="Nunito"
-                >
-                    Orders
-                </Typography>
 
-            </Box>
-            <Box className="w-full justify-between items-center flex ">
-                <p className="">
-                </p>
-            </Box>
-            <TableContainer component={Paper} className="bg-primary " elevation={0}>
-                <Table sx={{ minWidth: 400 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>
-                                <Typography variant="h6">
-                                    Created At
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography variant="h6">
-                                    Business
-                                </Typography>
-                            </TableCell>
+            <List>
 
-                            <TableCell>
-                                <Typography variant="h6">
+
+
+
+                {
+                    isLoading ? (<Box className="flex flex-col items-center">
+                        <Skeleton variant="rectangular" width='95vh' height={118} />
+                        <Skeleton variant="rectangular" width='95vh' height={118} />
+                        <Skeleton variant="rectangular" width='95vh' height={118} />
+                        <Skeleton variant="rectangular" width='95vh' height={118} />
+                    </Box>
+                    ) :
+                        orders?.length > 0 ? (<>
+                            <Box className="flex justify-between p-4 px-2 items-center">
+                                <Typography variant="h3" className="text-grey"
+                                    fontFamily="Nunito"
+                                >
+                                    Orders
+                                </Typography>
+
+                            </Box>
+                            <ListItem className="flex items-center justify-between">
+                                <Typography variant="h5" className="text-grey"
+                                    fontFamily="Nunito"
+                                >
+                                    Date
+                                </Typography>
+                                <Typography variant="h5" className="text-grey"
+                                    fontFamily="Nunito"
+                                >
                                     Status
                                 </Typography>
-                            </TableCell>
-
-                            <TableCell>
-                                <Typography variant="h6">
-                                    View
+                                <Typography variant="h5" className="text-grey"
+                                    fontFamily="Nunito"
+                                >
+                                    Action
                                 </Typography>
-                            </TableCell>
+                            </ListItem>
+                            {orders.map((order, index) => (
+
+
+                                <ListItem key={index}
+                                    className="flex justify-between items-center"
+                                >
 
 
 
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {orders?.length ? orders.map((order, index) => (
-                            <TableRow key={index}
 
-                            >
-                                <TableCell>
-                                    <Typography
-                                        sx={{
-                                            fontSize: "15px",
-
-                                        }}
-                                    >
+                                    <Typography>
                                         {format(order.createdAt)}
                                     </Typography>
-                                </TableCell>
-                                <TableCell>
-                                    <Typography>
-                                        {businesses?.find(business => business._id == order.business)?.name}
-                                    </Typography>
-                                </TableCell>
-                                <TableCell>
+
                                     <Chip
                                         sx={{
                                             pl: "4px",
@@ -105,8 +97,8 @@ const Orders = () => {
                                         size="small"
                                         label={order.status}
                                     ></Chip>
-                                </TableCell>
-                                <TableCell>
+
+
                                     <Chip
                                         onClick={() => router.push(`/stores/${order.business}/order/${order._id}`)}
                                         sx={{
@@ -117,27 +109,22 @@ const Orders = () => {
                                         size="medium"
                                         label="View"
                                     ></Chip>
-                                </TableCell>
 
 
-                            </TableRow>
-                        )) : <Box>
-                            <Typography variant="h6" className="text-grey">
 
-                                No Orders Yet
-                            </Typography>
+                                </ListItem>
+                            ))}
+                        </>)
 
-                        </Box>
-                        }
-                        <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell colSpan={2}>Click View To Order details</TableCell>
-                            <TableCell>Scroll left</TableCell>
-                        </TableRow>
-                    </TableBody>
+                            : (<Box className="flex flex-col justify-center items-center">
+                                <Typography fontFamily="Atomic Age" className="text-xl font-bold">Your Have No Recent Orders</Typography>
+                                <img src="/empty.png" className="h-auto max-h-[300px]" />
 
-                </Table>
-            </TableContainer>
+                            </Box>)
+                }
+
+            </List>
+
 
         </Grid>
         <Grid item>
@@ -145,10 +132,7 @@ const Orders = () => {
 
 
         </Grid>
-    </Grid> :
-        <Skeleton width="100vw" height={500}>
-
-        </Skeleton>
+    </Grid>
 }
 
 Orders.layout = true;

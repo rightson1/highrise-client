@@ -7,18 +7,21 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { useGlobalProvider } from "../utils/themeContext";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
+import { useRouter } from "next/router";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
+    const router = useRouter();
     const { colors } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0);
     const { data, isLoading } = useBusinessQuery();
+
 
 
     useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]);
 
-    return <Box className="row py-12">
+    return <Box className=" py-12">
         <ListItem sx={{
             display: "flex",
             justifyContent: "center",
@@ -37,108 +40,69 @@ const Stores = ({ flag }) => {
             }}  >Stores</Typography>
 
         </ListItem>
-        {carts.map((cart, index) => {
-            return <Box key={index}>
-                <Box sx={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    px: 2,
 
-                }}>
-                    <Button sx={{
-                        bgcolor: colors.red[200] + " !important",
-                        color: colors.grey[100] + " !important",
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        gap: 1,
-                    }}>{cart.name}
-                        <Box component="img" src="/right.svg" sx={{
-                            width: "1.4rem",
-                            height: "1.4rem"
-                        }} />
-                    </Button>
-                </Box>
-                <div
+        <div
 
-                    ref={rowContainer}
+            ref={rowContainer}
 
-                    className={`w-full flex gap-3  my-4 py-2 scroll-smooth row  ${!flag
-                        ? "overflow-x-scroll scrollbar-none "
-                        : "overflow-x-hidden flex-wrap justify-center"
-                        }`}
+            className={`w-full flex gap-3  my-4 py-2 scroll-smooth  ${!flag
+                ? "overflow-x-scroll scrollbar-none "
+                : "overflow-x-hidden flex-wrap justify-center"
+                }`}
+        >
+
+
+            {data?.map((item, index) => (
+
+                <Box
+                    key={index}
+
+
                 >
+                    <Card
+                        onClick={() => router.push(`/stores/${item._id}`)}
+                        className="md:max-w-[300px] min-w-[250px]  h-[250px]
+         bg-cardOverlay rounded-lg py-2 px-4 cursor-pointer   hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
 
+                        <CardMedia
+                            component="img"
+                            alt={item.name}
+                            height="100"
+                            sx={{
+                                maxHeight: '140px !important',
+                                objectFit: 'contain !important',
+                                p: 1,
 
-                    {data?.map((item, index) => (
+                            }}
 
-                        <Box
-                            key={index}
+                            image={item.avatar}
+                        />
+                        <CardContent sx={{
+                            display: 'flex',
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            flexDirection: 'column'
+                        }}>
+                            <Typography gutterBottom variant="h5" component="div" sx={{
+                                fontFamily: 'Nunito',
+                                fontWeight: 700,
+                                fontSize: '1.2rem',
+                            }}>
+                                {item.name}
+                            </Typography>
+                            <Button size="small" sx={{
+                                color: `${colors.grey[100]} !important`
+                            }}>{item.open ? 'Open' : 'Closed'}</Button>
 
+                        </CardContent>
 
-                        >
-                            <Card className="md:max-w-[300px] min-w-[250px] 
-         bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
-                                <CardMedia
-                                    component="img"
-                                    alt="green iguana"
-                                    height="100"
-                                    sx={{
-                                        maxHeight: '140px !important',
-                                        objectFit: 'contain !important',
-                                        p: 1,
+                    </Card>
 
-                                    }}
+                </Box>
 
-                                    image={item.imageSrc}
-                                />
-                                <CardContent sx={{
-                                    display: 'flex',
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    flexDirection: 'column'
-                                }}>
-                                    <Typography gutterBottom variant="h5" component="div" sx={{
-                                        fontFamily: 'Nunito',
-                                        fontWeight: 700,
-                                        fontSize: '1.2rem',
-                                    }}>
-                                        {item.name}
-                                    </Typography>
-                                    <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly size="large" />
-                                    <Typography gutterBottom sx={{
-                                        fontFamily: 'Nunito',
-                                        fontWeight: 700,
-                                        fontSize: '.8rem',
-                                        textAlign: 'center'
-                                    }}>
-                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum.
-                                    </Typography>
-                                </CardContent>
-                                <CardActions sx={{
-                                    display: 'flex',
-                                    justifyContent: "space-between",
-                                    width: '100%'
-                                }}>
-                                    <Button size="small" sx={{
-                                        color: `${colors.grey[100]} !important`
-                                    }}>ksh {1000}</Button>
-                                    <Button size="small" sx={{
-                                        color: `${colors.grey[100]} !important`,
-                                        backgroundColor: `${colors.red[100]} !important`,
-                                        border: `2px solid ${colors.red[400]} !important`,
-                                    }}>View Store</Button>
-                                </CardActions>
-                            </Card>
+            ))}
+        </div>;
 
-                        </Box>
-
-                    ))}
-                </div>;
-            </Box>
-
-        })}
     </Box>;
 };
 const carts = [

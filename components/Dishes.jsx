@@ -6,10 +6,12 @@ import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import { useEffect, useState, useRef } from "react";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
+import { useAllCategoryQuery } from "../utils/hooks/useCategories";
 const Dishes = ({ setFilter, filter, categories: data }) => {
     const [scrollValue, setScrollValue] = React.useState(5)
-    const rowRef = useRef();
+    const { data: categories } = useAllCategoryQuery()
 
+    const rowRef = useRef();
 
     useEffect(() => {
         rowRef.current.scrollLeft += scrollValue;
@@ -50,7 +52,8 @@ const Dishes = ({ setFilter, filter, categories: data }) => {
         <div className="w-full flex flex-col items-center justify-center">
             <Box className="w-full justify-between items-center flex ">
                 <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto">
-                    Our  Categories
+                    Categories Available
+
                 </p>
                 <div className="flex items-center gap-3">
 
@@ -97,36 +100,36 @@ const Dishes = ({ setFilter, filter, categories: data }) => {
 
 export default Dishes;
 
-const categories = [{
-    id: 1,
-    name: "Chicken",
-    urlParamName: "chicken",
-},
+// const categories = [{
+//     id: 1,
+//     name: "Chicken",
+//     urlParamName: "chicken",
+// },
 
-{
-    id: 3,
-    name: "Rice",
-    urlParamName: "rice",
-},
-{
-    id: 4,
-    name: "Fish",
-    urlParamName: "fish",
-},
-{
-    id: 5,
-    name: "Fruits",
-    urlParamName: "fruits",
-},
-{
-    id: 6,
-    name: "Icecreams",
-    urlParamName: "icecreams",
-},
+// {
+//     id: 3,
+//     name: "Rice",
+//     urlParamName: "rice",
+// },
+// {
+//     id: 4,
+//     name: "Fish",
+//     urlParamName: "fish",
+// },
+// {
+//     id: 5,
+//     name: "Fruits",
+//     urlParamName: "fruits",
+// },
+// {
+//     id: 6,
+//     name: "Icecreams",
+//     urlParamName: "icecreams",
+// },
 
-{
-    id: 7,
-    name: "Soft Drinks",
-    urlParamName: "drinks",
-},
-];
+// {
+//     id: 7,
+//     name: "Soft Drinks",
+//     urlParamName: "drinks",
+// },
+// ];

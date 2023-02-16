@@ -11,6 +11,7 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { InputBase } from "@mui/material";
 import Title from "../components/Title";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useRouter } from "next/router";
 import { useItemsQuery, useSearchedItemsQuery } from "../utils/hooks/useItems";
 import Skeleton from "@mui/material/Skeleton";
@@ -77,10 +78,12 @@ const Stores = ({ flag }) => {
                         bgcolor: colors.find + '!important',
 
                     }}
-                ><ArrowRightAltIcon sx={{
-                    color: colors.grey[100],
-                    width: '5rem'
-                }} /></Button>
+                >
+                    <SearchOutlinedIcon sx={{
+                        color: colors.grey[100],
+                        width: '5rem'
+                    }} />
+                </Button>
 
             </Box>
 
@@ -122,7 +125,7 @@ const Stores = ({ flag }) => {
 
                         >
                             <Card
-                                onClick={() => router.push(`/stores/${item.business}/item/${item._id}`)}
+                                onClick={() => router.push(`/stores/${item.business}`)}
                                 className="md:max-w-[300px] min-w-[250px]  h-[250px]
          bg-cardOverlay rounded-lg py-2 px-4  cursor-pointer  hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
 
@@ -130,7 +133,7 @@ const Stores = ({ flag }) => {
                                     component="img"
                                     alt={item.name}
                                     height="100"
-                                    sx={{
+                                    c sx={{
                                         maxHeight: '140px !important',
                                         objectFit: 'contain !important',
                                         p: 1,
@@ -158,7 +161,7 @@ const Stores = ({ flag }) => {
                                         fontSize: '.8rem',
                                         textAlign: 'center'
                                     }}>
-                                        Delivery {business?.delivery ? 'Free' : 'Not Available'}-{business?.name}
+                                        Available In {business?.name}
                                     </Typography>
                                     <Typography sx={{ color: colors.red[500] }}>ksh {item.price ? item.price :
                                         item?.sizes?.length > 0 && item?.sizes?.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>
