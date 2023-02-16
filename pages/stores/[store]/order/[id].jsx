@@ -96,7 +96,7 @@ const Category = () => {
                                     confirm("Are you sure you want to delete this order?") && handleDelete()
                                 }}
                             >Cancel</Button>
-                            <Button className="underline" onClick={() => router.push(`/stores/${order.business}`)} sx={{ color: colors.grey[100] }} background={colors.teal[300]}>{business.name}</Button>
+                            <Button className="underline" onClick={() => router.push(`/stores/${order.business}`)} sx={{ color: colors.grey[100] }} background={colors.teal[300]}>{business?.name}</Button>
                         </Box>
                         <Box className="flex  justify-between items-center w-full  ">
                             <Typography my={1} variant="h3" fontWeight="bold" color={colors.orange[500]}>{order?.status}</Typography>
