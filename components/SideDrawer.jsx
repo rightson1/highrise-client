@@ -193,10 +193,15 @@ const listItems = [
         link: '/orders',
     },
     {
+        name: 'Profile',
+        link: '/profile',
+    },
+    {
         name: 'Sell',
         link: "https://h-foods-theta.vercel.app/",
         icon: <Sell />
     },
+
 
 
 ]

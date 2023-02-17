@@ -156,6 +156,15 @@ const Stores = ({ flag }) => {
                                     }}>
                                         {item.name}
                                     </Typography>
+                                    <Typography gutterBottom sx={{
+                                        fontFamily: 'Nunito',
+                                        fontWeight: 700,
+                                        fontSize: '.8rem',
+                                        textAlign: 'center'
+                                    }}>
+
+                                        {item.status ? 'Available' : 'Not Available'}
+                                    </Typography>
 
                                     <Typography sx={{ color: colors.red[500] }}>ksh {item.price ? item.price :
                                         item?.sizes?.length > 0 && item?.sizes?.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>
@@ -178,7 +187,7 @@ const Stores = ({ flag }) => {
                         fontWeight: 700,
                         fontSize: '1.2rem',
                     }}>
-                        No items found
+                        {data?.length == 0 ? 'No items found' : 'Search Items'}
                     </Typography>
                 </Box>
 

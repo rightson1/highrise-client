@@ -78,7 +78,8 @@ const Foods = ({ flag, filter }) => {
                                 fontSize: '.8rem',
                                 textAlign: 'center'
                             }}>
-                                {item.description}
+
+                                {item.status ? 'Available' : 'Not Available'}
                             </Typography>
                             <Typography sx={{ color: colors.red[500] }}>ksh {item.price ? item.price :
                                 item?.sizes?.length > 0 && item?.sizes?.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>

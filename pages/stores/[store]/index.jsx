@@ -18,15 +18,20 @@ export default function Store() {
     const { data } = useSingleBusinessQuery(store)
     const { data: categories } = useCategoryQuery(store)
     const [filter, setFilter] = useState('Chicken')
+    const [time, setTime] = useState({
+        hours: new Date().getHours(),
+        minutes: new Date().getMinutes()
+    })
 
     useEffect(() => {
-        if (animate.find((item) => item === store)) {
-            return
-        } else {
-            setAnimate([...animate, store])
-        }
+        if (data) {
+            if (time.hours >= Number(data?.closing.split(':')[0]) && time.minutes > Number(data?.closing.split(':')[1]) || !data.open) {
+                toast.error('We Are Closed')
 
-    }, [])
+            }
+
+        }
+    }, [data])
 
 
     useEffect(() => {

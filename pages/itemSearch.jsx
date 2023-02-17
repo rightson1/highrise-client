@@ -187,7 +187,7 @@ const Stores = ({ flag }) => {
                             fontWeight: 700,
                             fontSize: '1.2rem',
                         }}>
-                            No items found
+                            {data?.length == 0 ? 'No items found' : 'Search Items'}
                         </Typography>
                     </Box>
             }

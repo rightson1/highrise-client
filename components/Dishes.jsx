@@ -86,7 +86,7 @@ const Dishes = ({ setFilter, filter, categories: data }) => {
                 ref={rowRef}
             >
                 {
-                    data ? data.map((category, index) => (
+                    data ? data.filter(({ status }) => status === 'available').map((category, index) => (
                         <Cat key={index} category={category} />
                     )) : categories &&
                     categories.map((category, index) => (
