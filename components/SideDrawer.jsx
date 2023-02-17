@@ -185,7 +185,7 @@ const listItems = [
         name: 'Stores',
         link: '/search',
     }, {
-        name: 'Search',
+        name: 'Hotels',
         link: '/itemSearch',
     },
     {

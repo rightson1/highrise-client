@@ -160,7 +160,7 @@ const Login = () => {
                 }}
                     />
                     <Typography fontFamily="Nunito" variant="body1" className=" text-black"
-                    >Sign Up With Google</Typography>
+                    >Continue Google</Typography>
                 </Button>
             </Box>
         </Grid>

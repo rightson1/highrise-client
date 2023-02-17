@@ -54,7 +54,7 @@ const Category = () => {
 
             updateOrder({
                 id,
-                deleted: true,
+                key: business.key,
                 name: admin.displayName,
             })
 

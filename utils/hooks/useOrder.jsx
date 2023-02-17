@@ -18,7 +18,7 @@ export const useOrderQuery = () => {
         select: (data) => data.data,
     })
 }
-const updateOrder = ({ id, deleted, name }) => axios.delete(`${baseUrl}/api/orders/single?id=${id}&name=${name}`)
+const updateOrder = ({ id, key, name }) => axios.delete(`${baseUrl}/api/orders/single?id=${id}&name=${name}&key=${key}`)
 
 export const useUpdateOrder = () => {
     const queryClient = useQueryClient()

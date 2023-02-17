@@ -215,7 +215,7 @@ const Register = () => {
 
             }}
                 />
-                <Typography fontFamily="Nunito" variant="body1" className=" text-black">Sign Up With Google</Typography>
+                <Typography fontFamily="Nunito" variant="body1" className=" text-black">Continue With Google</Typography>
             </Button>
         </Grid>
 
