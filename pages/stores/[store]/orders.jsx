@@ -1,16 +1,9 @@
-import { Avatar, Chip, Fab, Grid, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import Chip from "@mui/material/Chip";
+import { useState } from "react";
+import Grid from "@mui/material/Grid";
+import ListItem from "@mui/material/ListItem";
 import { useGlobalProvider } from "../../../utils/themeContext";
 import { Box } from "@mui/system";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
@@ -21,75 +14,73 @@ import { useOrders } from "../../../utils/orderContext";
 import { format } from "timeago.js";
 import { useSingleBusinessQuery } from "../../../utils/hooks/useBusiness";
 import Skeleton from "@mui/material/Skeleton";
+import List from "@mui/material/List";
+import { useOrderQuery } from "../../../utils/hooks/useOrder";
+
 const Orders = () => {
     const router = useRouter()
     const { store } = router.query
-    const { orders } = useOrders();
+    const { data: orders, isLoading } = useOrderQuery()
+
     const { colors } = useGlobalProvider();
-    const { data: business } = useSingleBusinessQuery(store)
-    return orders ? <Grid className="bg-primary p-2 ">
-        <Title title="Orders" subtitle={`All Your ${business?.name ? business.name : ''} Orders`} />
-        <Grid item component={Paper} elevation={2} className="bg-primary p-1">
+    return <Grid className="bg-primary p-2  ">
+        <Title title="Orders" subtitle="All Your Order" />
+        <Grid item component={Paper} elevation={2} className="bg-primary p-1 pt-3 pb-10 min-h-screen">
 
-            <Box className="flex justify-between p-4 px-2 items-center">
-                <Typography variant="h3" className="text-grey"
-                    fontFamily="Atomic Age"
-                >
-                    Orders
-                </Typography>
 
-            </Box>
-            <Box className="w-full justify-between items-center flex ">
-                <p className="">
-                </p>
+            <List>
 
-            </Box>
-            <TableContainer component={Paper} className="bg-primary " elevation={0}>
-                <Table sx={{ minWidth: 400 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>
-                                <Typography variant="h6">
-                                    Created At
+
+
+
+                {
+                    isLoading ? (<Box className="flex flex-col items-center">
+                        <Skeleton variant="rectangular" width='95vh' height={118} />
+                        <Skeleton variant="rectangular" width='95vh' height={118} />
+                        <Skeleton variant="rectangular" width='95vh' height={118} />
+                        <Skeleton variant="rectangular" width='95vh' height={118} />
+                    </Box>
+                    ) :
+                        orders?.length > 0 ? (<>
+                            <Box className="flex justify-between p-4 px-2 items-center">
+                                <Typography variant="h3" className="text-grey"
+                                    fontFamily="Nunito"
+                                >
+                                    Orders
                                 </Typography>
-                            </TableCell>
 
-                            <TableCell>
-                                <Typography variant="h6">
+                            </Box>
+                            <ListItem className="flex items-center justify-between">
+                                <Typography variant="h5" className="text-grey"
+                                    fontFamily="Nunito"
+                                >
+                                    Date
+                                </Typography>
+                                <Typography variant="h5" className="text-grey"
+                                    fontFamily="Nunito"
+                                >
                                     Status
                                 </Typography>
-                            </TableCell>
-
-                            <TableCell>
-                                <Typography variant="h6">
-                                    View
+                                <Typography variant="h5" className="text-grey"
+                                    fontFamily="Nunito"
+                                >
+                                    Action
                                 </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography variant="h6">
-                                    Delete
-                                </Typography>
-                            </TableCell>
+                            </ListItem>
+                            {orders.filter(order => !order.deleted).map((order, index) => (
 
 
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {orders.filter((order) => order.business === store).map((order, index) => (
-                            <TableRow key={index}
+                                <ListItem key={index}
+                                    className="flex justify-between items-center"
+                                >
 
-                            >
-                                <TableCell>
-                                    <Typography
-                                        sx={{
-                                            fontSize: "15px",
 
-                                        }}
-                                    >
+
+
+                                    <Typography>
                                         {format(order.createdAt)}
                                     </Typography>
-                                </TableCell>
-                                <TableCell>
+
                                     <Chip
                                         sx={{
                                             pl: "4px",
@@ -100,10 +91,10 @@ const Orders = () => {
                                         size="small"
                                         label={order.status}
                                     ></Chip>
-                                </TableCell>
-                                <TableCell>
+
+
                                     <Chip
-                                        onClick={() => router.push(`/stores/${store}/order/${order._id}`)}
+                                        onClick={() => router.push(`/stores/${order.business}/order/${order._id}`)}
                                         sx={{
                                             px: 1,
                                             backgroundColor: colors.yellow[500],
@@ -112,38 +103,22 @@ const Orders = () => {
                                         size="medium"
                                         label="View"
                                     ></Chip>
-                                </TableCell>
-                                <TableCell>
-                                    <Fab
-                                        size="small"
-                                        sx={{
-                                            px: 1,
-                                            backgroundColor: colors.yellow[500],
-                                            color: "#fff",
-                                            zIndex: '4',
-                                        }}
-
-                                    >
-                                        <DeleteOutlineIcon
-                                            sx={{
-                                                color: colors.red[500],
-                                            }}
-                                        />
-                                    </Fab>
-                                </TableCell>
 
 
-                            </TableRow>
-                        ))}
-                        <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell colSpan={2}>Click View To Order details</TableCell>
-                            <TableCell>Scroll left</TableCell>
-                        </TableRow>
-                    </TableBody>
 
-                </Table>
-            </TableContainer>
+                                </ListItem>
+                            ))}
+                        </>)
+
+                            : (<Box className="flex flex-col justify-center items-center">
+                                <Typography fontFamily="Atomic Age" className="text-xl font-bold">Your Have No Recent Orders</Typography>
+                                <img src="/empty.png" className="h-auto max-h-[300px]" />
+
+                            </Box>)
+                }
+
+            </List>
+
 
         </Grid>
         <Grid item>
@@ -151,10 +126,7 @@ const Orders = () => {
 
 
         </Grid>
-    </Grid> :
-        <Skeleton width="100vw" height={500}>
-
-        </Skeleton>
+    </Grid>
 };
 
 export default Orders;

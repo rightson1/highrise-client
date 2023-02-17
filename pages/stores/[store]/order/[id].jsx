@@ -1,5 +1,5 @@
 import { Avatar, Chip, Fab, Grid, Box, Paper, Skeleton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
@@ -32,7 +32,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { db } from "../../../../utils/firebase"
 import axios from "axios";
 import { useAuth } from "../../../../utils/authContext";
-import { useOrderQuery } from "../../../../utils/hooks/useOrder";
+import { useOrderQuery, useUpdateOrder } from "../../../../utils/hooks/useOrder";
 import { useSingleBusinessQuery } from "../../../../utils/hooks/useBusiness";
 const Category = () => {
 
@@ -43,27 +43,40 @@ const Category = () => {
     const order = orders?.find(order => order._id === id);
     const theme = useTheme()
     const today = new Date().getDay()
-    const { user } = useAuth
+    const { user, admin } = useAuth()
     const [open, setOpen] = useState(false);
-    const { data: business } = useSingleBusinessQuery(order.business)
+    const { data: business } = useSingleBusinessQuery(order?.business)
+    const { mutateAsync: updateOrder, isError, isSuccess } = useUpdateOrder();
     const handleDelete = () => {
-
         const deleteRef = doc(db, "orders", order.realId)
         const del = () => deleteDoc(deleteRef).then(() => {
-            setTimeout(() => {
-                refetch()
-                router.push('/orders')
 
-            }, 4000)
 
+            updateOrder({
+                id,
+                deleted: true,
+                name: admin.displayName,
+            })
+
+
+
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
         })
         toast.promise(del(), {
-            loading: "Deleting...",
-            success: "Deleted",
-            error: "Error",
+            loading: "Cancelling order...",
+            success: "Order deleted",
+            error: "Error cancelling order"
         })
     }
-
+    useEffect(() => {
+        if (isError) {
+            toast.error("Error updating order")
+        }
+        if (isSuccess) {
+            router.push(`/`)
+        }
+    }, [isError])
     return <Box className="bg-primary">
         <Title title="Orders" />
         <Box elevation={0} sx={{
@@ -133,8 +146,8 @@ const Category = () => {
                                 </TableHead>
                                 <TableBody>
                                     {order?.items.map((product, index) => (
-                                        <>
-                                            <TableRow key={index}
+                                        <Box key={index}>
+                                            <TableRow
 
                                             >
                                                 <TableCell>
@@ -200,7 +213,7 @@ const Category = () => {
 
                                                 </Collapse>
                                             </TableRow>
-                                        </>
+                                        </Box>
                                     ))
                                     }
                                 </TableBody>
@@ -359,7 +372,4 @@ const Category = () => {
         <Toaster />
     </Box>;
 };
-
-
-Category.layout = true;
 export default Category;

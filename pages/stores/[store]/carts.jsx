@@ -45,7 +45,7 @@ const Category = () => {
     const { store } = router.query
     const [storeCart, setStoreCart] = useState(null)
     const { data: business } = useSingleBusinessQuery(store)
-    console.log(business)
+
     const [total, setTotal] = useState(0)
     const [on, setOn] = useState(false)
     useEffect(() => {
@@ -120,13 +120,6 @@ const Category = () => {
                 }
             }).then((res) => {
                 const realId = res.id
-                const email = () => sendPasswordResetEmail(auth, business?.admin).catch(e => console.log(e))
-                toast.promise(email(), {
-                    loading: 'Sending Email',
-                    success: 'Email Sent',
-                    error: 'Error Sending Email'
-                })
-
                 mutate({ realId, ...data })
             }).catch((err) => {
                 toast.error('Error', {
@@ -262,7 +255,7 @@ const Category = () => {
                                 }}
                             >
                                 <Box justifyContent="flex-start">
-                                    <Button sx={{ color: colors.grey[800], background: colors.primary[500] + '!important' }}
+                                    <Button sx={{ color: colors.grey[800], background: colors.red[500] + '!important' }}
                                         onClick={handleClear}
                                     >Clear</Button>
                                 </Box>
@@ -277,47 +270,49 @@ const Category = () => {
                                         {
                                             storeCart.items.map((item, index) => {
                                                 return (<Box key={index}>
-                                                    <Typography className="font-bold" fontFamily="Atomic Age">{item.name}</Typography>
+                                                    <Box className="flex gap-2">
+                                                        <Typography className="font-bold" fontFamily="Atomic Age">{index + 1}.{item?.name}</Typography>
+                                                        <Typography className="font-bold capitalize" fontFamily="Atomic Age">-{item?.sizes?.name}</Typography>
+                                                    </Box>
                                                     <ListItem className="flex justify-between">
 
-                                                        <Fab className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.grey[800] + '!important' }}>
+                                                        <Fab className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.yellow[100] + '!important', color: colors.primary[100] }}>
                                                             {item.qty}   <ClearOutlinedIcon className="text-[12px]" />
                                                         </Fab>
 
-                                                        <Fab onClick={() => handleEdit(item.id, 0)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.primary[500] + '!important' }}>
+                                                        <Fab onClick={() => handleEdit(item.id, 0)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.yellow[100] + '!important', color: colors.primary[100] }}>
                                                             <RemoveOutlinedIcon className="text-[12px]" />
                                                         </Fab>
                                                         <Typography className="font-bold" fontFamily="Atomic Age">Ksh{item.price}</Typography>
 
-                                                        <Fab onClick={() => handleEdit(item.id, 1)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.primary[500] + '!important' }}>
+                                                        <Fab onClick={() => handleEdit(item.id, 1)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.yellow[100] + '!important', color: colors.primary[100] }}>
                                                             <AddOutlinedIcon className="text-[12px]" />
                                                         </Fab>
 
                                                     </ListItem>
+                                                    {
+                                                        item.options.length > 0 && <List component="div" disablePadding sx={{ pl: 4, py: 2 }} >
+                                                            <div className="flex gap-4 items-center">  <Typography color={colors.orange[500]} fontFamily='Atomic Age'>Options</Typography>  <Button size="small" onClick={() => {
+                                                                setDrawer(true)
+                                                                setFood(item)
+                                                            }}
+                                                                className="text-[14px] bg-red-100" sx={{ color: colors.orange[500], fontFamily: 'Roboto', }}>
+                                                                Edit
+                                                            </Button></div>
+                                                            {
+                                                                item?.options?.map((option, index) => {
+                                                                    return <ListItem className="flex  gap-4" key={index}>
 
+                                                                        <Typography className="font-bold" fontFamily="Atomic Age">{option.optionName}</Typography>
 
-                                                    <List component="div" disablePadding sx={{ pl: 4, py: 2 }} >
-                                                        <div className="flex gap-4 items-center">  <Typography color={colors.orange[500]} fontFamily='Atomic Age'>Options</Typography>  <Button size="small" onClick={() => {
-                                                            setDrawer(true)
-                                                            setFood(item)
-                                                        }}
-                                                            className="text-[14px] bg-red-100" sx={{ color: colors.orange[500], fontFamily: 'Roboto', }}>
-                                                            Edit
-                                                        </Button></div>
-                                                        {
-                                                            item?.options?.map((option, index) => {
-                                                                return <ListItem className="flex  gap-4" key={index}>
+                                                                        <Typography className="font-bold" fontFamily="Atomic Age">KSH. {option.price ? option.price : 0}</Typography>
 
-                                                                    <Typography className="font-bold" fontFamily="Atomic Age">{option.optionName}</Typography>
+                                                                    </ListItem>
+                                                                })
 
-                                                                    <Typography className="font-bold" fontFamily="Atomic Age">KSH. {option.price ? option.price : 0}</Typography>
-
-                                                                </ListItem>
-                                                            })
-
-                                                        }
-                                                    </List>
-
+                                                            }
+                                                        </List>
+                                                    }
                                                 </Box>)
                                             })
                                         }
@@ -336,13 +331,13 @@ const Category = () => {
                                         sx={{
                                             width: "100%",
                                             outline: colors.teal[100],
-                                            // border: `2px solid ${colors.orange[500]}`,
+                                            border: `1px solid ${colors.primary[900]}`,
                                             height: '100px',
                                             '$:focus': {
                                                 outline: colors.teal[100],
                                             }
                                         }}
-                                        className="resize-none rounded-sm px-2 focus:border-teal-500 focus:border-2 "
+                                        className="resize-none rounded-md px-2 focus:border-teal-500 focus:border-2 "
                                         placeholder="Enter your elergies/or what you want to add to your order"
                                     />
                                 </Box>
@@ -354,18 +349,18 @@ const Category = () => {
                                         sx={{
                                             width: "100%",
                                             outline: colors.teal[100],
-                                            // border: `2px solid ${colors.orange[500]}`,
+                                            border: `1px solid ${colors.primary[900]}`,
                                             p: 1,
                                             '$:focus': {
                                                 outline: colors.teal[100],
                                             }
                                         }}
-                                        className="resize-none rounded-sm px-2 focus:border-teal-500 focus:border-2 "
+                                        className="resize-none rounded-md px-2 focus:border-teal-500 focus:border-2 "
                                         required
                                         placeholder="Specify Your Block Number, Floor, Room Number"
                                     />
                                 </Box>
-                                <LoadingButton loading={loading} loadingIndicator="Loading…" type="submit" className="w-full  text-white" sx={{ bgcolor: `${colors.primary[500]} !important` }}>Order</LoadingButton>
+                                <LoadingButton loading={loading} loadingIndicator="Loading…" type="submit" className="w-full  text-white" sx={{ bgcolor: `${colors.red[500]} !important` }}>Order</LoadingButton>
                             </Grid>
                             <Grid item sx={{
                                 bgcolor: colors.bg,

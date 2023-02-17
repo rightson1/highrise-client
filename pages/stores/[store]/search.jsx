@@ -1,6 +1,6 @@
 import { Typography, Box, List, ListItem, Avatar, ListItemIcon, Rating, Autocomplete, TextField } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { useGlobalProvider } from "../utils/themeContext";
+import { useGlobalProvider } from "../../../utils/themeContext";
 import Card from "@mui/material/Card";
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,26 +9,25 @@ import Button from '@mui/material/Button';
 import Search from "@mui/icons-material/Search";
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { InputBase } from "@mui/material";
-import Title from "../components/Title";
-import { useBusinessQuery } from "../utils/hooks/useBusiness";
+import Title from "../../../components/Title";
+import { useBusinessQuery } from "../../../utils/hooks/useBusiness";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useRouter } from "next/router";
-import { useItemsQuery, useSearchedItemsQuery } from "../utils/hooks/useItems";
+import { useGetItemNamesStore, useItemsQuery, useSearchedItemsQuery } from "../../../utils/hooks/useItems";
 import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const router = useRouter()
+    const { store } = router.query
     const { colors, baseUrl } = useGlobalProvider(0)
-    const { data, isLoading, error } = useItemsQuery()
-    const [filteredData, setFilteredData] = useState()
-    const [completed, setCompleted] = useState(false)
+    const { data, isLoading, error } = useGetItemNamesStore(store)
+    const [filteredData, setFilteredData] = useState([])
     const [searchTerm, setSearchTerm] = useState(null);
     const [loading, setLoading] = useState(false)
-    const { data: businesses } = useBusinessQuery();
     const handleClicked = (value) => {
         setLoading(true)
-        axios.get(`${baseUrl}/api/items/search?search=${searchTerm}`).then((res) => {
+        axios.get(`${baseUrl}/api/items/store/${store}?search=${searchTerm}`).then((res) => {
             setFilteredData(res.data)
             setLoading(false)
         }).catch((e) => {
@@ -37,8 +36,8 @@ const Stores = ({ flag }) => {
         })
 
     }
+
     return <div className="bg-primary min-h-screen">
-        <Title title="Search" subtitle="Search For  Foods " />
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
 
             <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "
@@ -54,7 +53,9 @@ const Stores = ({ flag }) => {
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    onChange={(e, value) => setSearchTerm(value?.name)}
+                    onChange={(e, value) => {
+                        setSearchTerm(value?.name)
+                    }}
                     options={data || []}
                     getOptionLabel={(option) => option.name}
                     loading={isLoading}
@@ -94,7 +95,7 @@ const Stores = ({ flag }) => {
 
             ref={rowContainer}
 
-            className={`w-full flex gap-3  my-4 py-2 scroll-smooth  ${!flag
+            className={`w-full flex gap-3  my-4 py-2 scroll-smooth  ${false
                 ? "overflow-x-scroll scrollbar-none "
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}
@@ -114,82 +115,73 @@ const Stores = ({ flag }) => {
                         </Box>
                     )
                 })
-                ) : filteredData?.length > 0 ?
-
-                    filteredData?.map((item, index) => {
-                        const business = businesses?.find(business => business._id === item.business)
-
-                        return (
-
-                            <Box
-                                key={index}
+                ) : filteredData?.length > 0 ? filteredData.map((item, index) => {
 
 
-                            >
-                                <Card
-                                    onClick={() => router.push(`/stores/${item.business}`)}
-                                    className="md:max-w-[300px] min-w-[250px]  h-[250px]
+                    return (
+
+                        <Box
+                            key={index}
+
+
+                        >
+                            <Card
+                                onClick={() => router.push(`/stores/${item.business}/item/${item._id}`)}
+                                className="md:max-w-[300px] min-w-[250px]  h-[250px]
          bg-cardOverlay rounded-lg py-2 px-4  cursor-pointer  hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
 
-                                    <CardMedia
-                                        component="img"
-                                        alt={item.name}
-                                        height="100"
-                                        c sx={{
-                                            maxHeight: '140px !important',
-                                            objectFit: 'contain !important',
-                                            p: 1,
+                                <CardMedia
+                                    component="img"
+                                    alt={item.name}
+                                    height="100"
+                                    sx={{
+                                        maxHeight: '140px !important',
+                                        objectFit: 'contain !important',
+                                        p: 1,
 
-                                        }}
+                                    }}
 
-                                        image={item.image}
-                                    />
-                                    <CardContent sx={{
-                                        display: 'flex',
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        flexDirection: 'column'
+                                    image={item.image}
+                                />
+                                <CardContent sx={{
+                                    display: 'flex',
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    flexDirection: 'column'
+                                }}>
+                                    <Typography gutterBottom variant="h5" component="div" sx={{
+                                        fontFamily: 'Nunito',
+                                        fontWeight: 700,
+                                        fontSize: '1.2rem',
                                     }}>
-                                        <Typography gutterBottom variant="h5" component="div" sx={{
-                                            fontFamily: 'Nunito',
-                                            fontWeight: 700,
-                                            fontSize: '1.2rem',
-                                        }}>
-                                            {item.name}
-                                        </Typography>
-                                        <Typography gutterBottom sx={{
-                                            fontFamily: 'Nunito',
-                                            fontWeight: 700,
-                                            fontSize: '.8rem',
-                                            textAlign: 'center'
-                                        }}>
-                                            Available In {business?.name}
-                                        </Typography>
-                                        <Typography sx={{ color: colors.red[500] }}>ksh {item.price ? item.price :
-                                            item?.sizes?.length > 0 && item?.sizes?.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>
-                                        <Typography></Typography>
-                                    </CardContent>
+                                        {item.name}
+                                    </Typography>
 
-                                </Card>
+                                    <Typography sx={{ color: colors.red[500] }}>ksh {item.price ? item.price :
+                                        item?.sizes?.length > 0 && item?.sizes?.reduce((prev, curr) => prev.price > curr.price ? prev : curr)?.price}</Typography>
+                                    <Typography></Typography>
+                                </CardContent>
+
+                            </Card>
 
 
-                            </Box>
+                        </Box>
 
-                        )
-                    }
+                    )
+                }
 
-                    ) :
-                    <Box
-                        className="md:max-w-[300px] min-w-[250px] h-[200px]
+                ) : <Box
+                    className="md:max-w-[300px] min-w-[250px] h-[200px]
             bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
-                        <Typography variant="h5" sx={{
-                            fontFamily: 'Nunito',
-                            fontWeight: 700,
-                            fontSize: '1.2rem',
-                        }}>
-                            No items found
-                        </Typography>
-                    </Box>
+                    <Typography variant="h5" sx={{
+                        fontFamily: 'Nunito',
+                        fontWeight: 700,
+                        fontSize: '1.2rem',
+                    }}>
+                        No items found
+                    </Typography>
+                </Box>
+
             }
 
 
@@ -199,6 +191,4 @@ const Stores = ({ flag }) => {
     </div>;
 };
 
-
-Stores.layout = true
 export default Stores;

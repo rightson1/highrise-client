@@ -68,20 +68,20 @@ export default function Options({ food }) {
     }, [cart])
 
     useEffect(() => {
+        if (food.price) {
+            setTotal(food.price)
+        }
+        else if (sizes || optionType) {
 
-        if (sizes || optionType) {
             const option = Number(optionType.reduce((acc, cur) => acc + cur.price, 0))
             const total = typeof Option == Number ? option : 0 + Number(sizes?.price ? sizes.price : 0)
             setTotal(total)
-        }
-        else if (food.price) {
-            setTotal(food.price)
         }
 
     }, [optionType, food, sizes])
 
 
-
+    console.log(total)
 
     const handleSubmit = (e) => {
         const { category, desc, status, ...others } = food
@@ -97,13 +97,13 @@ export default function Options({ food }) {
             const item = exists.items.find((item) => item._id === id)
             if (item) {
                 const itemExist = exists.items.find((item) => {
-                    return item.sizes.name === sizes.name && !((optionType.filter((option) => item.options?.find((itemOption) => itemOption.optionName !== option.optionName)))?.length > 0)
+                    return (item.sizes ? item.sizes.name === sizes.name : false) && !((optionType.filter((option) => item.options?.find((itemOption) => itemOption.optionName !== option.optionName)))?.length > 0)
                 })
 
                 if (itemExist) {
                     toast.error('Item already exist in cart,change options or sizes to add it to cart')
 
-                    return;
+                    return; 4
                 }
 
             }

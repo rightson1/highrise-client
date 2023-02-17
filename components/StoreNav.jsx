@@ -16,6 +16,7 @@ import { Badge } from '@mui/material';
 import { useRouter } from 'next/router'
 import { useSingleBusinessQuery } from "../utils/hooks/useBusiness";
 import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 function StoreNav() {
     const { colors, setOpen, cart } = useGlobalProvider()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -97,25 +98,26 @@ function StoreNav() {
 
                         <Box sx={{ flexGrow: 0 }} className="flex ">
 
-                            <Button className='flex'
-                                onClick={() => router.push(`/stores/${store}/carts`)}
-                                sx={{
-                                    display: { md: 'block' },
-                                    color: colors.grey[200]
-                                }}
-                            >
-                                <DeliveryDiningIcon sx={{
-                                    display: {
-                                        xs: 'none',
-                                        md: 'block'
-                                    }
-                                }} />
-                                {/* <Typography className='capitalize '>{business?.delivery ? 'Free' : 'Cheap'}</Typography> */}
-                                {/* <Typography className='capitalize '>{business?.phone}</Typography> */}
 
-                            </Button>
-                            <Button
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                              onClick={() => router.push(`/stores/${store}/search`)}
+                                color="inherit"
+                            >
+                                <SearchOutlinedIcon
+
+                                    sx={{
+                                        color: colors.grey[200],
+                                        fontSize: "1.8rem"
+                                    }}
+
+                                />
+                            </IconButton>
+                            <IconButton
                                 onClick={() => router.push(`/stores/${store}/carts`)}
+                                size="large"
                                 sx={{
                                     display: { md: 'block' },
                                     color: colors.grey[200]
@@ -126,7 +128,7 @@ function StoreNav() {
                                     <ShoppingCartOutlinedIcon />
                                 </Badge>
 
-                            </Button>
+                            </IconButton>
                         </Box>
                     </Toolbar>
                 </Container>

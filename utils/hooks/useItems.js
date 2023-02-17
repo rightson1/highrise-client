@@ -68,9 +68,20 @@ export const useSearchedItemsQuery = (search) => {
 const getItemsByStore = (id, items) =>
   axios.get(`${baseUrl}/api/items/related?id=${id}&names=${items}`);
 export const useItemsByStoreQuery = (id, items) => {
-  return useQuery(["related", id], () => getItemsByStore(id, items), {
+  return useQuery(["storeItemSeach", id], () => getItemsByStore(id, items), {
     select: (data) => data.data,
     enabled: !!id && !!items,
+    cacheTime: 1000 * 60 * 60 * 24,
+    staleTime: 1000 * 60 * 60 * 24,
+  });
+};
+
+const getItemNamesStore = (search) =>
+  axios.get(`${baseUrl}/api/items/store/${search}?`);
+export const useGetItemNamesStore = (search) => {
+  return useQuery(["storeItemNames", search], () => getItemNamesStore(search), {
+    select: (data) => data.data,
+    enabled: !!search,
     cacheTime: 1000 * 60 * 60 * 24,
     staleTime: 1000 * 60 * 60 * 24,
   });
