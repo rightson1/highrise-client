@@ -7,7 +7,8 @@ import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import { useGlobalProvider } from "../utils/themeContext";
 import { useState } from "react";
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { useRouter } from "next/router";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import KeyIcon from '@mui/icons-material/Key';
@@ -15,14 +16,14 @@ import Button from "@mui/material/Button";
 import { toast, Toaster } from "react-hot-toast";
 import { useAuth } from "../utils/authContext";
 import { db } from "../utils/firebase";
-import { deleteUser } from "firebase/auth";
+import { deleteUser, updatePassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
 const Profile = () => {
     const { colors } = useGlobalProvider();
     const [values, setValues] = useState(null);
     const router = useRouter();
     const { user, admin } = useAuth()
-
+    const [visibility, setVisibility] = useState(false)
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
@@ -34,6 +35,7 @@ const Profile = () => {
             }, 2000)
         }
         if (values) {
+            localStorage.removeItem('user')
             const updateRef = doc(db, 'users', user.id)
             const update = () => updateDoc(updateRef, values)
             toast.promise(update(), {
@@ -47,7 +49,7 @@ const Profile = () => {
     const deleteAccount = () => {
         const id = user.id
         toast.loading('Deleting account...')
-        deleteUser(auth.currentUser).then(() => {
+        window.confirm('Delete Account?') && deleteUser(auth.currentUser).then(() => {
             const deleteRef = doc(db, 'users', id)
             deleteDoc(deleteRef).then(() => {
                 toast.success('Account deleted')
@@ -85,33 +87,34 @@ const Profile = () => {
             </div>
             <Grid container spacing={2} >
                 <Grid item xs={12} md={6} className="flex flex-col">
-                    <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Name</Typography>
+                    <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start"
+                    >Name</Typography>
                     <Box className="w-full flex rounded-md p-2 " sx={{ bgcolor: colors.red[300] }}>
-                        <InputBase required type="text" name="name" onChange={handleChange} className="  flex-1 " fullWidth />
+                        <InputBase required placeholder={user?.displayName || "Name"} type="text" name="name" onChange={handleChange} className="  flex-1 " fullWidth />
                         <Person2OutlinedIcon sx={{ color: 'black', }} />
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6} className="flex flex-col">
                     <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Phone</Typography>
                     <Box className="w-full flex rounded-md p-2 " sx={{ bgcolor: colors.red[300] }}>
-                        <InputBase type="text" name="phone" required onChange={handleChange} className="  flex-1 " fullWidth />
+                        <InputBase type="text" name="phone" placeholder={user?.phone || "Phone"} required onChange={handleChange} className="  flex-1 " fullWidth />
                         <LocalPhoneOutlinedIcon sx={{ color: 'black', }} />
                     </Box>
                 </Grid>
 
             </Grid>
-            {/* <Typography fontFamily="nunito" className="text-xl font-bold my-5">Security</Typography>
+            <Typography fontFamily="nunito" className="text-xl font-bold my-5">Security</Typography>
             <Box className="flex flex-col">
-                <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Phone</Typography>
+                <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Email</Typography>
                 <Box className="w-full flex rounded-md p-2 " sx={{ bgcolor: colors.red[300] }}>
-                    <InputBase type="text" name="phone" required onChange={handleChange} className="  flex-1 " fullWidth />
+                    <InputBase readOnly type="text" placeholder={user?.email || "Email"} name="email" required onChange={handleChange} className="  flex-1 " fullWidth />
                     <LocalPhoneOutlinedIcon sx={{ color: 'black', }} />
                 </Box>
             </Box>
-            <Box className="flex flex-col">
+            {/* <Box className="flex flex-col">
                 <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Password</Typography>
                 <Box className="w-full flex rounded-md p-2 " sx={{ bgcolor: colors.red[300] }}>
-                    <InputBase required type={visibility ? "text" : 'password'} name="password" onChange={handleChange} className="  flex-1 " fullWidth />
+                    <InputBase  required type={visibility ? "text" : 'password'} name="password" onChange={handleChange} className="  flex-1 " fullWidth />
                     {visibility ? <RemoveRedEyeOutlinedIcon onClick={() => setVisibility(false)} sx={{ color: 'black', }} /> : <VisibilityOffOutlinedIcon sx={{ color: 'black', }} onClick={() => setVisibility(true)} />}
                 </Box>
             </Box> */}

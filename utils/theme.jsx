@@ -223,6 +223,7 @@ export const tokens = (mode) => ({
             looking: "#FFE2D8",
             bg: "rgba(245, 242, 242, .98)",
             sidebar: '#FFECD6',
+            gasButton: '#5D5DFF'
 
         }),
 });

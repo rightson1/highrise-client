@@ -107,6 +107,7 @@ const Category = () => {
             addDoc(cartRef, {
                 user: admin?.email,
                 business: storeCart.id,
+                key: user.key || '',
                 status: 'Pending',
                 name: business?.name,
                 read: 'false',

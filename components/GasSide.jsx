@@ -35,14 +35,13 @@ export default function TemporaryDrawer() {
         <Box
             sx={{
                 width: 250,
-                bgcolor: colors.sidebar + ' !important',
                 height: '100%',
                 py: 2,
             }}
             role="presentation"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
-            className="row bg-primary"
+            className="bg-bgEn"
         >
             <Box className="flex justify-end">
                 <IconButton className='self-end jus'>
@@ -61,7 +60,7 @@ export default function TemporaryDrawer() {
                     fontFamily: 'Atomic Age',
                     fontWeight: 700,
                     letterSpacing: '.3rem',
-                    color: colors.find,
+                    color: colors.gasButton,
                     textDecoration: 'none',
                     fontSize: {
                         xs: '1.3rem',
@@ -70,10 +69,10 @@ export default function TemporaryDrawer() {
 
                 }}
             >
-                H-Foods
+                Gassies
             </Typography>
 
-            <List
+            <List className=''
             >
                 {
                     listItems.map((item, index) => {
@@ -84,23 +83,37 @@ export default function TemporaryDrawer() {
                             item.name == 'Sell' ? <ListItem component="a" target="_blank" href={item.link} key={index} className="flex justify-center"
 
                                 sx={{
-                                    color: item.link === router.pathname ? colors.find : colors.primary[100],
+                                    color: item.link === router.pathname ? colors.gasButton : colors.primary[100],
 
 
                                 }} >
-                                <ListItemButton className="flex justify-center" >
-                                    <Typography fontFamily="Nunito" className='font-bold text-xl'>
+                                <ListItemButton sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                }} >
+                                    <Typography fontFamily="Nunito" sx={{
+                                        fontWeight: 'bold',
+                                        fontSize: '1.1rem',
+                                    }}>
                                         {item.name}
                                     </Typography>
                                 </ListItemButton>
                             </ListItem> :
-                                <ListItem key={index} className="flex justify-center" sx={{
-                                    color: item.link === router.pathname ? colors.find : colors.primary[100],
+                                <ListItem key={index} sx={{
+                                    display: 'flex',
+
+                                    color: item.link === router.pathname ? colors.gasButton : colors.primary[100],
 
 
                                 }} >
-                                    <ListItemButton className="flex justify-center" onClick={() => router.push(item.link)}>
-                                        <Typography fontFamily="Nunito" className='font-bold text-xl'>
+                                    <ListItemButton sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                    }} onClick={() => router.push(item.link)}>
+                                        <Typography fontFamily="Nunito" sx={{
+                                            fontWeight: 'bold',
+                                            fontSize: '1.25rem',
+                                        }}>
                                             {item.name}
                                         </Typography>
                                     </ListItemButton>
@@ -115,7 +128,7 @@ export default function TemporaryDrawer() {
                 {
                     admin ? <Button className='w-full'
                         sx={{
-                            bgcolor: colors.find + ' !important',
+                            bgcolor: colors.gasButton + ' !important',
                             color: colors.bg + ' !important',
                         }}
                         onClick={logout}
@@ -123,7 +136,7 @@ export default function TemporaryDrawer() {
                         Logout
                     </Button> : <Button className='w-full'
                         sx={{
-                            bgcolor: colors.find + ' !important',
+                            bgcolor: colors.gasButton + ' !important',
                             color: colors.bg + ' !important',
                         }}
                         onClick={() => router.push('/login')}
@@ -165,36 +178,29 @@ const listItems = [
 
     {
         name: 'Home',
-        link: '/',
-        icon: <Dashboard />
-
-    },
-    {
-        name: 'Gas',
         link: '/gas',
         icon: <Dashboard />
 
     },
+    {
+        name: 'Foodie',
+        link: '/',
+        icon: <Dashboard />
+
+    },
 
     {
-        name: 'About',
+        name: 'How It Works',
         link: '/about',
         icon: <InfoIcon />
     },
     {
         name: 'Stores',
-        link: '/search',
-    }, {
-        name: 'Hotels',
-        link: '/itemSearch',
+        link: '/gas/search',
     },
     {
         name: 'Orders',
-        link: '/orders',
-    },
-    {
-        name: 'Profile',
-        link: '/profile',
+        link: '/gas/orders',
     },
     {
         name: 'Sell',

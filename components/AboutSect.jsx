@@ -18,10 +18,15 @@ const AboutSec = () => {
 
                 }}
             >
-                At Foodie, we take our food seriously. And by
-                {` "seriously,"`} we mean we love it so much, we want to hug it. Thats
-                why we only work with the creme de la creme of restaurants and chefs
-                who are just as passionate about food as we are.
+                Introducing {`"Foodie"`} - the ultimate food ordering platform for Highrise/Canaan! Our platform connects you
+                with local food stops through mini-websites showcasing their menus. Order easily and conveniently, with
+                delivery straight to your doorstep. Support local businesses and enjoy diverse food options in our community.
+                {/* Thank you for choosing {`"Foodie"`}, and we look forward to making your food ordering experience a seamless and
+                hassle-free one! */}
+
+
+
+
             </Typography>
 
         </Grid>

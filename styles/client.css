@@ -1,54 +1,29 @@
 .client {
-  background: radial-gradient(
-      48.19% 63.51% at 82.12% 51.81%,
-      #ff965b 0%,
-      rgba(255, 232, 218, 0.393276) 41.63%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    radial-gradient(
-      45.12% 77.73% at 4.37% 16.26%,
-      #ffdcc3 0.8%,
-      rgba(255, 234, 219, 0.524748) 50.11%,
-      rgba(242, 242, 242, 0) 100%
-    );
+    background: radial-gradient( 48.19% 63.51% at 82.12% 51.81%, #ff965b 0%, rgba(255, 232, 218, 0.393276) 41.63%, rgba(255, 255, 255, 0) 100%), radial-gradient( 45.12% 77.73% at 4.37% 16.26%, #ffdcc3 0.8%, rgba(255, 234, 219, 0.524748) 50.11%, rgba(242, 242, 242, 0) 100%);
 }
 
 .row {
-  background: radial-gradient(
-      48.19% 63.51% at 82.12% 51.81%,
-      #ffdcc3 0%,
-      rgba(255, 232, 218, 0.393276) 41.63%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    radial-gradient(
-      45.12% 77.73% at 4.37% 16.26%,
-      #ffdcc3 0.8%,
-      rgba(255, 234, 219, 0.524748) 20.11%,
-      rgba(242, 242, 242, 0) 100%
-    );
+    background: radial-gradient( 48.19% 63.51% at 82.12% 51.81%, #ffdcc3 0%, rgba(255, 232, 218, 0.393276) 41.63%, rgba(255, 255, 255, 0) 100%), radial-gradient( 45.12% 77.73% at 4.37% 16.26%, #ffdcc3 0.8%, rgba(255, 234, 219, 0.524748) 20.11%, rgba(242, 242, 242, 0) 100%);
 }
 
 .bottom {
-  background: radial-gradient(
-      48.19% 63.51% at 82.12% 51.81%,
-      #ffdcc3 -100%,
-      rgba(255, 232, 218, 0.393276) 41.63%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    radial-gradient(
-      45.12% 77.73% at 4.37% 16.26%,
-      #ffdcc3 0.8%,
-      rgba(255, 234, 219, 0.524748) 20.11%,
-      rgba(242, 242, 242, 0) 90%
-    );
+    background: radial-gradient( 48.19% 63.51% at 82.12% 51.81%, #ffdcc3 -100%, rgba(255, 232, 218, 0.393276) 41.63%, rgba(255, 255, 255, 0) 100%), radial-gradient( 45.12% 77.73% at 4.37% 16.26%, #ffdcc3 0.8%, rgba(255, 234, 219, 0.524748) 20.11%, rgba(242, 242, 242, 0) 90%);
 }
 
 .rec-1::before {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  top: 2rem;
-  left: -2rem;
-  background: #feda94;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 2rem;
+    left: -2rem;
+    background: #feda94;
+}
+
+.gas {
+    background: radial-gradient( 89.76% 177.5% at 2.67% 81.69%, rgba(86, 184, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.nav-gas {
+    background: radial-gradient( 89.76% 177.5% at 2.67% 81.69%, rgba(86, 184, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
 }

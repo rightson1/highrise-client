@@ -19,29 +19,27 @@ import { useAuth } from '../utils/authContext';
 
 const nav = [{
     name: 'Home',
-    link: '/'
+    link: '/gas'
 },
 {
     name: 'Search',
-    link: '/itemSearch'
-}, {
-    name: 'Stores',
-    link: '/search'
-}, {
+    link: '/gas/search'
+},
+{
     name: 'orders',
-    link: '/orders'
-
-}, {
-    name: 'Gas',
-    link: '/gas'
+    link: '/gas/orders'
 },
 
 {
     name: 'About Us',
     link: '/about'
+},
+{
+    name: 'Foodie',
+    link: '/'
 }
 ]
-function ResponsiveAppBar() {
+function GasNav() {
     const router = useRouter()
     const { logout, admin, signInWithGoogle } = useAuth();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -56,7 +54,6 @@ function ResponsiveAppBar() {
         <Box
             sx={{
                 flexGrow: 1,
-                position: "fixed",
                 width: "100%",
                 top: 0,
                 zIndex: 1000,
@@ -64,7 +61,7 @@ function ResponsiveAppBar() {
 
                 // bgcolor: colors.primary[500]
             }}
-            className="bg-primary "
+            className=""
         >
             <AppBar position="static" sx={{
                 background: 'inherit',
@@ -76,7 +73,7 @@ function ResponsiveAppBar() {
                             variant="h6"
                             noWrap
                             component="button"
-                            onClick={() => { router.push('/') }}
+                            onClick={() => { router.push('/gas') }}
                             sx={{
                                 mr: 2,
                                 display: { xs: 'flex', md: 'flex' },
@@ -97,7 +94,7 @@ function ResponsiveAppBar() {
                                 }
                             }}
                         >
-                            Foodie
+                            Gassie
                         </Box>
 
 
@@ -120,7 +117,7 @@ function ResponsiveAppBar() {
                                     aria-label="account of current user"
                                     aria-controls="menu-appbar"
                                     aria-haspopup="true"
-                                    onClick={() => router.push('/itemSearch')}
+                                    onClick={() => router.push('/gas/search')}
                                     color="inherit"
                                 >
                                     <SearchOutlinedIcon
@@ -186,4 +183,4 @@ function ResponsiveAppBar() {
         </Box>
     );
 }
-export default ResponsiveAppBar;
+export default GasNav;
