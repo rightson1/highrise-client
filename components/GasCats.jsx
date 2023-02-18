@@ -1,123 +1,138 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import FastfoodIcon from '@mui/icons-material/Fastfood';
+import React, { useEffect, useState } from "react";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import Image from "next/image";
 import { motion } from "framer-motion";
-import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
-import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
-import { useEffect, useState, useRef } from "react";
-import { Typography } from "@mui/material";
-const GasCats = ({ setFilter, filter, categories: data }) => {
-    const [scrollValue, setScrollValue] = React.useState(5)
+import GasMeterOutlinedIcon from '@mui/icons-material/GasMeterOutlined';
+import { Box, Button } from "@mui/material";
+import { useGasCategoryQuery } from "../utils/hooks/useCategories";
+import { useBusinessQuery } from "../utils/hooks/useBusiness";
+import { useGlobalProvider } from "../utils/themeContext";
+import axios from "axios";
 
-    const rowRef = useRef();
+const GasCats = ({ kg, setKg, category, setCategory }) => {
+    const [dropDown, setDropDown] = useState(false);
 
-    useEffect(() => {
-        rowRef.current.scrollLeft += scrollValue;
-    }, [scrollValue])
-    const Cat = ({ category, index }) => {
-        return <div
-            whileTap={{ scale: 0.75 }}
-            key={index}
-            className={`group ${filter === category.name ? "bg-cartNumBg" : "bg-card"
-                } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg `}
-            onClick={() => setFilter(category.name)}
-        >
-            <div
-                className={`w-10 h-10 rounded-full shadow-lg ${filter === category.name
-                    ? "bg-white"
-                    : "bg-cartNumBg"
-                    } group-hover:bg-white flex items-center justify-center`}
-            >
-                <FastfoodIcon
-                    className={`${filter === category.name
-                        ? "text-textColor"
-                        : "text-white"
-                        } group-hover:text-textColor text-lg`}
-                />
-            </div>
-            <p
-                className={`text-sm ${filter === category.name
-                    ? "text-white"
-                    : "text-textColor"
-                    } group-hover:text-white`}
-            >
-                {category.name}
-            </p>
-        </div>
-    }
+    const [cart, setCart] = useState(null)
+    const { baseUrl } = useGlobalProvider();
+    const { data } = useGasCategoryQuery()
+    const { data: businesses } = useBusinessQuery()
 
-    return <section className="w-full mt-6 px-5 m" id="menu">
-        <div className="w-full flex flex-col items-center justify-center">
-            <Box className="w-full justify-between items-center flex ">
-                <Typography fontFamily="Roboto" fontSize={30} className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto">
-                    Categories Available
+    const fadeIn = (direction, type, delay, duration) => ({
+        hidden: {
+            x: direction === "left" ? 100 : direction === "right" ? -100 : 0,
+            y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+            opacity: 0,
+        },
+        show: {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            transition: {
+                type,
+                delay,
+                duration,
+                ease: "easeOut",
+            },
+        },
+    });
 
-                </Typography>
-                <div className="hidden md:flex items-center gap-3">
+    return (
+        <div className='flex flex-col  px-5'>
+            <div className='flex justify-between text-[12px] mt-3 font-medium'>
+                <div className='flex gap-4 text-very-dark-blue'>
+                    <Button
+                        onClick={() => setKg(6)}
+                        className='flex items-center gap-1 px-3 py-1 shadow-lg rounded-2xl bg-pale-orange '
 
-                    <motion.div
-                        onClick={() => setScrollValue(-200)}
-
-                        whileTap={{
-                            scale: 0.75
+                        sx={{
+                            backgroundColor: kg === 6 ? "#FF621F" : "#FEEBE5" + " !important",
+                            color: kg === 6 ? "#fff" : "#FF621F" + " !important",
                         }}
+                    >
 
+                        6kg
+                    </Button>
+                    <Button
+                        onClick={() => setKg(13)}
+                        className='flex items-center gap-1 px-3 py-1 shadow-lg rounded-2xl bg-pale-orange'
+                        sx={{
+                            backgroundColor: kg === 13 ? "#FF621F" : "#FEEBE5" + " !important",
+                            color: kg === 13 ? "#fff" : "#FF621F" + " !important",
+                        }}
+                    >
 
-                        className="w-8 h-8 rounded-lg bg-orange-300 hover:bg-orange-500 cursor-pointer duration-100 transition-all shadow-lg ease-in-out items-center justify-center flex  ">
-                        <ChevronLeftOutlinedIcon className="text-lg text-white " />
-                    </motion.div>
-                    <motion.div
-                        onClick={() => setScrollValue(200)}
-                        whileTap={{
-
-                            scale: 0.75
-                        }} className="w-8 h-8 rounded-lg bg-orange-300 hover:bg-orange-500 cursor-pointer duration-100 transition-all shadow-lg ease-in-out items-center justify-center flex  ">
-                        <ChevronRightOutlinedIcon className="text-lg text-white " />
-
-                    </motion.div>
-
+                        13kg
+                    </Button>
                 </div>
+                {/* category */}
+                <div className='relative items-center px-3 py-1 shadow-lg rounded-2xl bg-pale-orange h'>
+                    <Box
+                        onClick={() => setDropDown(prev => !prev)}
+                        className='flex items-center gap-2 cursor-pointer min-w-[100px] justify-center'
+                    >
+                        {category || "   Gas Company"}
+                        <ArrowDownwardIcon sx={{
+                            transform: dropDown ? "rotate(180deg)" : "rotate(0deg)",
+                        }} />
+                    </Box>
+                    {dropDown && (
+                        <motion.div
+                            variants={fadeIn("up", "spring", 0.1, 0.3)}
+                            initial='hidden'
+                            animate='show'
+                            className='absolute flex flex-col h-auto w-auto left-0  gap-3 justify-between p-3 top-9 rounded-2xl bg-pale-orange z-10'
+                        >
+                            {
+                                data.map(company => (<Box key={company.id} className="py-1 px-1 hover:bg-bgEn rounded-md"
+                                    onClick={() => {
+                                        setCategory(company.name);
+                                        setDropDown(false);
+                                    }}
+                                    sx={{
+                                        bgcolor: category === company.name && "#Fff" + " !important",
+                                    }}
+                                >
+                                    <button key={company.id} className='flex gap-3 opacity-90 font-semibold ' >
+                                        <GasMeterOutlinedIcon className="opacity-70" /> {company.name}
 
-            </Box>
-            <motion.div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scroll-smooth scrollbar-none px-3"
-                layout="position"
-                ref={rowRef}
-            >
-                {
-                    data ? data.filter(({ status }) => status === 'available').map((category, index) => (
-                        <Cat key={index} category={category} />
-                    )) : categories &&
-                    categories.map((category, index) => (
-                        <Cat key={index} category={category} />
-                    ))
-                }
-            </motion.div>
+                                    </button>
+                                    <hr />
+                                </Box>
+                                ))
+
+                            }
+
+                        </motion.div>
+                    )}
+                </div>
+            </div>
         </div>
-    </section>
-}
+    );
+};
+const companies = [
+    {
+        id: 1,
+        name: "Total",
+
+    },
+    {
+        id: 1,
+        name: "Progas",
+
+    },
+    {
+        id: 1,
+        name: "Nation Oil",
+
+    },
+    {
+        id: 1,
+        name: "Oilbia",
+
+    },
+
+]
+
+
 
 export default GasCats;
-
-const categories = [{
-    id: 1,
-    name: "Total",
-    urlParamName: "chicken",
-},
-
-{
-    id: 3,
-    name: "Pro Gas",
-    urlParamName: "rice",
-},
-{
-    id: 4,
-    name: "OilBya",
-    urlParamName: "fish",
-},
-{
-    id: 5,
-    name: "Nation Oil",
-    urlParamName: "fruits",
-},
-
-];

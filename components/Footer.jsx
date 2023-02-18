@@ -83,7 +83,7 @@ const Footer = () => {
                             }
                         }}
                     >
-                        H-Foods
+                        Foodie
                     </Typography>
 
                 </ListItem>
