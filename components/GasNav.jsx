@@ -129,7 +129,7 @@ function GasNav() {
 
                                     />
                                 </IconButton>
-                                <IconButton
+                                {/* <IconButton
                                     size="large"
                                     aria-label="account of current user"
                                     aria-controls="menu-appbar"
@@ -141,7 +141,7 @@ function GasNav() {
                                         color: colors.grey[200],
                                         fontSize: "1.8rem"
                                     }} />
-                                </IconButton>
+                                </IconButton> */}
 
                             </Box>
                             {

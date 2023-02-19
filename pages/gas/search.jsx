@@ -1,15 +1,21 @@
-import { Typography, Box } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { fadeIn, textContainer, textVariant } from "../../components/motion";
+import { motion } from "framer-motion";
+import { useSingleItemQuery } from "../../utils/hooks/useItems";
+import { useSingleBusinessQuery } from "../../utils/hooks/useBusiness";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import CallIcon from '@mui/icons-material/WifiCalling3Outlined';
+import { Skeleton } from "@mui/material";
+import GasCats from "../../components/GasCats";
+import { useBusinessQuery } from "../../utils/hooks/useBusiness";
+import { useGasItemsQuery } from "../../utils/hooks/useItems";
+import { useRouter } from "next/router";
 import Card from "@mui/material/Card";
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { useGlobalProvider } from "../utils/themeContext";
-import { useBusinessQuery } from "../utils/hooks/useBusiness";
-import { useRouter } from "next/router";
-import GasCats from "./GasCats";
-import { useGasItemsQuery } from "../utils/hooks/useItems";
-import Skeleton from "@mui/material/Skeleton";
-const GasCards = ({ flag }) => {
+import { useGlobalProvider } from "../../utils/themeContext";
+const Search = () => {
     const rowContainer = useRef();
     const router = useRouter();
     const { colors, isMobile } = useGlobalProvider(0)
@@ -39,21 +45,17 @@ const GasCards = ({ flag }) => {
         }
 
     }, [data, kg, category])
+    return <div className='mt-3 px-3'>
 
-    useEffect(() => {
-        rowContainer.current.scrollLeft += scrollValue;
-    }, [scrollValue]);
 
-    return <Box className=" ">
         <GasCats {...{ setKg, kg, category, setCategory }} />
+
         <div
 
             ref={rowContainer}
 
-            className={`w-full flex gap-3  my-4 py-2 scroll-smooth   ${isMobile
-                ? "overflow-x-scroll scrollbar-none "
-                : "overflow-x-hidden flex-wrap justify-center"
-                }`}
+            className={`w-full flex gap-3  my-4 py-2 scroll-smooth   
+                overflow-x-hidden flex-wrap justify-center`}
         >
 
 
@@ -65,12 +67,13 @@ const GasCards = ({ flag }) => {
 
                     <Box
                         key={index}
+                        className="z-[3]"
                         onClick={() => router.push(`/gas/products/${item._id}`)}
 
 
                     >
                         <Card
-                            className=" w-[250px]   h-[250px] 
+                            className="phone:w-[90vw]  w-[250px]   h-[250px]  z-[3]
          bg-cardOverlay rounded-lg py-2 px-4 cursor-pointer   hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
 
                             <CardMedia
@@ -148,60 +151,8 @@ const GasCards = ({ flag }) => {
                     </Box>
             }
         </div>
+    </div>
 
-    </Box>;
 };
-const data = [
-    {
-        id: 1,
-        name: "Mesh Eats",
-        open: true,
-        price: "5.25",
-        avatar: "/img/gas1.jpg",
-    },
-    {
-        id: 2,
-        name: "Rightson Foods",
-        decp: "",
-        price: "10.25",
-        open: true,
-        avatar: "/img/gas2.jpg",
-    },
-    {
-        id: 3,
-        name: "Chicken Kebab",
-        open: true,
-        price: "8.25",
-        avatar: "/img/gas3.jpg",
-    },
-    {
-        id: 4,
-        name: "Fish Highrise Eats",
-        open: true,
-        price: "5.25",
-        avatar: "/img/gas4.jpg",
-    },
-    {
-        id: 4,
-        name: "Fish Highrise Eats",
-        open: true,
-        price: "5.25",
-        avatar: "/img/gas5.jpg",
-    },
-    {
-        id: 4,
-        name: "Fish Highrise Eats",
-        open: true,
-        price: "5.25",
-        avatar: "/img/gas6.jpg",
-    },
-    {
-        id: 4,
-        name: "Fish Highrise Eats",
-        open: true,
-        price: "5.25",
-        avatar: "/img/gas7.jpg",
-    },
-];
-
-export default GasCards;
+Search.gas = true;
+export default Search;

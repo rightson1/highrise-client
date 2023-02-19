@@ -17,10 +17,12 @@ const GasHero = () => {
             <Typography fontFamily="Playfair Display" fontSize={40} className="text-center px-10" >
                 Cooking gas delivery done right!
             </Typography>
-            <Typography fontFamily="Roboto" fontSize={20} className="text-center px-10" >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit natus aliquid soluta dolores, mollitia recusandae ullam placeat incidunt illum?
+            <Typography fontFamily="Roboto" fontSize={19} className="text-center px-5" >
+                Welcome to Gassie, your one-stop website for cooking gas vendors in Highrise/Canaan estate.
+                Browse vendor profiles and product listings, select your gas size and company, and choose your favorite vendor.
+                Click on the gas item and see more infomation about supplier and product.
             </Typography>
-            <div className="flex gap-7 items-end">
+            <div className="hidden md:flex gap-7 items-end ">
                 <Box className="bg-white w-[120px] h-[120px] p-3 rounded-md" sx={{
                     bgcolor: 'white',
 

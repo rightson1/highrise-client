@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
-    AiFillStar,
     AiOutlineArrowLeft,
-    AiOutlineHeart,
-    AiOutlineShoppingCart,
-    AiOutlineStar,
+
 } from "react-icons/ai";
 // import Product from "../../../components/Product";
 import { fadeIn, textContainer, textVariant } from "../../../components/motion";
@@ -17,12 +14,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CallIcon from '@mui/icons-material/WifiCalling3Outlined';
 import { Skeleton } from "@mui/material";
+import CheckoutGas from "../../../components/CheckoutGas";
 function SingleProduct() {
     // const { description, details, name, category, image, _id, price } = product;
     const router = useRouter();
     const { id } = useRouter().query
     const { data: product, isLoading } = useSingleItemQuery(id);
     const { data: business, isLoading: loading } = useSingleBusinessQuery(product?.business);
+    const [open, setOpen] = useState(false)
 
     const handleAddToCart = id => {
 
@@ -34,6 +33,7 @@ function SingleProduct() {
             {
                 (product && business) ? (
                     <>
+                        <CheckoutGas {...{ open, setOpen, product, business }} />
                         <div className='mt-3 px-3'>
                             <div className='relative sm:flex sm:mt-10'>
                                 <div className='w-full sm:flex-[1] mx-auto'>
@@ -133,7 +133,7 @@ function SingleProduct() {
 
                                     </motion.div>
                                     <button
-                                        onClick={() => handleAddToCart(_id)}
+                                        onClick={() => setOpen(true)}
                                         className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center rounded-2xl font-[700] text-[16px]'
                                     >
                                         Complete Order

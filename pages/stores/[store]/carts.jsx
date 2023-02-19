@@ -30,8 +30,6 @@ import { toast, Toaster } from "react-hot-toast";
 import { useNewOrder } from "../../../utils/hooks/useOrder";
 import { LoadingButton } from "@mui/lab";
 import { useSingleBusinessQuery } from "../../../utils/hooks/useBusiness";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../../utils/firebase";
 
 const Category = () => {
     const [open, setOpen] = React.useState(null);

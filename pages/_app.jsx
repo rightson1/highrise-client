@@ -23,6 +23,7 @@ import FoooterBusiness from "../components/FooterBusiness";
 import GasNav from "../components/GasNav";
 import GasSide from "../components/GasSide";
 import { Toaster } from "react-hot-toast";
+import GasBottom from "../components/GasBottom";
 
 
 function MyApp(props) {
@@ -99,7 +100,7 @@ function MyApp(props) {
                 <Component {...pageProps} />
                 <GasSide />
                 <Footer />
-
+                <GasBottom />
                 <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" />
 
               </div>

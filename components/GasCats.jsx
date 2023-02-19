@@ -16,6 +16,7 @@ const GasCats = ({ kg, setKg, category, setCategory }) => {
     const { baseUrl } = useGlobalProvider();
     const { data } = useGasCategoryQuery()
     const { data: businesses } = useBusinessQuery()
+    const { colors } = useGlobalProvider();
 
     const fadeIn = (direction, type, delay, duration) => ({
         hidden: {
@@ -37,16 +38,19 @@ const GasCats = ({ kg, setKg, category, setCategory }) => {
     });
 
     return (
-        <div className='flex flex-col  px-5'>
+        <div className='flex flex-col  px-1  my-5'>
             <div className='flex justify-between text-[12px] mt-3 font-medium'>
                 <div className='flex gap-4 text-very-dark-blue'>
                     <Button
                         onClick={() => setKg(6)}
-                        className='flex items-center gap-1 px-3 py-1 shadow-lg rounded-2xl bg-pale-orange '
 
                         sx={{
-                            backgroundColor: kg === 6 ? "#FF621F" : "#FEEBE5" + " !important",
+                            backgroundColor: kg === 6 ? "#FF621F" : colors.red[100] + " !important",
                             color: kg === 6 ? "#fff" : "#FF621F" + " !important",
+                            '&:hover': {
+                                backgroundColor: colors.red[400] + " !important",
+                                color: "#fff" + " !important",
+                            }
                         }}
                     >
 
@@ -56,9 +60,14 @@ const GasCats = ({ kg, setKg, category, setCategory }) => {
                         onClick={() => setKg(13)}
                         className='flex items-center gap-1 px-3 py-1 shadow-lg rounded-2xl bg-pale-orange'
                         sx={{
-                            backgroundColor: kg === 13 ? "#FF621F" : "#FEEBE5" + " !important",
+                            backgroundColor: kg === 13 ? "#FF621F" : colors.red[100] + " !important",
                             color: kg === 13 ? "#fff" : "#FF621F" + " !important",
+                            '&:hover': {
+                                backgroundColor: colors.red[400] + " !important",
+                                color: "#fff" + " !important",
+                            }
                         }}
+
                     >
 
                         13kg
@@ -80,7 +89,10 @@ const GasCats = ({ kg, setKg, category, setCategory }) => {
                             variants={fadeIn("up", "spring", 0.1, 0.3)}
                             initial='hidden'
                             animate='show'
-                            className='absolute flex flex-col h-auto w-auto left-0  gap-3 justify-between p-3 top-9 rounded-2xl bg-pale-orange z-10'
+                            className='absolute flex flex-col h-auto w-auto left-0  gap-3 justify-between p-3 top-9 rounded-2xl bg-pale-orange z-100'
+                            style={{
+                                zIndex: 10,
+                            }}
                         >
                             {
                                 data.map(company => (<Box key={company.id} className="py-1 px-1 hover:bg-bgEn rounded-md"
