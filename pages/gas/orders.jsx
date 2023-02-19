@@ -83,7 +83,7 @@ const Orders = () => {
                         <Skeleton variant="rectangular" width='95vh' height={118} />
                     </Box>
                     ) :
-                        orders?.length > 0 ? (
+                        (orders?.length > 0) ? (
                             orders?.map((order, index) => {
                                 const business = businesses?.find(business => business._id === order.business)
                                 const item = order.items[0]
@@ -94,7 +94,7 @@ const Orders = () => {
                                         <div className='flex-1'>
                                             <img src={item.image} className='w-auto h-[150px]' />
                                         </div>
-                                        {/* content */}
+
                                         <div className='flex-[2]'>
                                             <div className='mb-2'>
                                                 <p className='mb-1 text-Grayish-blue'>{business?.name}</p>

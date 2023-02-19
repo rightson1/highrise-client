@@ -155,7 +155,18 @@ function SingleProduct() {
             </div> */}
                     </>
                 ) : (isLoading || loading) ? (<>
-                    <Skeleton height={"100vh"} width="100vw"></Skeleton>
+                    <Box
+                        className="w-full h-[250px]
+            bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                        <Typography variant="h5" sx={{
+                            fontFamily: 'Nunito',
+                            fontWeight: 700,
+                            fontSize: '1.2rem',
+                        }}>
+                            Loading...
+                        </Typography>
+                    </Box>
+
                 </>) : (<>
                     <Box
                         className="w-full h-[250px]
