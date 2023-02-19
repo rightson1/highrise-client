@@ -11,10 +11,11 @@ import { Box } from "@mui/system";
 import { Toaster, toast } from "react-hot-toast";
 import { useEffect } from "react";
 import { useCategoryQuery } from "../../../utils/hooks/useCategories";
+import AboutVendor from "../../../components/AboutVendor";
 export default function Store() {
     const [scroll1, setScroll1] = useState()
     const { store } = useRouter().query
-    const { colors, animate, setAnimate } = useGlobalProvider()
+    const { isMobile } = useGlobalProvider()
     const { data } = useSingleBusinessQuery(store)
     const { data: categories } = useCategoryQuery(store)
     const [filter, setFilter] = useState('Chicken')
@@ -51,6 +52,7 @@ export default function Store() {
             <StoreHero {...{ data }} />
             <Dishes store={true} {...{ scroll1, setScroll1, filter, setFilter, categories }} />
             <Foods filter={filter} />
+            <AboutVendor {...{ business: data }} />
 
         </div> : (
             <Box>

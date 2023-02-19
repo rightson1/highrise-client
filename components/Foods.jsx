@@ -15,7 +15,7 @@ import { toast, Toaster } from "react-hot-toast";
 const Foods = ({ flag, filter }) => {
     const rowContainer = useRef();
 
-    const { colors } = useGlobalProvider(0)
+    const { colors, isMobile } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0)
     const router = useRouter()
     const { store } = router.query;

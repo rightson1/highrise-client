@@ -39,6 +39,11 @@ const Orders = () => {
     const { data: businesses } = useBusinessQuery()
     const { colors } = useGlobalProvider();
     const { mutateAsync: updateOrder, isError, isSuccess } = useUpdateOrder();
+    const [data, setData] = useState([])
+    useEffect(() => {
+        if (!orders) return;
+        setData(orders.filter(order => order.type === "gas"))
+    }, [orders])
     const handleDelete = (order, business) => {
         const deleteRef = doc(db, "orders", order.realId)
 
@@ -83,8 +88,8 @@ const Orders = () => {
                         <Skeleton variant="rectangular" width='95vh' height={118} />
                     </Box>
                     ) :
-                        (orders?.length > 0) ? (
-                            orders?.map((order, index) => {
+                        (data?.length > 0) ? (
+                            data?.map((order, index) => {
                                 const business = businesses?.find(business => business._id === order.business)
                                 const item = order.items[0]
 

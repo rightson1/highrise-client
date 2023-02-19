@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const router = useRouter();
-    const { colors } = useGlobalProvider(0)
+    const { colors, isMobile } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0);
     const { data, isLoading } = useBusinessQuery();
 
@@ -48,7 +48,7 @@ const Stores = ({ flag }) => {
 
             ref={rowContainer}
 
-            className={`w-full flex gap-3  my-4 py-2 scroll-smooth  ${!flag
+            className={`w-full flex gap-3  my-4 py-2 scroll-smooth  ${isMobile
                 ? "overflow-x-scroll scrollbar-none "
                 : "overflow-x-hidden flex-wrap justify-center"
                 }`}

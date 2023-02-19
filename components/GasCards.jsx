@@ -106,10 +106,10 @@ const GasCards = ({ flag }) => {
                                     textAlign: 'center'
                                 }}>
 
-                                    {business?.name}
+                                    Supplier: {business?.name}
                                 </Typography>
                                 <Typography sx={{ color: colors.red[500] }}>
-                                    {item.price}
+                                    {item.price} Ksh
                                 </Typography>
 
                             </CardContent>

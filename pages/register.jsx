@@ -53,7 +53,7 @@ const Register = () => {
         const userRef = collection(db, 'users')
         e.preventDefault();
 
-        const data = { password: values.password, name: values.name, phone: values.phone, provider: 'email' };
+        const data = { password: values.password, displayName: values.name, phone: values.phone, provider: 'email' };
         const create = () => createUserWithEmailAndPassword(auth, values.email, values.password).then((user) => {
             const { email, uid } = user.user;
 

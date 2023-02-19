@@ -10,6 +10,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Badge } from '@mui/material';
 import { ReceiptLongOutlined } from '@mui/icons-material';
 import { useRouter } from 'next/router'
+import GasMeterOutlinedIcon from '@mui/icons-material/GasMeterOutlined';
 import { useOrders } from '../utils/orderContext';
 export default function StoreBottom() {
     const { colors } = useGlobalProvider()
@@ -17,6 +18,10 @@ export default function StoreBottom() {
     const [value, setValue] = React.useState('recents');
     const { orders } = useOrders();
     const router = useRouter();
+    const { store } = router.query
+    const path = router.pathname.split('/')[2]
+    const after = path === "[store]" && router.pathname.split('/')[3]
+    console.log(after)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -45,10 +50,12 @@ export default function StoreBottom() {
                     setValue(newValue);
                 }}
             >
-                <BottomNavigationAction onClick={() => router.push(`/`)} label="Home" icon={<HomeOutlinedIcon />} />
+                <BottomNavigationAction onClick={() =>
+                    after ? router.push(`/stores/${store}`) : router.push(`/`)
+                } label="Home" icon={<HomeOutlinedIcon />} />
                 <BottomNavigationAction onClick={() => router.push(`/search`)} label="Stores" icon={<StorefrontOutlinedIcon />} />
-                <BottomNavigationAction onClick={() => router.push(`/itemSearch`)} label="Search" icon={<SearchOutlinedIcon />} />
-                <BottomNavigationAction label="Orders" onClick={() => router.push(`/orders`)} icon={<Badge badgeContent={orders.length} ><ReceiptLongOutlined /></Badge>} />
+                <BottomNavigationAction onClick={() => router.push(`/orders`)} label="Orders" icon={<ReceiptLongOutlined />} />
+                <BottomNavigationAction label="Gas" onClick={() => router.push(`/gas`)} icon={<GasMeterOutlinedIcon />} />
 
             </BottomNavigation>
         </Paper>)
