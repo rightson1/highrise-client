@@ -20,13 +20,15 @@ const Stores = ({ flag }) => {
     const [searchTerm, setSearchTerm] = useState('')
     const router = useRouter()
     useEffect(() => {
+
         if (data && searchTerm) {
             setFilteredData(data.filter((item) => {
                 return item.name.toLowerCase().includes(searchTerm?.toLowerCase())
-            }))
+            }).filter((item) => item.type !== "gas")
+            )
         }
         else {
-            setFilteredData(data)
+            setFilteredData(data?.length > 0 && data.filter((item) => item.type !== "gas"))
         }
     }, [searchTerm])
 

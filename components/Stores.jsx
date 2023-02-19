@@ -55,7 +55,7 @@ const Stores = ({ flag }) => {
         >
 
 
-            {data?.map((item, index) => (
+            {data?.filter((item) => item.type !== "gas").map((item, index) => (
 
                 <Box
                     key={index}
