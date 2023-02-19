@@ -27,3 +27,18 @@
 .nav-gas {
     background: radial-gradient( 89.76% 177.5% at 2.67% 81.69%, rgba(86, 184, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
 }
+
+.img-over {
+    position: relative;
+}
+
+.img-over::after {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    content: "";
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}

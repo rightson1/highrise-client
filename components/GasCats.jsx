@@ -109,30 +109,6 @@ const GasCats = ({ kg, setKg, category, setCategory }) => {
         </div>
     );
 };
-const companies = [
-    {
-        id: 1,
-        name: "Total",
-
-    },
-    {
-        id: 1,
-        name: "Progas",
-
-    },
-    {
-        id: 1,
-        name: "Nation Oil",
-
-    },
-    {
-        id: 1,
-        name: "Oilbia",
-
-    },
-
-]
-
 
 
 export default GasCats;

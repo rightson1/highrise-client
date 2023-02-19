@@ -68,6 +68,7 @@ const GasCards = ({ flag }) => {
 
                     <Box
                         key={index}
+                        onClick={() => router.push(`/gas/products/${item._id}`)}
 
 
                     >
