@@ -341,25 +341,6 @@ const Category = () => {
                                         </ListItem>
                                     </List>
                                 </Box>
-
-                                <Box className="my-5  flex flex-col gap-2">
-                                    <Typography className='text-xl ' fontFamily="Nunito">Add Custom Details</Typography>
-                                    <Box
-                                        component="textarea"
-                                        name="details"
-                                        sx={{
-                                            width: "100%",
-                                            outline: colors.teal[100],
-                                            border: `1px solid ${colors.primary[900]}`,
-                                            height: '100px',
-                                            '$:focus': {
-                                                outline: colors.teal[100],
-                                            }
-                                        }}
-                                        className="resize-none rounded-md px-2 focus:border-teal-500 focus:border-2 "
-                                        placeholder="Enter your elergies/or what you want to add to your order"
-                                    />
-                                </Box>
                                 <Box className="my-5  flex flex-col gap-2">
                                     <Typography className='text-xl ' fontFamily="Nunito">Add Location Details</Typography>
                                     <Box
@@ -379,6 +360,26 @@ const Category = () => {
                                         placeholder="Specify Your Block Number, Floor, Room Number"
                                     />
                                 </Box>
+
+                                <Box className="my-5  flex flex-col gap-2">
+                                    <Typography className='text-xl ' fontFamily="Nunito">Other Details-optional</Typography>
+                                    <Box
+                                        component="textarea"
+                                        name="details"
+                                        sx={{
+                                            width: "100%",
+                                            outline: colors.teal[100],
+                                            border: `1px solid ${colors.primary[900]}`,
+                                            height: '100px',
+                                            '$:focus': {
+                                                outline: colors.teal[100],
+                                            }
+                                        }}
+                                        className="resize-none rounded-md px-2 focus:border-teal-500 focus:border-2 "
+                                        placeholder="Enter your elergies/or what you want to add to your order"
+                                    />
+                                </Box>
+
                                 <LoadingButton loading={loading} loadingIndicator="Loading…" type="submit" className="w-full  text-white" sx={{ bgcolor: `${colors.red[500]} !important` }}>Order</LoadingButton>
                             </Grid>
                             <Grid item sx={{

@@ -10,12 +10,14 @@ import { useItemQuery } from "../utils/hooks/useItems";
 import { Toaster, toast } from "react-hot-toast";
 import { useOrders } from "../utils/orderContext";
 import Stores from "../components/Stores";
+import axios from "axios";
 
 export default function Home() {
   const { notifications, setNotifications } = useOrders();
   const [filter, setFilter] = useState("Chicken");
   const { data } = useItemQuery(filter)
   useEffect(() => {
+
     notifications.map((item) => {
       if (item.status === 'Cancelled') {
         toast.error(item.message)
