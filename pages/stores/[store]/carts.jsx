@@ -30,7 +30,8 @@ import { toast, Toaster } from "react-hot-toast";
 import { useNewOrder } from "../../../utils/hooks/useOrder";
 import { LoadingButton } from "@mui/lab";
 import { useSingleBusinessQuery } from "../../../utils/hooks/useBusiness";
-
+import { AiOutlineDelete } from "react-icons/ai";
+import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
 const Category = () => {
     const [open, setOpen] = React.useState(null);
     const { colors, cart, setCart, animate, setAnimate } = useGlobalProvider()
@@ -224,6 +225,23 @@ const Category = () => {
         }
 
     }
+    const handleDelete = (id) => {
+        const items = cart.map((item) => {
+            if (item.id === store) {
+                return {
+                    ...item,
+                    items: item.items.filter((item) => item.id !== id)
+                }
+            }
+            return item
+        })
+        setCart(items)
+        localStorage.setItem('cart', JSON.stringify(items))
+        if (storeCart.items.length === 1) {
+            handleClear()
+            localStorage.setItem('cart', JSON.stringify(cart.filter((item) => item.id !== store)))
+        }
+    }
 
     return <>
 
@@ -267,50 +285,53 @@ const Category = () => {
                                     <List>
                                         {
                                             storeCart.items.map((item, index) => {
+                                                const { name, price, details, options, qty } = item
                                                 return (<Box key={index}>
-                                                    <Box className="flex gap-2">
-                                                        <Typography className="font-bold" fontFamily="Atomic Age">{index + 1}.{item?.name}</Typography>
-                                                        <Typography className="font-bold capitalize" fontFamily="Atomic Age">-{item?.sizes?.name}</Typography>
-                                                    </Box>
-                                                    <ListItem className="flex justify-between">
 
-                                                        <Fab className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.yellow[100] + '!important', color: colors.primary[100] }}>
-                                                            {item.qty}   <ClearOutlinedIcon className="text-[12px]" />
-                                                        </Fab>
+                                                    <article className='flex justify-between gap-4 p-3 mt-8 rounded-lg shadow-lg'>
+                                                        {/* image */}
+                                                        <div className='flex-1'>
+                                                            <img src={item.image} className='w-auto h-auto object-cover' />
+                                                        </div>
+                                                        {/* content */}
+                                                        <div className='flex-[2]'>
+                                                            <div className='mb-2'>
+                                                                <p className='mb-1 text-Grayish-blue'>{options.optionName}</p>
+                                                                <h1 className='font-[600] mb-1'>{name}</h1>
+                                                                <p className=''>{price} ksh</p>
+                                                            </div>
+                                                            {/* buttons */}
+                                                            <div className='flex justify-between mt-5 gap-6 w-[93%]'>
+                                                                <div className='flex-[2] items-center flex justify-between'>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleEdit(item.id, 0)}
+                                                                        className='flex items-center justify-center w-8 h-8 rounded-[50%] bg-Grayish-blue'
+                                                                    >
+                                                                        <HiOutlineMinus />
+                                                                    </button>
+                                                                    <span>{qty}</span>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleEdit(item.id, 1)}
+                                                                        className='flex items-center justify-center w-8 h-8 rounded-[50%] bg-Grayish-blue'
+                                                                    >
+                                                                        <HiOutlinePlus />
+                                                                    </button>
+                                                                </div>
+                                                                <div className='flex justify-end flex-1'>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleDelete(item.id)}
+                                                                        className='flex items-center text-white justify-center w-8 h-8 rounded-[50%] bg-error'
+                                                                    >
+                                                                        <AiOutlineDelete />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </article>
 
-                                                        <Fab onClick={() => handleEdit(item.id, 0)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.yellow[100] + '!important', color: colors.primary[100] }}>
-                                                            <RemoveOutlinedIcon className="text-[12px]" />
-                                                        </Fab>
-                                                        <Typography className="font-bold" fontFamily="Atomic Age">Ksh{item.price}</Typography>
-
-                                                        <Fab onClick={() => handleEdit(item.id, 1)} className="z-[3]" size="small" color="primary" aria-label="add" sx={{ background: colors.yellow[100] + '!important', color: colors.primary[100] }}>
-                                                            <AddOutlinedIcon className="text-[12px]" />
-                                                        </Fab>
-
-                                                    </ListItem>
-                                                    {
-                                                        item.options.length > 0 && <List component="div" disablePadding sx={{ pl: 4, py: 2 }} >
-                                                            <div className="flex gap-4 items-center">  <Typography color={colors.orange[500]} fontFamily='Atomic Age'>Options</Typography>  <Button size="small" onClick={() => {
-                                                                setDrawer(true)
-                                                                setFood(item)
-                                                            }}
-                                                                className="text-[14px] bg-red-100" sx={{ color: colors.orange[500], fontFamily: 'Roboto', }}>
-                                                                Edit
-                                                            </Button></div>
-                                                            {
-                                                                item?.options?.map((option, index) => {
-                                                                    return <ListItem className="flex  gap-4" key={index}>
-
-                                                                        <Typography className="font-bold" fontFamily="Atomic Age">{option.optionName}</Typography>
-
-                                                                        <Typography className="font-bold" fontFamily="Atomic Age">KSH. {option.price ? option.price : 0}</Typography>
-
-                                                                    </ListItem>
-                                                                })
-
-                                                            }
-                                                        </List>
-                                                    }
                                                 </Box>)
                                             })
                                         }

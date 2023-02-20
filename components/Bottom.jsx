@@ -21,7 +21,6 @@ export default function StoreBottom() {
     const { store } = router.query
     const path = router.pathname.split('/')[2]
     const after = path === "[store]" && router.pathname.split('/')[3]
-    console.log(after)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

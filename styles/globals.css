@@ -2,156 +2,186 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  width: 100vw;
-  overflow-x: hidden;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 .scroll-to-top {
-  width: "15px !important";
-  display: "none !important";
+    width: "15px !important";
+    display: "none !important";
 }
 
 .top {
-  border-radius: 50% !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 800;
-  z-index: 10 !important;
-  position: fixed;
-  bottom: 60px !important;
-  right: 20px !important;
+    border-radius: 50% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    z-index: 10 !important;
+    position: fixed;
+    bottom: 60px !important;
+    right: 20px !important;
 }
 
 .wave {
-  animation-name: wave-animation;
-  /* Refers to the name of your @keyframes element below */
-  animation-duration: 2.5s;
-  /* Change to speed up or slow down */
-  animation-iteration-count: infinite;
-  /* Never stop waving :) */
-  transform-origin: 70% 70%;
-  /* Pivot around the bottom-left palm */
-  display: inline-block;
+    animation-name: wave-animation;
+    /* Refers to the name of your @keyframes element below */
+    animation-duration: 2.5s;
+    /* Change to speed up or slow down */
+    animation-iteration-count: infinite;
+    /* Never stop waving :) */
+    transform-origin: 70% 70%;
+    /* Pivot around the bottom-left palm */
+    display: inline-block;
 }
 
 @keyframes wave-animation {
-  0% {
-    transform: rotate(0deg);
-  }
-  10% {
-    transform: rotate(14deg);
-  }
-  /* The following five values can be played with to make the waving more or less extreme */
-  20% {
-    transform: rotate(-8deg);
-  }
-  30% {
-    transform: rotate(14deg);
-  }
-  40% {
-    transform: rotate(-4deg);
-  }
-  50% {
-    transform: rotate(10deg);
-  }
-  60% {
-    transform: rotate(0deg);
-  }
-  /* Reset for the last half to pause */
-  100% {
-    transform: rotate(0deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(14deg);
+    }
+    /* The following five values can be played with to make the waving more or less extreme */
+    20% {
+        transform: rotate(-8deg);
+    }
+    30% {
+        transform: rotate(14deg);
+    }
+    40% {
+        transform: rotate(-4deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    60% {
+        transform: rotate(0deg);
+    }
+    /* Reset for the last half to pause */
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 .scroll-down {
-  border: 2px solid #000;
-  border-radius: 20px;
-  bottom: 60px;
-  height: 50px;
-  position: relative;
-  right: 0;
-  width: 20px;
+    border: 2px solid #000;
+    border-radius: 20px;
+    bottom: 60px;
+    height: 50px;
+    position: relative;
+    right: 0;
+    width: 20px;
 }
 
 .scroll-down::before {
-  animation: scrollDownAnimation 2s infinite;
-  background-color: #000;
-  border-radius: 100%;
-  content: "";
-  height: 6px;
-  left: 0;
-  margin: 0 auto;
-  position: absolute;
-  right: 0;
-  top: 10px;
-  width: 6px;
+    animation: scrollDownAnimation 2s infinite;
+    background-color: #000;
+    border-radius: 100%;
+    content: "";
+    height: 6px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: 6px;
 }
 
 @-moz-keyframes scrollDownAnimation {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0);
-  }
-  40% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0;
-    transform: translate(0, 20px);
-  }
-  100% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+    40% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+        transform: translate(0, 20px);
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 @-webkit-keyframes scrollDownAnimation {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0);
-  }
-  40% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0;
-    transform: translate(0, 20px);
-  }
-  100% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+    40% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+        transform: translate(0, 20px);
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 @-o-keyframes scrollDownAnimation {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0);
-  }
-  40% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0;
-    transform: translate(0, 20px);
-  }
-  100% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+    40% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+        transform: translate(0, 20px);
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes scrollDownAnimation {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0);
-  }
-  40% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0;
-    transform: translate(0, 20px);
-  }
-  100% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+    40% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+        transform: translate(0, 20px);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.products {
+    grid-area: products;
+}
+
+.explore {
+    grid-area: explore;
+}
+
+.category {
+    grid-area: category;
+}
+
+.maylike-products-wrapper {
+    margin-top: 120px;
+}
+
+.maylike-products-wrapper h2 {
+    text-align: center;
+    margin: 50px;
+    color: #324d67;
+    font-size: 28px;
+}
+
+.maylike-products-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }

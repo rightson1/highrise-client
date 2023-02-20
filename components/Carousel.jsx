@@ -24,24 +24,24 @@ const Carousel = ({ flag, isLoading, data }) => {
     const router = useRouter()
     const { store } = router.query;
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const maxScrollValue = rowContainer.current.scrollWidth - rowContainer.current.clientWidth;
-            setScrollValue(previousScrollValue => {
-                let newScrollValue = previousScrollValue + 30;
-                if (newScrollValue > maxScrollValue) {
-                    newScrollValue = 0;
-                }
-                return newScrollValue;
-            });
-        };
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         const maxScrollValue = rowContainer.current.scrollWidth - rowContainer.current.clientWidth;
+    //         setScrollValue(previousScrollValue => {
+    //             let newScrollValue = previousScrollValue + 30;
+    //             if (newScrollValue > maxScrollValue) {
+    //                 newScrollValue = 0;
+    //             }
+    //             return newScrollValue;
+    //         });
+    //     };
 
-        const intervalId = setInterval(handleScroll, 2000);
+    //     const intervalId = setInterval(handleScroll, 2000);
 
-        return () => {
-            clearInterval(intervalId);
-        };
-    }, []);
+    //     return () => {
+    //         clearInterval(intervalId);
+    //     };
+    // }, []);
 
     useEffect(() => {
         rowContainer.current.scrollLeft = scrollValue;

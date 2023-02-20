@@ -20,7 +20,7 @@ const CheckoutGas = ({ open, setOpen, product, business }) => {
     const { colors } = useGlobalProvider();
     const { mutate, isSuccess, isError } = useNewOrder();
     const { user } = useAuth()
-    console.log(business)
+
     useEffect(() => {
 
         if (isSuccess) {

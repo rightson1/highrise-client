@@ -2,12 +2,13 @@
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
-import { zoomIn } from "../lib/motion";
+import { zoomIn } from "./motion";
 
-const SingleProduct = ({ name, price, image, category, slug, parent }) => {
+const SingleProduct = (item) => {
+    const { name, price, image, category, _id, business } = item;
     return (
         <motion.article variants={zoomIn(0, 0.1)} initial='hidden' animate='show'>
-            <Link href={`/products/${slug.current}`}>
+            <Link href={`/stores/${business}/product/${_id}`}>
                 <div
                     className={`flex flex-col shadow-xl min-h-[365px] ${parent ? "w-[250px] h-auto" : ""
                         } bg-white items-center justify-center sm:w-[250px] w-[90%] mx-auto rounded-2xl mt-4`}

@@ -32,14 +32,6 @@ const MenuProps = {
 };
 
 
-function getStyles(name, optionType, theme) {
-    return {
-        fontWeight:
-            optionType.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
 
 
 export default function Options({ food }) {
@@ -73,20 +65,21 @@ export default function Options({ food }) {
         }
         else if (sizes || optionType) {
 
-            const option = Number(optionType.reduce((acc, cur) => acc + cur.price, 0))
+            const option = Number(optionType.optionPrice ? optionType.optionPrice : 0)
             const total = typeof Option == Number ? option : 0 + Number(sizes?.price ? sizes.price : 0)
             setTotal(total)
+            console.log(total)
         }
 
     }, [optionType, food, sizes])
 
 
-    console.log(total)
+
 
     const handleSubmit = (e) => {
         const { category, desc, status, ...others } = food
         e.preventDefault()
-        if (food?.sizes.length > 0 && !sizes) {
+        if ((food?.sizes.length > 0 && !sizes) || (food?.options.length > 0 && !optionType)) {
             toast.error('Please select a size')
             return;
 
@@ -94,34 +87,49 @@ export default function Options({ food }) {
         const exists = cart.find((item) => item.id === store)
 
         if (exists) {
+            const handleNew = () => {
+                const items = cart.map((item) => {
+                    if (item.id === store) {
+                        toast.success('Item added to cart')
+                        return {
+                            ...item,
+                            items: [...item.items, { ...others, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
+                        }
+                    } else {
+                        return item
+                    }
+                })
+                setCart(items)
+                localStorage.setItem('cart', JSON.stringify(items))
+            }
             const item = exists.items.find((item) => item._id === id)
             if (item) {
+
                 const itemExist = exists.items.find((item) => {
-                    return (item.sizes ? item.sizes.name === sizes.name : false) && !((optionType.filter((option) => item.options?.find((itemOption) => itemOption.optionName !== option.optionName)))?.length > 0)
+                    if (item.sizes && item.options) {
+                        return (item.sizes ? item.sizes.name === sizes?.name : false) && (item.options ? item.options.optionName === optionType.optionName : false)
+                    } else if (item.sizes) {
+                        return (item.sizes ? item.sizes.name === sizes?.name : false)
+                    } else if (item.options) {
+                        return (item.options ? item.options.optionName === optionType.optionName : false)
+                    }
                 })
+                if (!itemExist) {
+                    handleNew()
+                } else {
+                    toast.error('Item already exist in cart')
 
-                if (itemExist) {
-                    toast.error('Item already exist in cart,change options or sizes to add it to cart')
-
-                    return; 4
                 }
+
+
+            } else {
+                handleNew()
 
             }
 
 
-            const items = cart.map((item) => {
-                if (item.id === store) {
-                    toast.success('New Item Variation added to cart')
-                    return {
-                        ...item,
-                        items: [...item.items, { ...others, options: optionType, sizes, price: total, id: item.items.length + 1, qty: 1 }]
-                    }
-                } else {
-                    return item
-                }
-            })
-            setCart(items)
-            localStorage.setItem('cart', JSON.stringify(items))
+
+
         } else {
             toast.success('Item added to cart')
             setCart([...cart, { id: store, items: [{ ...others, options: optionType, sizes, price: total, id: 1, qty: 1 }] }])
@@ -135,12 +143,13 @@ export default function Options({ food }) {
         const {
             target: { value },
         } = event;
+        console.log(event)
         setOptionType(value);
     };
 
     return (
         <Box component="form" className='flex flex-col gap-3' onSubmit={handleSubmit}>
-            {
+            {/* {
                 food?.options?.length > 0 && (
                     <Box className="w-full flex flex-col">
                         <Typography className='text-xl ' color={colors.orange[500]}>Options</Typography>
@@ -180,42 +189,72 @@ export default function Options({ food }) {
                         </FormControl>
                     </Box>
                 )
-            }
-            {
-                food?.sizes?.length > 0 && (
-                    <Box className="w-full flex flex-col">
-                        <Typography className='text-xl ' color={colors.orange[500]}>Sizes</Typography>
-                        <FormControl>
-                            <RadioGroup
-                                required
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue={null}
-                                onChange={(e) => setSizes(food.sizes.find((size) => size.name === e.target.value))}
-                                name="radio-buttons-group"
-                                sx={{
-                                    '& .MuiButtonBase-root.MuiRadio-root.Mui-checked': {
-                                        color: colors.orange[500]
-                                    }
-                                }}
-                            >
-                                {
-                                    food?.sizes?.map((size, index) => (
-                                        <FormControlLabel key={index + size.name} value={size.name} control={<Radio />} label={size.name.toUpperCase() + ' ' + size.price + ' Ksh'} />
+            } */}
+            <div className="flex">
+                {
+                    food?.options?.length > 0 && (
+                        <Box className="w-full flex flex-col">
+                            <Typography className='text-[16px] font-bold '>Options</Typography>
+                            <FormControl>
+                                <RadioGroup
+                                    required
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    defaultValue={null}
+                                    onChange={(e) => setOptionType(food.options.find((option) => option.optionName === e.target.value))}
+                                    name="options"
+                                    sx={{
+                                        '& .MuiButtonBase-root.MuiRadio-root.Mui-checked': {
+                                            color: colors.primary[500]
+                                        }
+                                    }}
+                                >
+                                    {
+                                        food?.options?.map((option, index) => (
+                                            <FormControlLabel key={index} value={option.optionName} control={<Radio />} label={option.optionName + (option.optionPrice && ' ' + option.optionPrice + ' Ksh')} />
 
-                                    ))
-                                }
-                            </RadioGroup>
-                        </FormControl>
-                    </Box>
-                )
-            }
+                                        ))
+                                    }
+                                </RadioGroup>
+                            </FormControl>
+                        </Box>
+                    )
+                }
+                {
+                    food?.sizes?.length > 0 && (
+                        <Box className="w-full flex flex-col">
+                            <Typography className='text-[16px] font-bold'>Sizes</Typography>
+                            <FormControl>
+                                <RadioGroup
+                                    required
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    defaultValue={null}
+                                    onChange={(e) => setSizes(food.sizes.find((size) => size.name === e.target.value))}
+                                    name="radio-buttons-group"
+                                    sx={{
+                                        '& .MuiButtonBase-root.MuiRadio-root.Mui-checked': {
+                                            color: colors.primary[500]
+                                        }
+                                    }}
+                                >
+                                    {
+                                        food?.sizes?.map((size, index) => (
+                                            <FormControlLabel key={index + size.name} value={size.name} control={<Radio />} label={size.name + ' ' + size.price + ' Ksh'} />
+
+                                        ))
+                                    }
+                                </RadioGroup>
+                            </FormControl>
+                        </Box>
+                    )
+                }
+            </div>
             <Box className="flex gap-3 ">
-                <Box>Total</Box>
+                <Typography fontFamily={"Inter"} fontWeight={600}>Total</Typography>
                 <Box>{total}</Box>
             </Box>
             {itemExist ? <button
                 type='submit'
-                className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center font-[700] text-[16px]'
+                className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center font-[700] text-[16px] rounded-md'
             >
                 Add New Variation
                 <ShoppingCartOutlinedIcon />
@@ -223,7 +262,7 @@ export default function Options({ food }) {
             </button>
                 : <button
                     type='submit'
-                    className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center  font-[700] text-[16px]'
+                    className='flex p-[18px] hover:bg-secondary bg-tertiary text-white w-full gap-3 justify-center items-center  font-[700] text-[16px] rounded-md'
                 >
                     Add to cart
                     <ShoppingCartOutlinedIcon />

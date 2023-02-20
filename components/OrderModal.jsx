@@ -27,9 +27,9 @@ const OrderModal = ({ open, setOpen, order, items, business }) => {
     >
         <DialogTitle className='flex justify-between'>
             <Typography variant='h6' className='font-[600]'>Order Items</Typography>
-          <IconButton onClick={()=>setOpen(null)}>
+            <IconButton onClick={() => setOpen(null)}>
                 <Close />
-          </IconButton>
+            </IconButton>
         </DialogTitle>
         <DialogContent>
             {
@@ -45,19 +45,17 @@ const OrderModal = ({ open, setOpen, order, items, business }) => {
 
                             <div className='flex-[2]'>
                                 <div className='mb-2'>
-                                    <p className='mb-1 text-Grayish-blue'>{business?.name}</p>
+                                    <p className='mb-1 text-Grayish-blue'> {item.options?.optionName}</p>
                                     <h1 className='font-[600] mb-1'>{item.name}</h1>
                                     <p className=''>Ksh {item.price}</p>
                                 </div>
                                 {/* buttons */}
-                                <p>
-                                    {order.location} {order.details && ", " + order.details}
-                                </p>
+
 
                                 <div className='flex justify-between mt-5 gap-6 w-[93%]'>
                                     <span>     {item.qty}
                                     </span>
-                                    <span className='capitalize'>{item?.options[0]?.optionName}...</span>
+                                    <span className='capitalize'> {item.sizes?.name}</span>
                                 </div>
                             </div>
                         </article>
