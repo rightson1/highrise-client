@@ -6,7 +6,6 @@ import GasHero from "../../components/GasHero";
 const Gas = () => {
     return <div className="flex min-h-screen flex-col">
         <GasHero />
-
         <GasCards />
         <AboutGas />
     </div>

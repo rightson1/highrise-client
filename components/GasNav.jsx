@@ -29,11 +29,6 @@ const nav = [{
     name: 'orders',
     link: '/gas/orders'
 },
-
-{
-    name: 'About Us',
-    link: '/about'
-},
 {
     name: 'Foodie',
     link: '/'
@@ -144,35 +139,38 @@ function GasNav() {
                                 </IconButton> */}
 
                             </Box>
-                            {
-                                admin ? <Button
-                                    onClick={() => logout()}
-                                    sx={{
-                                        display: { xs: 'none', md: 'block' },
-                                        bgcolor: colors.orange[500] + '!important',
-                                        color: colors.grey[200]
-                                    }}
-                                >Logout</Button> : <Button onClick={handleClick}
-                                    sx={{
-                                        display: { xs: 'none', md: 'block' },
-                                        bgcolor: colors.orange[500] + '!important',
-                                        color: colors.grey[200]
-                                    }}
-                                >Get Started</Button>
-                            }
+                            <Button onClick={handleClick}
+                                sx={{
+                                    display: { xs: 'none', md: 'block' },
+                                    bgcolor: colors.orange[500] + '!important',
+                                    color: colors.grey[200]
+                                }}
+                            >Profile</Button>
+
                             <Menu
                                 anchorEl={anchorEl}
                                 open={isOpen}
                                 onClose={handleClose}
                                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                             >
-                                <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
+                                {!admin ? <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
                                     onClick={() => router.push('/login')}
                                 >Login</MenuItem>
-                                <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
+                                    : <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
+
+                                        onClick={() => logout()}
+                                    >Logout</MenuItem>
+
+                                }
+                                {!admin ? <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
                                     onClick={() => router.push('/register')}
                                 >Create Account</MenuItem>
-                                <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }} component="a" href="https://highrise-blond.vercel.app/"
+                                    : <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }}
+                                        onClick={() => router.push('/profile')}
+                                    >Profile</MenuItem>
+
+                                }
+                                <MenuItem sx={{ fontFamily: 'Atomic Age', fontWeight: 700, }} component="a" href="https://forms.gle/1MjoS9yVTudTBiM46"
                                     tabIndex={-1} target="_blank" rel="noopener noreferrer"
                                 >Register Business</MenuItem>
                             </Menu>

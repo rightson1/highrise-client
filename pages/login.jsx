@@ -8,7 +8,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { Toaster, toast } from "react-hot-toast";
 import { auth, db } from "../utils/firebase";
-import { signInWithPopup, GoogleAuthProvider, } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { addDoc, collection, doc, query, where, getDocs } from "firebase/firestore";
 const Login = () => {
     const [values, setValues] = useState(null);
@@ -20,30 +20,36 @@ const Login = () => {
     const submit = (e) => {
         e.preventDefault();
         const { email, password } = values;
-        const sign = () => auth.signInWithEmailAndPassword(email, password).then((res) => {
-            const q = query(collection(db, "users"), where("email", "==", email));
-            getDocs(q).then((res) => {
-                const [remote, ...rest] = res.docs.map((doc) => {
-                    return { id: doc.id, ...doc.data() }
-                })
-                if (!remote) {
-                    toast.error("User Not Found")
-                } else {
-                    router.push('/')
-                }
+
+        const q = query(collection(db, "users"), where("email", "==", email));
+        getDocs(q).then((res) => {
+            toast.loading("Loading...")
+            const [remote, ...rest] = res.docs.map((doc) => {
+                return { id: doc.id, ...doc.data() }
             })
-        }).catch((e) => {
-            console.log(e)
+            if (!remote) {
+                toast.dismiss()
+                toast.error("We can seem to fing your account😢😢,please create an account");
+
+            } else {
+                signInWithEmailAndPassword(auth, email, password).then((res) => {
+                    toast.dismiss()
+                    toast.success("Login Successful")
+                    router.push('/')
+                }).catch((e) => {
+                    toast.dismiss()
+                    toast.error(e.message)
+                    console.log(e)
+                })
+            }
         })
-        toast.promise(sign(), {
-            loading: "Loading...",
-            success: "Signed In",
-            error: "Error",
-        })
+
+
     }
     const signInWithGoogle = () => {
         const provider = new GoogleAuthProvider();
-        const sign = () => signInWithPopup(auth, provider).then((result => {
+        toast.loading("Loading...")
+        signInWithPopup(auth, provider).then((result => {
             const user = result.user;
             const q = query(collection(db, "users"), where("email", "==", user.email));
             getDocs(q).then((res) => {
@@ -51,23 +57,36 @@ const Login = () => {
                     return { id: doc.id, ...doc.data() }
                 })
                 if (!remote) {
-                    toast.error("User Not Found")
+                    toast.dismiss()
+                    toast.error("We can seem to fing your account😢😢,please create  an account");
+
                 } else {
+                    toast.dismiss()
                     router.push('/')
                 }
             })
         })).catch((e) => {
+            toast.dismiss()
+            toast.error("An Error Occured")
             console.log(e)
+
         })
-        toast.promise(sign(), {
-            loading: "Loading...",
-            success: "Signed In",
-            error: "Error",
-        })
+
     }
     const handleChange = (e) => {
 
         setValues({ ...values, [e.target.name]: e.target.value })
+
+    }
+
+    const handleForgotPassword = () => {
+        if (!email) return toast.error('Please enter your email first')
+        const forgot = () => sendPasswordResetEmail(auth, email)
+        toast.promise(forgot(), {
+            loading: 'Sending Email',
+            success: 'Email Sent',
+            error: 'Error Sending Email'
+        })
 
     }
     return <Grid container
@@ -125,11 +144,13 @@ const Login = () => {
                             {visibility ? <RemoveRedEyeOutlinedIcon onClick={() => setVisibility(false)} sx={{ color: 'black', }} /> : <VisibilityOffOutlinedIcon sx={{ color: 'black', }} onClick={() => setVisibility(true)} />}
                         </Box>
                     </Box>
-                    <Grid container spacing={2} className="flex items-center flex mt-3">
+                    <Grid container spacing={2} className="flex items-center " sx={{
+                        mt: 2,
+                    }}>
                         <Grid item xs={6} md={6} className="flex  items-center">
-                            <Typography sx={{ color: colors.submit }} fontFamily="Nunito" variant="h5" className="font-semibold self-start text-center">
+                            <Button sx={{ color: colors.submit }} fontFamily="Nunito" variant="h5" className="font-semibold self-start text-center">
                                 Forgot Password?
-                            </Typography>
+                            </Button>
 
                         </Grid>
                         <Grid item xs={6} md={6} className="flex flex-col " >

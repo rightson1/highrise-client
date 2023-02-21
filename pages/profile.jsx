@@ -18,6 +18,7 @@ import { useAuth } from "../utils/authContext";
 import { db } from "../utils/firebase";
 import { deleteUser, updatePassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 const Profile = () => {
     const { colors } = useGlobalProvider();
     const [values, setValues] = useState(null);
@@ -71,18 +72,23 @@ const Profile = () => {
         })
 
     }
-    return <Grid container>
-        <Grid item md={4} sx={{
+    return <Grid container className="border-t-2 border-[rgba(0,0,0,.4)]'" >
+        <Grid item md={4} className="border-r-2 border-[rgba(0,0,0,.4)]'" sx={{
             display: {
                 xs: 'none',
-                md: 'block'
+                md: 'block',
             }
         }}>
-            <h1>Profile</h1>
+            <Box className="flex items-center justify-center" sx={{
+                bgcolor: colors.primary[800],
+            }}>
+                <ModeEditOutlineOutlinedIcon />
+                <Typography fontFamily="nunito" className="text-xl font-bold text-center">Edit Profile</Typography>
+            </Box>
         </Grid>
         <Grid item xs={12} md={4} className="min-h-[80vh] p-5 " >
             <div className="flex justify-center gap-5">
-                <Typography fontFamily="nunito" className="text-xl font-bold">Edit Profile</Typography>
+                <Typography fontFamily="nunito" className="text-xl font-bold ">Edit Profile</Typography>
                 <img src="/avatar.png" alt="" className="w-[100px] h-[100px] object-cover  rounded-md" />
             </div>
             <Grid container spacing={2} >
@@ -120,8 +126,8 @@ const Profile = () => {
             </Box> */}
             <Typography fontFamily="nunito" className="text-xl font-bold mt-5 mb-2">Notifications</Typography>
             <Typography fontFamily="nunito" className="font-normal">For you to receive notification if there are changes in your
-                order, you will have to install the SimplePush app from playstore, then paste
-                the user key below</Typography>
+                order, you will have to install the  Notify API-Notify Droi  app from playstore, then paste
+                the user token below NB:NOT the url</Typography>
             <Box className="w-full flex rounded-md p-2  my-3" sx={{ bgcolor: colors.red[300] }}>
                 <InputBase type="text" name="key" required onChange={handleChange} className="  flex-1 " fullWidth />
                 <KeyIcon sx={{ color: 'black', }} />

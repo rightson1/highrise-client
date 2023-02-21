@@ -56,7 +56,9 @@ const Win = () => {
                 fontFamily: "Roboto",
                 fontWeight: 500,
                 fontSize: "1rem",
-            }}  >For now our services are limited to foods from highris vendors and gas delivery, but mama fua app is comming soon, stay tuned</Typography>
+                p: 2,
+            }}  >For now our services are limited to foods from highrise
+                vendors and gas delivery, but Mama Fua app is comming soon, stay tuned</Typography>
 
             <List>
                 <ListItem>
@@ -84,7 +86,7 @@ const Win = () => {
                         fontFamily: "Roboto",
                         fontWeight: 500,
                         fontSize: "1rem",
-                    }}  >Cheap health foods</Typography>
+                    }}  >Affordable health foods</Typography>
 
                 </ListItem>
                 <ListItem>

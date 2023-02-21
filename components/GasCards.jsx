@@ -18,14 +18,7 @@ const GasCards = ({ flag }) => {
     const [kg, setKg] = useState(6);
     const [category, setCategory] = useState(null)
     const { data, isLoading } = useGasItemsQuery(kg)
-    const { data: businesses } = useBusinessQuery()
-    const [gasBusinesses, setGasBusinesses] = useState([])
-    useEffect(() => {
-        if (!businesses) return;
-        const filtered = businesses.filter(business => business.type === "gas")
-        setGasBusinesses(filtered)
-
-    }, [businesses])
+    const { data: gasBusinesses, error } = useBusinessQuery("gas");
 
     useEffect(() => {
         if (!data) return setFiltered([])
@@ -58,7 +51,7 @@ const GasCards = ({ flag }) => {
 
 
             {filtered?.length > 0 ? filtered?.map((item, index) => {
-                const business = gasBusinesses.find(business => business._id === item.business)
+                const business = gasBusinesses?.find(business => business._id === item.business)
 
                 return (
 

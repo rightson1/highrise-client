@@ -15,20 +15,25 @@ import { useRouter } from "next/router";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
-    const { data, isLoading, error } = useBusinessQuery();
+    const { data, isLoading, error } = useBusinessQuery("foods");
     const [filteredData, setFilteredData] = useState()
     const [searchTerm, setSearchTerm] = useState('')
     const router = useRouter()
+    useEffect(() => {
+        if (data) {
+            setFilteredData(data)
+        }
+    }, [data])
     useEffect(() => {
 
         if (data && searchTerm) {
             setFilteredData(data.filter((item) => {
                 return item.name.toLowerCase().includes(searchTerm?.toLowerCase())
-            }).filter((item) => item.type !== "gas")
+            })
             )
         }
         else {
-            setFilteredData(data?.length > 0 && data.filter((item) => item.type !== "gas"))
+            setFilteredData(data)
         }
     }, [searchTerm])
 

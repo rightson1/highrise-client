@@ -13,7 +13,7 @@ const Stores = ({ flag }) => {
     const router = useRouter();
     const { colors, isMobile } = useGlobalProvider(0)
     const [scrollValue, setScrollValue] = useState(0);
-    const { data, isLoading } = useBusinessQuery();
+    const { data, isLoading } = useBusinessQuery("foods");
 
 
 

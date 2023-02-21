@@ -79,10 +79,14 @@ const Orders = () => {
 
 
                 {
-                    isLoading ? (<Box className="flex flex-col items-center">
+                    isLoading ? (<Box className=" flex flex-col gap-2">
+                        <Skeleton variant="rectangular" width='95vh' height={70} />
                         <Skeleton variant="rectangular" width='95vh' height={11} />
+                        <Skeleton variant="rectangular" width='95vh' height={71} />
                         <Skeleton variant="rectangular" width='95vh' height={11} />
+                        <Skeleton variant="rectangular" width='95vh' height={70} />
                         <Skeleton variant="rectangular" width='95vh' height={11} />
+                        <Skeleton variant="rectangular" width='95vh' height={71} />
                         <Skeleton variant="rectangular" width='95vh' height={11} />
                     </Box>
                     ) :

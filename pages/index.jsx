@@ -33,7 +33,7 @@ export default function Home() {
 
     <div className="bg-primary ">
       <Hero />
-      <Dishes  {...{ setFilter, filter }} />
+      {/* <Dishes  {...{ setFilter, filter }} /> */}
       {/* <RowContainer data={data} {...{ setFilter, filter }} /> */}
       <Stores />
       <Win />

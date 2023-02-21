@@ -25,11 +25,12 @@ const Stores = ({ flag }) => {
     const [completed, setCompleted] = useState(false)
     const [searchTerm, setSearchTerm] = useState(null);
     const [loading, setLoading] = useState(false)
-    const { data: businesses } = useBusinessQuery();
+    const { data: businesses } = useBusinessQuery("foods");
     const handleClicked = (value) => {
         setLoading(true)
         axios.get(`${baseUrl}/api/items/search?search=${searchTerm}`).then((res) => {
             setFilteredData(res.data)
+            console.log(data)
             setLoading(false)
         }).catch((e) => {
             console.log(e)
@@ -38,7 +39,7 @@ const Stores = ({ flag }) => {
 
     }
     return <div className="bg-primary min-h-screen">
-        <Title title="Search" subtitle="Search For  Foods " />
+        {/* <Title title="Search" subtitle="Search For  Foods " /> */}
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
 
             <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "
@@ -62,7 +63,7 @@ const Stores = ({ flag }) => {
                     sx={{ width: "110%" }}
                     renderInput={(params) => <TextField
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        {...params} placeholder="Search for stores" sx={{
+                        {...params} placeholder="Search for foods" sx={{
                             width: '100%',
                             "& .MuiOutlinedInput-root": {
                                 padding: '0rem',

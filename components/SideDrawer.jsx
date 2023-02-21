@@ -5,14 +5,11 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import InfoIcon from '@mui/icons-material/Info';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { useGlobalProvider } from '../utils/themeContext';
-import { Dashboard, MessageOutlined, Person, PersonOutlined, Sell } from '@mui/icons-material';
+import { Dashboard, Sell } from '@mui/icons-material';
 import { Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
@@ -38,6 +35,7 @@ export default function TemporaryDrawer() {
                 bgcolor: colors.sidebar + ' !important',
                 height: '100%',
                 py: 2,
+                pb: 10,
             }}
             role="presentation"
             onClick={toggleDrawer(false)}
@@ -198,7 +196,7 @@ const listItems = [
     },
     {
         name: 'Sell',
-        link: "https://h-foods-theta.vercel.app/",
+        link: "https://forms.gle/1MjoS9yVTudTBiM46",
         icon: <Sell />
     },
 

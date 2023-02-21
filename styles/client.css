@@ -42,3 +42,87 @@
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 1;
 }
+
+.maylike-products-wrapper {
+    margin-top: 120px;
+}
+
+.maylike-products-wrapper h2 {
+    text-align: center;
+    margin: 50px;
+    color: #324d67;
+    font-size: 28px;
+}
+
+.maylike-products-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.marquee-text {
+    font-size: 29px;
+    font-weight: 600;
+    margin: 60px 0px;
+    color: #f02d34;
+}
+
+.marquee {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-40%);
+    }
+}
+
+.track {
+    animation: marquee 20s linear infinite;
+    width: 550%;
+}
+
+.success,
+.cancel {
+    width: 370px;
+    margin-top: 100px;
+    padding: 20px;
+}
+
+.success-wrapper,
+.cancel-wrapper {
+    min-height: 69vh;
+}
+
+.success {
+    height: 350px;
+}
+
+.success h2 {
+    font-size: 17px;
+}
+
+@media screen and (min-width: 642px) {
+    .track {
+        position: absolute;
+        white-space: nowrap;
+        will-change: transform;
+        animation: marquee 15s linear infinite;
+        width: 180%;
+    }
+    .success-wrapper,
+    .cancel-wrapper {
+        background-color: white;
+        min-height: 60vh;
+    }
+}
