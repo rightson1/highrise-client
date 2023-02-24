@@ -72,7 +72,7 @@ const Orders = () => {
 
     return <Grid className="bg-primary p-2  ">
         <Title title="Orders" subtitle="All Your Order" />
-        <Header title="Order" desc="All Your Order in foodie" />
+        <Header title="Order" desc="All Your Order in hfoods" />
         <Grid item component={Paper} elevation={2} className="bg-primary p-1 pt-3 pb-10 min-h-screen">
 
             <List>

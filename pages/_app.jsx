@@ -34,7 +34,7 @@ function MyApp(props) {
     return (
       <>
         <Head>
-          <title>Foodie </title>
+          <title>hfoods </title>
           <meta name="description" content="Hightson Cannnan foods delivery application" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
@@ -67,7 +67,7 @@ function MyApp(props) {
     return (
       <>
         <Head>
-          <title>Foodie </title>
+          <title>hfoods </title>
           <meta name="description" content="Highrise cannan gas delivery applicaation" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
@@ -85,7 +85,7 @@ function MyApp(props) {
     return (
       <>
         <Head>
-          <title>Gassie</title>
+          <title>hgas</title>
           <meta name="description" content="Highrise Cannan food delivery Application" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
@@ -115,7 +115,7 @@ function MyApp(props) {
     return (
       <>
         <Head>
-          <title>Foodies</title>
+          <title>hfoods</title>
           <meta name="description" content="Highrise cannan food delivery app" />
 
           <link rel="icon" href="/favicon.ico" />
