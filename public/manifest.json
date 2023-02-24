@@ -4,9 +4,9 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "foodie",
-    "short_name": "foodie",
-    "description": "Highrise Food Order  App",
+    "name": "hfoods",
+    "short_name": "hfoods",
+    "description": "Highrise Food Ordering  App",
     "icons": [{
             "src": "/icon-192x192.png",
             "sizes": "192x192",
