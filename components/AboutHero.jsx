@@ -8,7 +8,7 @@ const AboutHero = () => {
             <Typography variant="h3" fontFamily="Nunito" className="font-semibold" pl={{
                 xs: 2,
                 md: 15,
-            }}>Foodie  is</Typography>
+            }}>Hfoods  is</Typography>
             <Box my={3}>
                 <Typography variant="h1" fontFamily="Gloria Hallelujah" className="font-semibold " pl={{
                     xs: 2,

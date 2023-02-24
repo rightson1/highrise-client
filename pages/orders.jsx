@@ -20,6 +20,7 @@ import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import { useAuth } from "../utils/authContext";
 import OrderModal from "../components/OrderModal";
+import Header from "../components/Head";
 
 
 
@@ -71,6 +72,7 @@ const Orders = () => {
 
     return <Grid className="bg-primary p-2  ">
         <Title title="Orders" subtitle="All Your Order" />
+        <Header title="Order" desc="All Your Order in foodie" />
         <Grid item component={Paper} elevation={2} className="bg-primary p-1 pt-3 pb-10 min-h-screen">
 
             <List>

@@ -12,6 +12,7 @@ import { InputBase } from "@mui/material";
 import Title from "../components/Title";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
 import { useRouter } from "next/router";
+import Header from "../components/Head";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const { colors } = useGlobalProvider(0)
@@ -40,6 +41,7 @@ const Stores = ({ flag }) => {
 
     return <div className="bg-primary">
         <Title title="Stores" subtitle="Search For  Stores " />
+        <Header title="All hotels in highrise" desc="All hotels in hightrise" />
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
 
             <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "

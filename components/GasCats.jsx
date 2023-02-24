@@ -3,7 +3,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Image from "next/image";
 import { motion } from "framer-motion";
 import GasMeterOutlinedIcon from '@mui/icons-material/GasMeterOutlined';
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useGasCategoryQuery } from "../utils/hooks/useCategories";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
 import { useGlobalProvider } from "../utils/themeContext";
@@ -39,6 +39,9 @@ const GasCats = ({ kg, setKg, category, setCategory }) => {
 
     return (
         <div className='flex flex-col  px-1  my-5'>
+            <Typography fontFamily="Playfair Display" fontSize={30} className="text-center px-10 underline my-5" >
+                Gas
+            </Typography>
             <div className='flex justify-between text-[12px] mt-3 font-medium'>
                 <div className='flex gap-4 text-very-dark-blue'>
                     <Button

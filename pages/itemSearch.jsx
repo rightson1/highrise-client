@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { useItemsQuery, useSearchedItemsQuery } from "../utils/hooks/useItems";
 import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
+import Header from "../components/Head";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const router = useRouter()
@@ -39,7 +40,7 @@ const Stores = ({ flag }) => {
 
     }
     return <div className="bg-primary min-h-screen">
-        {/* <Title title="Search" subtitle="Search For  Foods " /> */}
+        <Header title="Search For Foods" desc="Search for all foods in highrise cannan  hotels" />
         <Box className="flex justify-center align-center gap-5 flex-col pb-7" sx={{ alignItems: 'center' }}>
 
             <Box display="flex" bgcolor={colors.looking} className="justify-center items-center p-2 "

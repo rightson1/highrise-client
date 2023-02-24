@@ -1,4 +1,4 @@
 export const baseUrl =
     process.env.NODE_ENV === "development" ?
     "http://localhost:3000" :
-    "https://highrise-blond.vercel.app";
+    "https://h-foods-theta.vercel.app/";

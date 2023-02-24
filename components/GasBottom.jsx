@@ -57,7 +57,7 @@ export default function GasBottom() {
                 <BottomNavigationAction className='' onClick={() => router.push(`/gas`)} label="Home" icon={<HomeOutlinedIcon />} />
                 {/* <BottomNavigationAction onClick={() => router.push(`/stores/${store}/chat`)} label="Contact Us" icon={<CallOutlinedIcon />} /> */}
                 <BottomNavigationAction className='' onClick={() => router.push(`/gas/orders`)} label="Orders" icon={<ReceiptLongOutlined />} />
-                <BottomNavigationAction label="Foodie" onClick={() => router.push(`/`)} icon={<FastfoodIcon />} />
+                <BottomNavigationAction label="Hfoods" onClick={() => router.push(`/`)} icon={<FastfoodIcon />} />
 
 
             </AnimatedBottom>

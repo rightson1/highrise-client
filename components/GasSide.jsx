@@ -183,7 +183,7 @@ const listItems = [
 
     },
     {
-        name: 'Foodie',
+        name: 'Hfoods',
         link: '/',
         icon: <Dashboard />
 

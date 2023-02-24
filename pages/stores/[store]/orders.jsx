@@ -16,6 +16,7 @@ import { useSingleBusinessQuery } from "../../../utils/hooks/useBusiness";
 import Skeleton from "@mui/material/Skeleton";
 import List from "@mui/material/List";
 import { useOrderQuery } from "../../../utils/hooks/useOrder";
+import Header from "../../../components/Head";
 
 const Orders = () => {
     const router = useRouter()
@@ -25,6 +26,7 @@ const Orders = () => {
     const { colors } = useGlobalProvider();
     return <Grid className="bg-primary p-2  ">
         <Title title="Orders" subtitle="All Your Order" />
+        <Header title="Orders" desc="All Your Order" />
         <Grid item component={Paper} elevation={2} className="bg-primary p-1 pt-3 pb-10 min-h-screen">
 
 

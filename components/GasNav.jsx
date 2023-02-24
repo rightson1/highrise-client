@@ -30,7 +30,7 @@ const nav = [{
     link: '/gas/orders'
 },
 {
-    name: 'Foodie',
+    name: 'Hfoods',
     link: '/'
 }
 ]
@@ -89,7 +89,7 @@ function GasNav() {
                                 }
                             }}
                         >
-                            Gassie
+                            hgas
                         </Box>
 
 

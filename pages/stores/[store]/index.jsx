@@ -12,6 +12,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { useEffect } from "react";
 import { useCategoryQuery } from "../../../utils/hooks/useCategories";
 import AboutVendor from "../../../components/AboutVendor";
+import Header from "../../../components/Head";
 export default function Store() {
     const [scroll1, setScroll1] = useState()
     const { store } = useRouter().query
@@ -49,6 +50,7 @@ export default function Store() {
     return (
 
         data ? <div className="bg-primary overflow-x-hidden ">
+            <Header title={data.name} desc={data.desc} />
             <StoreHero {...{ data }} />
             <Dishes store={true} {...{ scroll1, setScroll1, filter, setFilter, categories }} />
             <Foods filter={filter} />

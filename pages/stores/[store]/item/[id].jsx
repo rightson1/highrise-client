@@ -17,6 +17,7 @@ import CheckoutGas from "../../../../components/CheckoutGas";
 import Options from "../../../../components/Options";
 import { useItemsByStoreQuery, useSingleItemQuery } from "../../../../utils/hooks/useItems";
 import Carousel from "../../../../components/Carousel";
+import Header from "../../../../components/Head";
 function SingleProduct() {
     const router = useRouter();
     const { id } = useRouter().query
@@ -33,6 +34,7 @@ function SingleProduct() {
                 (product && business) ? (
                     <>
                         <CheckoutGas {...{ open, setOpen, product, business }} />
+                        <Header title={product.name} desc={product.desc} />
                         <div className='mt-3 px-3'>
                             <div className='relative sm:flex sm:mt-10'>
                                 <div className='w-full sm:flex-[1] mx-auto'>

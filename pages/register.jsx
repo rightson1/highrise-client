@@ -154,7 +154,7 @@ const Register = () => {
 
             }}
         >
-            <Typography fontFamily="Atomic Age" variant="h3" className="font-bold self-start">Foodie</Typography>
+            <Typography fontFamily="Atomic Age" variant="h3" className="font-bold self-start">hfoods</Typography>
             <Box mt={5} className="flex flex-col w-full gap-4" component="form" onSubmit={submit}>
                 <Typography fontFamily="Nunito" variant="h3" className="font-semibold self-start">Create An  Account</Typography>
                 <Typography fontFamily="Nunito" variant="h6" className="font-semibold self-start">Already have an account? <Typography component="button" fontFamily="Nunito" variant="h6" className="font-semibold self-start cursor-pointer" color={colors.find} onClick={() => router.push('/login')}>Log In</Typography></Typography>

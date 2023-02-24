@@ -97,7 +97,7 @@ function ResponsiveAppBar() {
                                 }
                             }}
                         >
-                            Foodie
+                            hfoods
                         </Box>
 
 

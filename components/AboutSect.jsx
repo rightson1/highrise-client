@@ -18,11 +18,10 @@ const AboutSec = () => {
 
                 }}
             >
-                Introducing {`"Foodie"`} - the ultimate food ordering platform for Highrise/Canaan! Our platform connects you
+                Introducing {`"Hfoods"`} - the ultimate food ordering platform for Highrise/Canaan! Our platform connects you
                 with local food stops through mini-websites showcasing their menus. Order easily and conveniently, with
                 delivery straight to your doorstep. Support local businesses and enjoy diverse food options in our community.
-                {/* Thank you for choosing {`"Foodie"`}, and we look forward to making your food ordering experience a seamless and
-                hassle-free one! */}
+
 
 
 

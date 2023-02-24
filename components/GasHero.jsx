@@ -18,7 +18,7 @@ const GasHero = () => {
                 Cooking gas delivery done right!
             </Typography>
             <Typography fontFamily="Roboto" fontSize={19} className="text-center px-5" >
-                Welcome to Gassie, your one-stop website for cooking gas vendors in Highrise/Canaan estate.
+                Welcome to hgas, your one-stop website for cooking gas vendors in Highrise/Canaan estate.
                 Browse vendor profiles and product listings, select your gas size and company, and choose your favorite vendor.
                 Click on the gas item and see more infomation about supplier and product.
             </Typography>

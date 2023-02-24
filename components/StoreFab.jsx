@@ -29,7 +29,7 @@ export default function StoreFab() {
     const { store } = useRouter().query;
     const { data: business } = useSingleBusinessQuery(store)
     const actions = [
-        { icon: <HomeOutlinedIcon />, name: "Foodie", link: `/` },
+        { icon: <HomeOutlinedIcon />, name: "hfoods", link: `/` },
         { icon: <ShoppingCartOutlinedIcon />, name: 'Search', link: `/itemSearch` },
         { icon: <ReceiptLongOutlined />, name: 'Gas', link: `/gas` },
 
