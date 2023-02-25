@@ -195,6 +195,11 @@ const listItems = [
         link: '/profile',
     },
     {
+        name: 'Seller Login',
+        link: "https://h-foods-theta.vercel.app/",
+        icon: <Sell />
+    },
+    {
         name: 'Sell',
         link: "https://forms.gle/1MjoS9yVTudTBiM46",
         icon: <Sell />

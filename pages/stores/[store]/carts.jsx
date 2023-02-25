@@ -94,7 +94,7 @@ const Category = () => {
             const { id, items } = storeCart;
 
             const data = {
-                name: admin.displayName, email: admin.email, phone: user.phone, type: business.type, location, total, description, business: id, key: business.key, items, status: 'Pending', date: {
+                name: admin.displayName, email: admin.email, phone: user.phone, type: business.type, location, total, description, business: id, key: business.key, key2: business.key2, items, status: 'Pending', date: {
                     day: new Date().getDate(),
                     week: Math.ceil((new Date()).getDate() / 7),
                     month: new Date().getMonth(),
@@ -149,6 +149,9 @@ const Category = () => {
             setCart(cart.filter((item) => item.id !== store))
             localStorage.setItem('cart', JSON.stringify(cart.filter((item) => item.id !== store)))
             router.push(`/stores/${store}`)
+
+
+
         }
 
     }, [isError, isSuccess])

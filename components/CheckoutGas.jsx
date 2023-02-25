@@ -45,7 +45,7 @@ const CheckoutGas = ({ open, setOpen, product, business }) => {
             const items = [{ ...product, qty: 1 }]
             const id = business?._id;
             const data = {
-                name: user.displayName, email: user.email, phone: user.phone, location, total: product.price, business: id, key: business.key,
+                name: user.displayName, email: user.email, phone: user.phone, location, total: product.price, business: id, key2: business.key2, key: business.key,
                 type: business?.type, items, status: 'Pending', date: {
                     day: new Date().getDate(),
                     week: Math.ceil((new Date()).getDate() / 7),
