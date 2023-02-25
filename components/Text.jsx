@@ -1,10 +1,7 @@
 import React from "react";
 import { Avatar, Box, Card, CardContent, Divider, Grid, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, TextField, Typography } from "@mui/material";
 import { useGlobalProvider } from "../utils/themeContext";
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import Texts from "./Texts";
+
 const Text = () => {
     const { colors, mode } = useGlobalProvider()
     return <Box

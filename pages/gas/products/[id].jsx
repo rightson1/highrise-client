@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     AiOutlineArrowLeft,
 
@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import CallIcon from '@mui/icons-material/WifiCalling3Outlined';
 import { Skeleton } from "@mui/material";
 import CheckoutGas from "../../../components/CheckoutGas";
+import { toast } from "react-hot-toast";
 function SingleProduct() {
     // const { description, details, name, category, image, _id, price } = product;
     const router = useRouter();
@@ -22,11 +23,11 @@ function SingleProduct() {
     const { data: product, isLoading } = useSingleItemQuery(id);
     const { data: business, isLoading: loading } = useSingleBusinessQuery(product?.business);
     const [open, setOpen] = useState(false)
-
-    const handleAddToCart = id => {
-
-    };
-
+    useEffect(() => {
+        if (product) {
+            if (!product.status) toast.error("Item Out Of Stock")
+        }
+    }, [product])
 
     return (
         <div>

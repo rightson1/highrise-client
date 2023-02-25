@@ -66,9 +66,9 @@ export default function Options({ food }) {
         else if (sizes || optionType) {
 
             const option = Number(optionType.optionPrice ? optionType.optionPrice : 0)
-            const total = typeof Option == Number ? option : 0 + Number(sizes?.price ? sizes.price : 0)
+
+            const total = option + Number(sizes?.price ? sizes.price : 0)
             setTotal(total)
-            console.log(total)
         }
 
     }, [optionType, food, sizes])
@@ -248,9 +248,9 @@ export default function Options({ food }) {
                     )
                 }
             </div>
-            <Box className="flex gap-3 ">
-                <Typography fontFamily={"Inter"} fontWeight={600}>Total</Typography>
-                <Box>{total}</Box>
+            <Box className="flex gap-3  items-center">
+                <Typography fontFamily={"Inter"} fontWeight={800} fontSize={20} className="text-tertiary">Total</Typography>
+                <Box className=" text-xl">{total} ksh</Box>
             </Box>
             {itemExist ? <button
                 type='submit'

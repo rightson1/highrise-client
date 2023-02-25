@@ -29,7 +29,7 @@ const Login = () => {
             })
             if (!remote) {
                 toast.dismiss()
-                toast.error("We can seem to fing your account😢😢,please create an account");
+                toast.error("We can seem to find your account😢😢,please create an account");
 
             } else {
                 signInWithEmailAndPassword(auth, email, password).then((res) => {

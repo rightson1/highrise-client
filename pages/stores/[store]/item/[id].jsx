@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     AiOutlineArrowLeft,
 
@@ -26,6 +26,11 @@ function SingleProduct() {
     const { data, isLoading: lodaing } = useItemsByStoreQuery(product?.business, product?.items)
     const parentRef = useRef(null);
     const [open, setOpen] = useState(false)
+    useEffect(() => {
+        if (product) {
+            if (!product.status) toast.error("Item Out Of Stock")
+        }
+    }, [product])
 
 
     return (
@@ -90,7 +95,7 @@ function SingleProduct() {
                                         animate='show'
                                         className='flex justify-between mb-3 text-black sm:mb-6'
                                     >
-                                        <p className='font-[600]'>KSH {product.price}</p>
+                                        <p className='font-[600]'>KSH {product.price || "Sizes"}</p>
                                         <Box className="flex gap-4">
                                             <CallIcon />
                                             <Typography component="a" href={business.phone}>    {business.phone}</Typography>

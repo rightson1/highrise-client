@@ -2,14 +2,10 @@ import { Typography, Box, List, ListItem, Avatar, ListItemIcon, Rating, Autocomp
 import React, { useEffect, useRef, useState } from "react";
 import { useGlobalProvider } from "../utils/themeContext";
 import Card from "@mui/material/Card";
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Search from "@mui/icons-material/Search";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { InputBase } from "@mui/material";
-import Title from "../components/Title";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useRouter } from "next/router";

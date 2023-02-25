@@ -24,15 +24,7 @@ const CheckoutGas = ({ open, setOpen, product, business }) => {
     useEffect(() => {
 
         if (isSuccess) {
-            toast.success("Order Creates")
-            business.key && axios.post('https://api.simplepush.io/send', {
-                "key": business.key,
-                "title": "You have a New Order",
-                "msg": `You have a new order from ${user.displayName}, who has ordered ${product.name} `,
-                "event": "event"
-            }).catch((e) => {
-                console.log(e)
-            })
+
         }
         else if (isError) {
             toast.error("There was an error")

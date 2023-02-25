@@ -7,7 +7,7 @@ const AboutGas = ({ business }) => {
         <div className="flex flex-col justify-center items-center">
             <Typography fontFamily="Playfair Display" className="font-bold" fontWeight={700} fontSize={30}>About Us</Typography>
             <Typography fontFamily="Inter" fontSize={17} className="text-center px-10" >
-                {business.desc},You can call us using {business.phone}
+                {business.desc},You can call us using {business.phone}, We are ussualy open from {business.opening} to {business.closing}
             </Typography>
         </div>
         <Grid container className="my-5" spacing={2}>

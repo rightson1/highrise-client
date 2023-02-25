@@ -24,6 +24,7 @@ import GasNav from "../components/GasNav";
 import GasSide from "../components/GasSide";
 import { Toaster } from "react-hot-toast";
 import GasBottom from "../components/GasBottom";
+import "../styles/404.css"
 
 
 function MyApp(props) {

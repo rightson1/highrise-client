@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import { useGlobalProvider } from "../utils/themeContext";
 import { useBusinessQuery } from "../utils/hooks/useBusiness";
 import { useRouter } from "next/router";
+import Skeleton from "@mui/material/Skeleton";
 const Stores = ({ flag }) => {
     const rowContainer = useRef();
     const router = useRouter();
@@ -22,24 +23,7 @@ const Stores = ({ flag }) => {
     }, [scrollValue]);
 
     return <Box className=" py-12">
-        {/* <ListItem sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-        }}>
-            <ListItemIcon>
-                <Avatar src="/plate.png" sx={{
-                    width: "3rem",
-                    height: "3rem"
-                }} />
-            </ListItemIcon>
-            <Typography sx={{
-                fontFamily: "Roboto",
-                fontWeight: 500,
-                fontSize: "1.5rem",
-            }}  >Stores</Typography>
 
-        </ListItem> */}
         <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto pl-5">
             All Hotels
 
@@ -55,7 +39,7 @@ const Stores = ({ flag }) => {
         >
 
 
-            {data?.filter((item) => item.type !== "gas").map((item, index) => (
+            {data ? data.map((item, index) => (
 
                 <Box
                     key={index}
@@ -103,7 +87,35 @@ const Stores = ({ flag }) => {
 
                 </Box>
 
-            ))}
+            )) : isLoading ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
+
+                return (
+                    <Box
+                        key={index}
+                        className="md:max-w-[300px] min-w-[250px]
+            bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                        <Skeleton variant="rectangular" width={210} height={118} />
+                        <Skeleton variant="text" width={210} />
+                        <Skeleton variant="text" width={210} />
+                        <Skeleton variant="text" width={210} />
+                    </Box>
+                )
+            }) :
+                <Box
+                    className="md:max-w-[300px] min-w-[250px]
+            bg-cardOverlay rounded-lg py-2 px-4    hover:drop-shadow-lg flex flex-col items-center justify-evenly relative" >
+                    <Typography variant="h5" sx={{
+                        fontFamily: 'Nunito',
+                        fontWeight: 700,
+                        fontSize: '1.2rem',
+                    }}>
+                        No Hotels found
+                    </Typography>
+                </Box>
+
+
+
+            }
         </div>;
 
     </Box>;
