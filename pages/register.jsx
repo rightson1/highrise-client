@@ -225,8 +225,8 @@ const Register = () => {
             <DialogTitle>Phone Number</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Hey, sorry,but we will nedd your phone number before you can continue,
-                    dont worry we will not share it with anyone
+                    Hey, sorry,but we will need your phone number before you can continue,it will be used
+                    to contact you during delivery
                 </DialogContentText>
                 <TextField
                     autoFocus

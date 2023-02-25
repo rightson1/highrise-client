@@ -25,15 +25,6 @@ export default function Store() {
         minutes: new Date().getMinutes()
     })
 
-    useEffect(() => {
-        if (data) {
-            if (time.hours >= Number(data?.closing.split(':')[0]) && time.minutes > Number(data?.closing.split(':')[1]) || !data.open) {
-                toast.error('We Are Closed')
-
-            }
-
-        }
-    }, [data])
 
 
     useEffect(() => {
@@ -41,12 +32,6 @@ export default function Store() {
             setFilter(categories[0]?.name)
         }
     }, [categories])
-    useEffect(() => {
-        if (!open) {
-            toast.error('Restrunt Closed')
-        }
-    }, [data])
-
     return (
 
         data ? <div className="bg-primary overflow-x-hidden ">

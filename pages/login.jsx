@@ -147,8 +147,12 @@ const Login = () => {
                     <Grid container spacing={2} className="flex items-center " sx={{
                         mt: 2,
                     }}>
-                        <Grid item xs={6} md={6} className="flex  items-center">
-                            <Button sx={{ color: colors.submit }} fontFamily="Nunito" variant="h5" className="font-semibold self-start text-center">
+                        <Grid item xs={6} md={6} className="flex  items-center"
+
+                        >
+                            <Button sx={{ color: colors.submit }} fontFamily="Nunito" variant="h5" className="font-semibold self-start text-center"
+                                onClick={handleForgotPassword}
+                            >
                                 Forgot Password?
                             </Button>
 
