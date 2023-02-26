@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import { useGlobalProvider } from '../utils/themeContext';
 import { useAuth } from '../utils/authContext';
 import { addDoc, collection } from "firebase/firestore";

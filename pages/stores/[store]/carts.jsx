@@ -1,4 +1,8 @@
-import { Fab, Grid, Box, Paper, Typography } from "@mui/material";
+import Fab from '@mui/material/Fab';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import React, { useState, useEffect } from "react";
 import Rating from '@mui/material/Rating';
 import Title from "../../../components/Title";

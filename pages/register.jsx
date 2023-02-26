@@ -1,4 +1,11 @@
-import { Grid, Box, Paper, Typography, Button, Divider, CircularProgress, InputBase } from "@mui/material";
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import CircularProgress from '@mui/material/CircularProgress';
+import InputBase from '@mui/material/InputBase';
 import React, { useEffect, useState } from "react";
 import { useGlobalProvider } from "../utils/themeContext";
 import GoogleIcon from '@mui/icons-material/Google';

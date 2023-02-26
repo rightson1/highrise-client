@@ -1,5 +1,7 @@
 import React from "react";
-import { Box, Typography } from "@mui/material"
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
 import { useGlobalProvider } from "../utils/themeContext"
 // import Header from "./Header";
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';

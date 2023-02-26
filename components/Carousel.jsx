@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { useRouter } from "next/router";
 import Button from '@mui/material/Button';
-import { Box, Rating } from "@mui/material";
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useGlobalProvider } from "../utils/themeContext";
 import { useEffect, useState, useRef } from "react";

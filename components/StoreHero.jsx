@@ -1,9 +1,7 @@
-import { Grid, Typography, Box, List, ListItem, Avatar, ListItemIcon, IconButton } from "@mui/material";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import React from "react";
-import HorizontalRuleOutlinedIcon from '@mui/icons-material/HorizontalRuleOutlined';
-import Search from "@mui/icons-material/Search";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { Button, InputBase } from "@mui/material";
 import { useGlobalProvider } from "../utils/themeContext";
 const StoreHero = ({ data: store }) => {
     const { colors } = useGlobalProvider()

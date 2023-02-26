@@ -1,4 +1,11 @@
-import { Grid, Typography, Box, List, ListItem, Avatar, ListItemIcon } from "@mui/material";
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Avatar from '@mui/material/Avatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+
 import React from "react";
 
 const Win = () => {

@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, CardContent, Divider, Grid, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, TextField, Typography } from "@mui/material";
+
 import React, { useState } from "react";
 import { useGlobalProvider } from "../../../utils/themeContext";
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
@@ -7,7 +7,22 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import Drawer from '@mui/material/Drawer';
 import Messages from "../../../components/Messages";
 import Texts from "../../../components/Texts";
-
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import InputBase from '@mui/material/InputBase';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 const Chat = () => {
     const { colors } = useGlobalProvider()

@@ -1,6 +1,9 @@
 import Search from "@mui/icons-material/Search";
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { Box, Button, InputBase, Typography } from "@mui/material";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import InputBase from '@mui/material/InputBase';
+import Typography from '@mui/material/Typography';
 import React from "react";
 import { useGlobalProvider } from "../utils/themeContext";
 import { useRouter } from "next/router";

@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';

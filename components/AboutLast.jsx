@@ -1,5 +1,7 @@
 import React from "react";
-import { Grid, Typography, Box } from "@mui/material";
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 const AboutLast = () => {
     return <Grid container spacing={2} mt={1} direction={{

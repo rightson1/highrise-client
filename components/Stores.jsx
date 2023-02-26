@@ -1,8 +1,10 @@
-import { Typography, Box, List, ListItem, Avatar, ListItemIcon, Rating } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
-import Card from "@mui/material/Card";
-import CardActions from '@mui/material/CardActions';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useRef, useState } from "react";
+import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { useGlobalProvider } from "../utils/themeContext";

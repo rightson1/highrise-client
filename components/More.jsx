@@ -1,5 +1,11 @@
-import { Typography, Box, List, ListItem, Avatar, ListItemIcon, Rating } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Avatar from '@mui/material/Avatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Rating from '@mui/material/Rating';
+import React, { useRef } from "react";
 import Button from '@mui/material/Button';
 import { useRouter } from "next/router";
 import { useGlobalProvider } from "../utils/themeContext";

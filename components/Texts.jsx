@@ -1,6 +1,9 @@
 import React from "react";
 import { useGlobalProvider } from "../utils/themeContext";
-import { Box, ListItem, Paper, Typography } from "@mui/material";
+import Box from '@mui/material/Box';
+import ListItem from '@mui/material/ListItem';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 const Texts = () => {
     const { colors } = useGlobalProvider()

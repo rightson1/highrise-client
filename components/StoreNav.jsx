@@ -103,7 +103,7 @@ function StoreNav() {
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
-                              onClick={() => router.push(`/stores/${store}/search`)}
+                                onClick={() => router.push(`/stores/${store}/search`)}
                                 color="inherit"
                             >
                                 <SearchOutlinedIcon
