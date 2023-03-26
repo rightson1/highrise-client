@@ -61,39 +61,36 @@ const insertList = (arr, i, y) => {
     return x;
 
 }
-function insertQueue(stack, i) {
-    let m = stack.length;
-    const j = stack.filter((i) => i !== null).length;
-    if (j === m) {
-        console.log('stack full');
-        return;
+class Queue {
+    constructor() {
+        this.arr = [];
+        this.size = 10;
+        this.rear = -1;
+        this.front = 0;
     }
-    if (stack[0] == null && j < m) {
-        stack[0] = 1;
-        const filtered = stack.filter((i) => i !== null)
-        console.log(filtered)
-        return filtered
-    } else {
-        console.log("overflow")
+    enqueue(item) {
+        if (this.rear == this.size)
+            return "overflow";
+        this.rear += 1;
+        this.arr[this.rear] = item;
+        this.size += 1;
     }
-}
-const dequeue = (arr) => {
-    const x = arr.length;
-    const j = arr.filter((i) => i !== null).length
-    if (j === 0) {
-        console.log("queue empty")
+    dequueue() {
+        if (this.isEmpty()) {
+            return "under flow";
+        }
+        let removeElement = this.arr[this.front];
+        this.front += 1; e.
+            this.size -= 1;
+        return removeElement;
     }
-    filtered = arr.splice(-1);
-    let i = filtered.length - 1;
-    while (i) {
-        arr[i] == arr[i - 1]
-        console.log(i)
-        i--
-    }
-    console.log(arr)
+    isEmpty() {
+        return this.size === 0;
 
-    return arr;
-};
+    }
+
+}
+const queue = new Queue();
 const fuctionSwitch = (dataSMethod, props) => {
     switch (dataSMethod) {
         case "stackInsert":
@@ -103,11 +100,11 @@ const fuctionSwitch = (dataSMethod, props) => {
         case "arrayDelete":
             return deleteList(props.list, props.i)
         case "insertArray":
-            return insertList(props.list, props.i, props.y)
+            return
         case "insertQueue":
-            return insertQueue(props.list, props.i)
+            return queue.enqueue(4)
         case "dequeue":
-            return dequeue(props.list, props.i)
+            return queue.enqueue(42)
 
 
 
@@ -128,5 +125,5 @@ for (let x = 0; x < i; x++) {
 // fuctionSwitch("stackDelete", {list});
 // fuctionSwitch("arrayDelete", { list:[1, 2, 3, 4, 5], i: 0 });
 // fuctionSwitch("insertArray", { list:[0, 2, 3, 4, 5], i: 1,y:"1111"});
-// fuctionSwitch("insertQueue", { list:[null, 2, 3, 4, null],i:3  });
-// fuctionSwitch("dequeue", { list: [2, 2, 3, 4, 7], });
+fuctionSwitch("insertQueue");
+fuctionSwitch("dequeue");

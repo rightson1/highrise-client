@@ -87,6 +87,7 @@ const Hero = () => {
             }}>
                 {/* Introducing H-Food, the food delivery app for Highrise Estate and Canaan. Order your favorite meals from top food vendors in highrise/canaan. Enjoy delicious food delivered right to your doorstep. Start ordering now! */}
                 Welcome to hfoods, we made a mini website for each of you favourite hotels in higrise, navigate to store an order your favourite meal.NB, each hotel has its own cart.
+                WATER & GAS, open sidebar then gas or water  to order.
             </Typography>
             <Box display="flex" bgcolor={colors.looking} alignItems="center" p={1}
                 sx={{

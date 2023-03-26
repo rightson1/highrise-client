@@ -146,47 +146,6 @@ export default function Options({ food }) {
 
     return (
         <Box component="form" className='flex flex-col gap-3' onSubmit={handleSubmit}>
-            {/* {
-                food?.options?.length > 0 && (
-                    <Box className="w-full flex flex-col">
-                        <Typography className='text-xl ' color={colors.orange[500]}>Options</Typography>
-                        <FormControl className='w-full' sx={{
-                            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                                borderColor: colors.grey[500],
-                            },
-                            "& .css-12lseh1-MuiFormLabel-root-MuiInputLabel-root.Mui-focused": {
-                                color: colors.grey[500],
-                            }
-                        }}
-
-                        >
-
-                            <InputLabel id="demo-multiple-chip-label"></InputLabel>
-                            <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
-                            <Select
-                                labelId="demo-multiple-checkbox-label"
-                                id="demo-multiple-checkbox"
-                                multiple
-                                value={optionType}
-                                onChange={handleChange}
-                                input={<OutlinedInput label="Tag" />}
-                                renderValue={(selected) => {
-                                    return selected?.map((sel) => sel.optionName + " ,")
-                                }}
-                                MenuProps={MenuProps}
-                            >
-                                {food?.options?.map((option) => (
-                                    <MenuItem key={option} value={option}>
-                                        <Checkbox checked={optionType.indexOf(option) > -1} />
-                                        <ListItemText primary={option.optionName} />
-                                    </MenuItem>
-                                ))}
-                            </Select>
-
-                        </FormControl>
-                    </Box>
-                )
-            } */}
             <div className="flex">
                 {
                     food?.options?.length > 0 && (

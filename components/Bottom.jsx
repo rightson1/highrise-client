@@ -54,7 +54,7 @@ export default function StoreBottom() {
                 } label="Home" icon={<HomeOutlinedIcon />} />
                 <BottomNavigationAction onClick={() => router.push(`/search`)} label="Stores" icon={<StorefrontOutlinedIcon />} />
                 <BottomNavigationAction onClick={() => router.push(`/orders`)} label="Orders" icon={<ReceiptLongOutlined />} />
-                <BottomNavigationAction label="Gas" onClick={() => router.push(`/gas`)} icon={<GasMeterOutlinedIcon />} />
+                {/* <BottomNavigationAction label="Gas & Water" onClick={() => router.push(`/gas`)} icon={<GasMeterOutlinedIcon />} /> */}
 
             </BottomNavigation>
         </Paper>)

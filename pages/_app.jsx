@@ -25,6 +25,7 @@ import GasSide from "../components/GasSide";
 import { Toaster } from "react-hot-toast";
 import GasBottom from "../components/GasBottom";
 import "../styles/404.css"
+import WaterNav from "../components/WaterNav";
 
 
 function MyApp(props) {
@@ -96,6 +97,35 @@ function MyApp(props) {
           <ThemeProvider>
             <div className=" bg-bgEn  w-[100vw] overflow-x-hidden">
               <GasNav />
+              <div className="">
+                <Toaster />
+                <Component {...pageProps} />
+                <GasSide />
+                <Footer />
+                <GasBottom />
+                <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" />
+
+              </div>
+            </div>
+          </ThemeProvider>
+        </AnimatePresence>
+      </>
+    );
+  }
+  else if (Component.water) {
+    return (
+      <>
+        <Head>
+          <title>hgas</title>
+          <meta name="description" content="Highrise Cannan food delivery Application" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+
+        </Head>
+        <AnimatePresence mode="wait">
+          <ThemeProvider>
+            <div className=" bg-bgEn  w-[100vw] overflow-x-hidden">
+              <WaterNav />
               <div className="">
                 <Toaster />
                 <Component {...pageProps} />

@@ -34,7 +34,7 @@ const nav = [{
     link: '/'
 }
 ]
-function GasNav() {
+function WaterNav() {
     const router = useRouter()
     const { logout, admin, signInWithGoogle } = useAuth();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -136,7 +136,7 @@ function GasNav() {
 
                                     />
                                 </IconButton>
-         
+
                             </Box>
                             <Button onClick={handleClick}
                                 sx={{
@@ -180,4 +180,4 @@ function GasNav() {
         </Box>
     );
 }
-export default GasNav;
+export default WaterNav;
