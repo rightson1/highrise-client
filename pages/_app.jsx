@@ -54,7 +54,7 @@ function MyApp(props) {
                   <Footer />
                   <LabelBottomNavigation />
                   <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" />
-                  <TemporaryDrawer />
+                  {/* <TemporaryDrawer /> */}
                 </div>
               </div>
             </ThemeProvider>
@@ -161,7 +161,7 @@ function MyApp(props) {
                 <StoreNav />
                 <div className="pt-[80px] bg-primary">
                   <Component {...pageProps} />
-                  <TemporaryDrawer />
+                  {/* <TemporaryDrawer /> */}
                   <LabelBottomNavigation />
                   {/* <ScrollToTop smooth color={"#FF6929"} height="15px" className="top" /> */}
                   <StoreFab />

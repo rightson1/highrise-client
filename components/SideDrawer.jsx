@@ -14,8 +14,8 @@ import { Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
 import { useAuth } from '../utils/authContext';
-export default function TemporaryDrawer() {
-    const { open, setOpen, colors } = useGlobalProvider()
+export default function TemporaryDrawer({ open, setOpen }) {
+    const { colors } = useGlobalProvider()
     const { admin, logout } = useAuth()
 
     const router = useRouter()

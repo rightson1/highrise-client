@@ -15,6 +15,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useGlobalProvider } from "../utils/themeContext";
 import { useRouter } from 'next/router'
 import { useAuth } from '../utils/authContext';
+import TemporaryDrawer from './SideDrawer';
 
 
 const nav = [{
@@ -48,7 +49,8 @@ function ResponsiveAppBar() {
     const isOpen = Boolean(anchorEl);
     const handleClick = (event) => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
-    const { colors, setOpen } = useGlobalProvider()
+    const { colors } = useGlobalProvider()
+    const [open, setOpen] = useState(false)
     const handleOpenNavMenu = (event) => {
         setOpen(true)
     };
@@ -186,6 +188,7 @@ function ResponsiveAppBar() {
                     </Toolbar>
                 </Container>
             </AppBar>
+            <TemporaryDrawer {...{ open, setOpen }} />
         </Box>
     );
 }
