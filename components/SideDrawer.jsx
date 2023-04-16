@@ -32,7 +32,7 @@ export default function TemporaryDrawer({ open, setOpen }) {
         <Box
             sx={{
                 width: 250,
-                bgcolor: colors.sidebar + ' !important',
+                // bgcolor: colors.sidebar + ' !important',
                 height: '100%',
                 py: 2,
                 pb: 10,
@@ -40,7 +40,7 @@ export default function TemporaryDrawer({ open, setOpen }) {
             role="presentation"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
-            className="row bg-primary"
+            className=" bg-primary"
         >
             <Box className="flex justify-end">
                 <IconButton className='self-end jus'>
